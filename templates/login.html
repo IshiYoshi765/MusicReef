@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static',filename='css/haikei.css')}}"
+    />
+    <link
+      rel="icon"
+      href="{{url_for('static', filename='favicon/favicon.ico')}}"
+    />
+    <title>ログイン画面</title>
+  </head>
+  <body class="haikei">
+    <div>
+      <h3>ログイン画面</h3>
+      {% if error != null %}
+      <p style="color: red">{{error}}</p>
+      {% endif %} {% if msg != null %}
+      <p style="color: blue">{{msg}}</p>
+      {% endif %}
+      <form action="{{url_for('login')}}" method="post">
+        メールアドレス:<input type="text" name="mail" value="{{data.mail if data
+        is defined else ''}}" /required><br />
+        パスワード：<input type="password" name="password"
+        value="{{data.password if data is defined else ''}}" /required><br />
+        <button type="submit">ログイン</button>
+      </form>
+      <a href="{{url_for('register_form')}}">新規登録</a>
+    </div>
+  </body>
+</html>
