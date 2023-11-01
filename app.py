@@ -14,19 +14,42 @@ def index():
         return render_template("index.html")
     else:
         return render_template("index.html", msg=msg)
+    
+def check_password(mail, password):
+    # 仮パスワードでログインしたかどうかのチェック
+    stored_password = db.temp_password(mail)
+    salt = db.set_salt(mail)
+    hash_pw = db.get_hash(password,salt)
+    
+    return hash_pw == stored_password
+
+def password_changed(mail):
+    # パスワードが変更されたかどうかのチェック
+    return db.password_flag(mail)
 
 
 @app.route("/", methods=["POST"])
 def login():
     mail = request.form.get("mail")
     password = request.form.get("password")
-
-    # ログイン判定
-    if db.login(mail, password):
-        session["user"] = True  # session にキー：'user', バリュー:True を追加
-        session.permanent = True  # session の有効期限を有効化
-        app.permanent_session_lifetime = timedelta(minutes=5)  # session の有効期限を 5 分に設定
-        return redirect(url_for("mypage"))
+    if db.login(mail,password):
+                
+        if check_password(mail, password):
+            user = password_changed(mail)
+            bool = db.password_flag(mail)
+            print(bool)
+     # ログイン判定
+            if bool:
+                   session["user"] = mail
+                   return redirect(url_for("admin_update"))
+            else:
+                session["user"] = mail  # session にキー：'user', バリュー:True を追加
+                session.permanent = True  # session の有効期限を有効化
+                app.permanent_session_lifetime = timedelta(minutes=5)  # session の有効期限を 5 分に設定
+                return redirect(url_for("mypage"))
+        else:
+           
+            return redirect(url_for("mypage"))
     else:
         error = "メールアドレスまたはパスワードが違います。"
 
@@ -57,21 +80,18 @@ def register_form():
 
 @app.route("/register_exe", methods=["POST"])
 def register_exe():
-    user_name = request.form.get("username")
-    tell = request.form.get("tell")
     mail = request.form.get("mail")
     password = request.form.get("password")
-
+  
     if mail == "":
         error = "メールアドレスが未入力です。"
-        return render_template(
-            "register.html", error=error, mail=mail, password=password
-        )
-    if password == "":
-        error = "パスワードが未入力です。"
         return render_template("register.html", error=error)
+    
+    ##if password == "":
+    ##    error = "パスワードが未入力です。"
+    ##    return render_template("register.html", error=error)
 
-    count = db.insert_user(user_name, tell, mail, password)
+    count = db.insert_user(mail)
 
     if count == 1:
         msg = "登録が完了しました。"
@@ -134,22 +154,36 @@ def book_list():
     return render_template("book_list.html", books=list)
 
 
-@app.route("/book_update_form")
-def book_update_form():
-    return render_template("book_update_form.html")
+@app.route("/admin_update")
+def admin_update():
+    if "user" in session:
+        return render_template("admin_update.html")
+    else:
+        return render_template('index.html')
 
+@app.route("/admin_update_exe", methods=["POST"])
+def admin_update_exe():
+    password = request.form.get("password")
+    confirm_password = request.form.get("confirm_password")
+    
+    # PWが不一致の場合はエラーで戻す
+    
+    if "user" in session:
+        mail = session["user"]
+    else:
+        mail = ""
 
-@app.route("/book_update", methods=["POST"])
-def book_update():
-    ISBN = request.form.get("ISBN")
-    title = request.form.get("title")
-    author = request.form.get("author")
-    publisher = request.form.get("publisher")
-    id = request.form.get("id")
-
-    db.update_book(ISBN, title, author, publisher, id)
-    return render_template("book_update.html")
-
+    print(mail)
+    
+    if password == confirm_password:
+        db.update_pass(password, mail)
+        id = db.get_id(mail)
+        db.set_update_flag(id)
+        
+        return render_template("mypage.html")
+    else:
+        error = "パスワードが一致しません。"
+        return render_template("admin_update.html", error=error)
 
 if __name__ == "__main__":
     app.run(debug=True)
