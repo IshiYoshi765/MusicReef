@@ -173,7 +173,7 @@ def admin_update_exe():
     else:
         mail = ""
 
-    print(mail)
+    
     
     if password == confirm_password:
         db.update_pass(password, mail)
