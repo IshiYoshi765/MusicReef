@@ -65,6 +65,40 @@ def mypage():
     else:
         return redirect(url_for("index"))  # session がなければログイン画面にリダイレクト
 
+@app.route("/logout")
+def logout():
+    session.pop("user", None)  # session の破棄
+    return redirect(url_for("index"))  # ログイン画面にリダイレクト
+
+
+@app.route("/register")
+def register_form():
+    return render_template("register.html")
+
+
+@app.route("/register_exe", methods=["POST"])
+def register_exe():
+    mail = request.form.get("mail")
+    password = request.form.get("password")
+  
+    if mail == "":
+        error = "メールアドレスが未入力です。"
+        return render_template("register.html", error=error)
+    
+    ##if password == "":
+    ##    error = "パスワードが未入力です。"
+    ##    return render_template("register.html", error=error)
+
+    count = db.insert_user(mail)
+
+    if count == 1:
+        msg = "登録が完了しました。"
+        return redirect(url_for("index", msg=msg))
+    else:
+        error = "登録に失敗しました。"
+        return render_template("register.html", error=error)
+
+
 @app.route('/tag')
 def tag():
     return render_template('tag.html')
