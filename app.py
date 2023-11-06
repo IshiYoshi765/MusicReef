@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request
-import random,string
+from flask import Flask, render_template, request, redirect, url_for, session
+import db, random,string
 import tags
+from datetime import timedelta
 
 app = Flask(__name__)
 app.secret_key = ''.join(random.choices(string.ascii_letters, k=256))
@@ -12,6 +13,20 @@ def index():
         return render_template("index.html")
     else:
         return render_template("index.html", msg=msg)
+
+
+def check_password(mail, password):
+    # 仮パスワードでログインしたかどうかのチェック
+    stored_password = db.temp_password(mail)
+    salt = db.set_salt(mail)
+    hash_pw = db.get_hash(password,salt)
+    
+    return hash_pw == stored_password
+
+def password_changed(mail):
+    # パスワードが変更されたかどうかのチェック
+    return db.password_flag(mail)
+
 
 @app.route('/tag')
 def tag():
