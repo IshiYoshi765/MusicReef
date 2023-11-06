@@ -98,6 +98,36 @@ def register_exe():
         error = "登録に失敗しました。"
         return render_template("register.html", error=error)
 
+@app.route("/admin_update")
+def admin_update():
+    if "user" in session:
+        return render_template("admin_update.html")
+    else:
+        return render_template('login.html')
+
+@app.route("/admin_update_exe", methods=["POST"])
+def admin_update_exe():
+    password = request.form.get("password")
+    confirm_password = request.form.get("confirm_password")
+    
+    # PWが不一致の場合はエラーで戻す
+    
+    if "user" in session:
+        mail = session["user"]
+    else:
+        mail = ""
+
+    
+    
+    if password == confirm_password:
+        db.update_pass(password, mail)
+        id = db.get_id(mail)
+        db.set_update_flag(id)
+        
+        return render_template("index.html")
+    else:
+        error = "パスワードが一致しません。"
+        return render_template("admin_update.html", error=error)
 
 @app.route('/tag')
 def tag():
