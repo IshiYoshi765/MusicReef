@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="static/css/search_result.css">
+  <title>MusicReefについて</title>
+</head>
+<body>
+  <header>
+    <h1>MUSICREEF | <a href="#利用規約">※利用規約</a></h1>
+  </header>
+  <div class="expression">
+    <p class="p1">フリー音源の検索</p>
+    <p class="p2">music search</p>
+    <p class="p3">並び替え</p>
+    <p class="p4">音源時間</p>
+    <p class="p5">サイト</p>
+  </div>
+  
+  <h2>検索結果</h2>
+  <div class="search-container">
+    <!-- 1つ目のドロップダウンメニュー -->
+    <div class="custom-select">
+      <div id="selectedGenre" class="select-selected" onclick="toggleDropdown('genreMenu')">ジャンル</div>
+      <div class="genre-menu-content" id="genreMenu">
+        <div onclick="onGenreSelected('指定しない', '')">指定しない</div>
+        <div onclick="onGenreSelected('ポップ', '')">ポップ</div>
+        <div onclick="onGenreSelected('EDM', '')">EDM</div>
+        <div onclick="onGenreSelected('ロック', '')">ロック</div>
+        <div onclick="onGenreSelected('クラシック', '')">クラシック</div>
+        <div onclick="onGenreSelected('和風', '')">和風</div>
+        <div onclick="onGenreSelected('ピアノ', '')">ピアノ</div>
+        <div onclick="onGenreSelected('アンビエント', '')">アンビエント</div>
+        <div onclick="onGenreSelected('エレクトロ', '')">エレクトロ</div>
+        <div onclick="onGenreSelected('R&B・JAZZ', '')">R&B・JAZZ</div>
+        <div onclick="onGenreSelected('アコースティック', '')">アコースティック</div>
+        <div onclick="onGenreSelected('Chill Hop', '')">Chill Hop</div>
+      </div>
+    </div>
+
+    <!-- 2つ目のドロップダウンメニュー -->
+    <div class="custom-sort">
+      <div id="selectedGenre2" class="select-sort" onclick="toggleDropdown('genreMenu2')">新しい</div>
+      <div class="genre-menu-content2" id="genreMenu2">
+        <div onclick="onGenreSelected('新しい', '2')">新しい</div>
+        <div onclick="onGenreSelected('古い', '2')">古い</div>
+        <div onclick="onGenreSelected('アクセス数', '2')">アクセス数</div>
+        <div onclick="onGenreSelected('五十音順', '2')">五十音順</div>
+        <div onclick="onGenreSelected('評価が高い', '2')">評価が高い</div>
+      </div>
+    </div>
+
+    <!-- 3つ目のドロップダウンメニュー -->
+    <div class="custom-time">
+      <div id="selectedGenre3" class="select-time" onclick="toggleDropdown('genreMenu3')">指定なし</div>
+      <div class="genre-menu-content3" id="genreMenu3">
+        <div onclick="onGenreSelected('指定しない', '3')">指定しない</div>
+        <div onclick="onGenreSelected('～ 0:59', '3')">～ 0:59</div>
+        <div onclick="onGenreSelected('1:00 ～ 1:59', '3')">1:00 ～ 1:59</div>
+        <div onclick="onGenreSelected('2:00 ～ 2:59', '3')">2:00 ～ 2:59</div>
+        <div onclick="onGenreSelected('3:00 ～ 3:59', '3')">3:00 ～ 3:59</div>
+        <div onclick="onGenreSelected('4:00 ～ 4:59', '3')">4:00 ～ 4:59</div>
+        <div onclick="onGenreSelected('5:00 ～ 5:59', '3')">5:00 ～ 5:59</div>
+        <div onclick="onGenreSelected('6:00 ～', '3')">6:00 ～</div>
+      </div>
+    </div>
+
+    <div class="custom-site">
+      <div id="selectedGenre4" class="select-site" onclick="toggleDropdown('genreMenu4')">指定なし</div>
+      <div class="genre-menu-content4" id="genreMenu4">
+        <div onclick="onGenreSelected('指定しない', '4')">指定しない</div>
+        <div onclick="onGenreSelected('DOVA', '4')">DOVA</div>
+        <div onclick="onGenreSelected('BGMer', '4')">BGMer</div>
+        <div onclick="onGenreSelected('ノスタルジア', '4')">ノスタルジア</div>
+        <div onclick="onGenreSelected('MusMus', '4')">MusMus</div>
+        <div onclick="onGenreSelected('SHW', '4')">SHW</div>
+        
+      </div>
+    </div>
+
+    <input
+      type="text"
+      class="search-input custom-select-input"
+      id="searchInput"
+      placeholder="検索キーワードを入力"
+    />
+    <button class="search-button" onclick="performSearch()">
+      <img src="static/image/me.png" alt="検索"/>
+    </button>
+  </div>
+  <footer>
+    <h3>MUSICREEF</h3>
+    <p>
+      <a href="#ホーム">ホーム</a> |
+      <a href="#ミュージックリーフについて"
+        >MUSICREEF（ミュージックリーフ）について</a
+      >
+    </p>
+  </footer>
+
+  <script>
+    var dropdownVisible = {
+      genreMenu: false,
+      genreMenu2: false, // 2番目のドロップダウンメニュー
+      genreMenu3: false, // 3番目のドロップダウンメニュー
+      genreMenu4: false,
+    };
+
+    function onGenreSelected(selectedValue, menu) {
+      var selectedGenre = document.getElementById('selectedGenre' + menu);
+      selectedGenre.textContent = selectedValue;
+      document.getElementById('genreMenu' + menu).style.display = 'none';
+      dropdownVisible['genreMenu' + menu] = false;
+    }
+
+    document.addEventListener('click', function(event) {
+      var isOutsideDropdown = true;
+      var dropdownMenus = document.getElementsByClassName('genre-menu-content');
+      for (var i = 0; i < dropdownMenus.length; i++) {
+        if (dropdownMenus[i].contains(event.target)) {
+          isOutsideDropdown = false;
+          break;
+        }
+      }
+
+      if (isOutsideDropdown) {
+        for (var menu in dropdownVisible) {
+          if (dropdownVisible[menu]) {
+            document.getElementById(menu).style.display = 'none';
+            dropdownVisible[menu] = false;
+          }
+        }
+      }
+    });
+
+    function toggleDropdown(menu) {
+      var menuElement = document.getElementById(menu);
+      if (!dropdownVisible[menu]) {
+        for (var otherMenu in dropdownVisible) {
+          if (otherMenu !== menu && dropdownVisible[otherMenu]) {
+            document.getElementById(otherMenu).style.display = 'none';
+            dropdownVisible[otherMenu] = false;
+          }
+        }
+        menuElement.style.display = 'block';
+      }
+    }
+
+    function performSearch() {
+      // 検索の処理を追加
+    }
+  </script>
+</body>
+</html>

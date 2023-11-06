@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="static/css/top_page.css">
+  <title>MusicReefについて</title>
+</head>
+<body>
+  <header>
+    <h1>MUSICREEF | <a href="#利用規約">※利用規約</a></h1>
+  </header>
+  <div class="expression">
+    <p class="p1">フリー音源の検索</p>
+    <p class="p2">music search</p>
+    <p class="p3">新着</p>
+    <p class="p4">アクセス数ランキング(週間)</p>
+    <p class="p5">アクセス数ランキング(月間)</p>
+  </div>
+  <div class="search-container">
+    <div class="custom-select">
+      <div id="selectedGenre" class="select-selected" onclick="toggleDropdown()">ジャンル</div>
+      <div class="genre-menu-content" id="genreMenu">
+        <div onclick="onGenreSelected('指定しない')">指定しない</div>
+        <div onclick="onGenreSelected('ポップ')">ポップ</div>
+        <div onclick="onGenreSelected('EDM')">EDM</div>
+        <div onclick="onGenreSelected('ロック')">ロック</div>
+        <div onclick="onGenreSelected('クラシック')">クラシック</div>
+        <div onclick="onGenreSelected('和風')">和風</div>
+        <div onclick="onGenreSelected('ピアノ')">ピアノ</div>
+        <div onclick="onGenreSelected('アンビエント')">アンビエント</div>
+        <div onclick="onGenreSelected('エレクトロ')">エレクトロ</div>
+        <div onclick="onGenreSelected('R&B・JAZZ')">R&B・JAZZ</div>
+        <div onclick="onGenreSelected('アコースティック')">アコースティック</div>
+        <div onclick="onGenreSelected('Chill Hop')">Chill Hop</div>
+        
+      </div>
+    </div>
+    <input
+      type="text"
+      class="search-input custom-select-input"
+      id="searchInput"
+      placeholder="検索キーワードを入力"
+    />
+    <button class="search-button" onclick="performSearch">
+      <img src="static/image/me.png" alt="検索"/>
+    </button>
+  </div>
+
+  <footer>
+    <h3>MUSICREEF</h3>
+    <p>
+      <a href="#ホーム">ホーム</a> |
+      <a href="#ミュージックリーフについて"
+        >MUSICREEF（ミュージックリーフ）について</a
+      >
+    </p>
+  </footer>
+
+  <script>
+    var dropdownVisible = false;
+    var genreMenu = document.getElementById('genreMenu');
+  
+    // ドロップダウン内の要素にmouseoutイベントのイベントリスナーを追加
+    genreMenu.addEventListener('mouseout', function (e) {
+      if (!genreMenu.contains(e.relatedTarget)) {
+        genreMenu.style.display = 'none';
+        dropdownVisible = false;
+      }
+    });
+  
+    function toggleDropdown() {
+      dropdownVisible = !dropdownVisible;
+      if (dropdownVisible) {
+        genreMenu.style.display = 'block';
+      } else {
+        genreMenu.style.display = 'none';
+      }
+    }
+  
+    function onGenreSelected(selectedValue) {
+      var selectedGenre = document.getElementById('selectedGenre');
+      selectedGenre.textContent = selectedValue;
+      genreMenu.style.display = 'none';
+      dropdownVisible = false;
+    }
+  </script>
+  
+</body>
+</html>

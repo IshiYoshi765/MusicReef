@@ -1,0 +1,325 @@
+/* コンテナ全体のスタイル */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* 検索コンテナのスタイル */
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+/* カスタムセレクトボックスのスタイル */
+.custom-select {
+  display: inline-block;
+  position: relative;
+  border: 1px solid #ccc; 
+}
+
+.select-selected {
+  background-color: #fff;
+  cursor: pointer;
+  padding: 6px 10px;
+  width: 130px;
+  height: 23.3px;
+}
+
+/* ジャンルメニューコンテンツのスタイル */
+.genre-menu-content {
+  display: none;
+  position: absolute;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  z-index: 1;
+  overflow-y: auto;
+  width: 150px;
+}
+
+
+/* ジャンルメニューコンテンツ内の要素のスタイル */
+.genre-menu-content div {
+  padding: 10px;
+  border: 1px solid transparent;
+  transition: background-color 0.3s;
+  cursor: pointer;
+  font-size: 11px;
+  height: 3px;
+  letter-spacing: -1px;
+  white-space: nowrap;
+}
+
+/* ホバー時のスタイルは適用できる場合のみ */
+.genre-menu-content div:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+/* カスタムセレクトインプットのスタイル */
+.custom-select-input {
+  width: 350px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+/* カスタムセレクトボタンのスタイル */
+.custom-select-button {
+  background-color: #f2f2f2;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+
+/* 検索ボタンのスタイル */
+.search-button {
+  padding: 17px;
+  position: relative;
+}
+
+.search-button img {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* p1のスタイル */
+.p1 {
+  position: absolute;
+  top: 115px;
+  left: 35%;
+  transform: translateX(-50%);
+  font-size: 18px;
+}
+
+/* p2のスタイル */
+.p2 {
+  position: absolute;
+  top: 125px;
+  left: 44%;
+  transform: translateX(-50%);
+  font-size: 12px;
+}
+
+/* p3のスタイル */
+.p3 {
+  position: absolute;
+  top: 222px;
+  left: 13%;
+  transform: translateX(-50%);
+  font-size: 20px;
+}
+
+/* p4のスタイル */
+.p4 {
+  position: absolute;
+  top: 222px;
+  left: 23%;
+  transform: translateX(-50%);
+  font-size: 20px;
+}
+
+/* p5のスタイル */
+.p5 {
+  position: absolute;
+  top: 222px;
+  left: 34%;
+  transform: translateX(-50%);
+  font-size: 20px;
+}
+
+/* カスタムソートのスタイル */
+.custom-sort {
+  display: inline-block;
+  position: absolute;
+  border: 1px solid #ccc;
+  width: 110px;
+  bottom: -85px;
+  left: -270px;
+}
+
+.select-sort {
+  background-color: #fff;
+  cursor: pointer;
+  padding: 6px 10px;
+  width: 90px;
+  height: 23.3px;
+}
+
+/* カスタムタイムのスタイル */
+.custom-time {
+  display: inline-block;
+  position: absolute;
+  border: 1px solid #ccc;
+  width: 130px;
+  bottom: -85px;
+  left: -130px;
+}
+
+.select-time {
+  background-color: #fff;
+  cursor: pointer;
+  padding: 6px 10px;
+  width: 110px;
+  height: 23.3px;
+}
+
+/* カスタムサイトのスタイル */
+.custom-site {
+  display: inline-block;
+  position: absolute;
+  border: 1px solid #ccc;
+  width: 130px;
+  bottom: -85px;
+  left: 30px;
+}
+
+.select-site {
+  background-color: #fff;
+  cursor: pointer;
+  padding: 6px 10px;
+  width: 110px;
+  height: 23.3px;
+}
+
+/* カスタムセレクトホバー時のスタイル */
+.custom-select:hover .genre-menu-content,
+.custom-sort:hover .genre-menu-content2,
+.custom-time:hover .genre-menu-content3,
+.custom-site:hover .genre-menu-content4 {
+  display: block;
+}
+
+/* h2のスタイル */
+h2 {
+  position: absolute;
+  top: 210px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 40px;
+}
+
+/* h3のスタイル */
+h3 {
+  font-size: 40px;
+}
+
+/* ジャンルメニューコンテンツ2のスタイル */
+.genre-menu-content2 {
+  display: none;
+  position: absolute;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  z-index: 1;
+  overflow-y: auto;
+  width: 110px;
+}
+
+.genre-menu-content2 div {
+  padding: 10px;
+  border: 1px solid transparent;
+  transition: background-color 0.3s;
+  cursor: pointer;
+  font-size: 11px;
+  height: 3px;
+  letter-spacing: -1px;
+  white-space: nowrap;
+}
+
+/* ホバー時のスタイルは適用できる場合のみ */
+.genre-menu-content2 div:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+/* ジャンルメニューコンテンツ3のスタイル */
+.genre-menu-content3 {
+  display: none;
+  position: absolute;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  z-index: 1;
+  overflow-y: auto;
+  width: 130px;
+}
+
+.genre-menu-content3 div {
+  padding: 10px;
+  border: 1px solid transparent;
+  transition: background-color 0.3s;
+  cursor: pointer;
+  font-size: 11px;
+  height: 3px;
+  letter-spacing: -1px;
+  white-space: nowrap;
+}
+
+/* ホバー時のスタイルは適用できる場合のみ */
+.genre-menu-content3 div:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+/* ジャンルメニューコンテンツ4のスタイル */
+.genre-menu-content4 {
+  display: none;
+  position: absolute;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  z-index: 1;
+  overflow-y: auto;
+  width: 130px;
+}
+
+.genre-menu-content4 div {
+  padding: 10px;
+  border: 1px solid transparent;
+  transition: background-color 0.3s;
+  cursor: pointer;
+  font-size: 11px;
+  height: 3px;
+  letter-spacing: -1px;
+  white-space: nowrap;
+}
+
+/* ホバー時のスタイルは適用できる場合のみ */
+.genre-menu-content4 div:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+/* フッターのスタイル */
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #4d4fdc;
+  color: #fff;
+  padding: 10px 0;
+  text-align: center;
+}
+
+/* リンクのスタイルを設定 */
+footer a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+/* リンクのホバー時のスタイルを設定 */
+footer a:hover {
+  color: #ffcc00;
+}
