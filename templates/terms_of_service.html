@@ -4,15 +4,103 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>利用規約</title>
+    <style>
+      a {
+        text-decoration: none;
+        color: #747474;
+      }
+      ul.topnav {
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        background-color: #044f88;
+      }
+      ul.topnav li {
+        float: left;
+      }
+      ul.topnav li a {
+        display: block;
+        text-align: center;
+        text-decoration: none;
+        color: white;
+      }
+      ul.topnav li a.left {
+        background-color: #044f88;
+      }
+      ul.topnav li.right {
+        float: right;
+      }
+      .footer04 {
+        color: white;
+        background: #548eba;
+        text-align: center;
+        padding: 15px;
+      }
+      .footer04 a {
+        color: white;
+        text-decoration: none;
+      }
+      .footer04 a:hover {
+        text-decoration: underline;
+      }
+      .footer04 .menu {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .footer04 .menu li {
+        margin: 0;
+        padding: 0 20px;
+        border-right: 1px white solid;
+      }
+      .footer04 .menu li:last-child {
+        border: none;
+      }
+
+      @media only screen and (max-width: 599px) {
+        .footer04 .menu {
+          justify-content: flex-start;
+        }
+        .footer04 .menu li {
+          width: 50%;
+          box-sizing: border-box;
+          border: none;
+        }
+        .footer04 .menu li:nth-child(odd) {
+          border-right: 1px white solid;
+        }
+      }
+    </style>
   </head>
   <body>
-    <header>
-      <h1>MUSICREEF | <a href="#利用規約">※利用規約</a></h1>
-  </header>
-    <h1>利用規約</h1>
+    <ul class="topnav">
+      <li>
+        <a class="left" href="#"><h2>　MUSIC REEF</h2></a>
+      </li>
+      <li class="right">
+        <a
+          href="#"
+          style="
+            border-left: 2px solid white; /*線の設定*/
+            padding: 2px 8px; /*余白の設定*/
+          "
+          ><h2>利用規約</h2></a
+        >
+      </li>
+    </ul>
+    <h1>・利用規約</h1>
     <h2>各サイトの指示にしたがって使用してください</h2>
-    <footer>
-      <h3>MUSICREEF</h3> <p><a href="#ホーム">ホーム</a> | <a href="#ミュージックリーフについて">MUSICREEF（ミュージックリーフ）について</a></p>
-  </footer>
+    <br /><br /><br /><br /><br /><br /><br /><br /><br />
+    <div class="footer04">
+      <h1>MUSIC REEF</h1>
+      <ul class="menu">
+        <li><a href="#">ホーム</a></li>
+        <li><a href="#">MUSIC REEF(ミュージックリーフ)について</a></li>
+      </ul>
+    </div>
   </body>
 </html>
