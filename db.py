@@ -1,5 +1,6 @@
 import os, psycopg2, string, random, hashlib
 import smtplib 
+import datetime
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import os
@@ -113,22 +114,41 @@ def login(mail, password):
 
     return flg
 
+def cal_length_num(length):
+    # lengthを時間と分に分解
+    hours, minutes = map(int, length.split(':'))
 
-def insert_book(isbn, title, author, publisher):
-    sql = "INSERT INTO books VALUES(default, %s, %s, %s,%s)"
+    # 時間に基づいてlength_numberを計算
+    if hours == 0 and minutes >= 0 and minutes <= 59:
+        return 0
+    elif hours == 1 and minutes >= 0 and minutes <= 59:
+        return 1
+    elif hours == 2 and minutes >= 0 and minutes <= 59:
+        return 2
+    elif hours == 3 and minutes >= 0 and minutes <= 59:
+        return 3
+    elif hours == 4 and minutes >= 0 and minutes <= 59:
+        return 4
+    elif hours == 5 and minutes >= 0 and minutes <= 59:
+        return 5
+    elif hours >= 6:
+        return 6
+    else:
+        # エラー処理が必要な場合はここに記述
+        return -1
+    
+
+def insert_music(name,genre,detail,length,composer,source,URL):
+    # lengthが指定されるまで待つ
+    while length is None or length == "":
+        length = input("Please enter the length (format: HH:MM): ")
+    length_number = cal_length_num(length)
+    sql = "INSERT INTO music VALUES(default, %s, %s, %s,%s,%s,%s,%s,%s,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,default)"
 
     connection = get_connection()
     cursor = connection.cursor()
 
-    cursor.execute(
-        sql,
-        (
-            isbn,
-            title,
-            author,
-            publisher,
-        ),
-    )
+    cursor.execute(sql,(name,genre,detail,length,length_number,composer,source,URL))
     connection.commit()
 
     cursor.close()
@@ -265,7 +285,8 @@ def get_id(mail):
     connection.close()
     
     return result[0]
-    
+
+
 
 
 
