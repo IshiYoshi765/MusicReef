@@ -142,5 +142,21 @@ def insert_tag():
     tags.insert_tags(genre,tag_name)
     return render_template('tag.html')
 
+@app.route("/music_register")
+def music_register():
+    return render_template('music_register.html')
+
+@app.route("/music_regi_exe", methods=["POST"])
+def music_regi_exe():
+    name = request.form.get("name")
+    genre = request.form.get("genre")
+    detail = request.form.get("detail")
+    length = request.form.get("length")
+    composer = request.form.get("composer")
+    source = request.form.get("source")
+    URL = request.form.get("url")
+    
+    db.insert_music(name,genre,detail,length,composer,source,URL)
+    return render_template("music_register.html")
 if __name__ == "__main__":
     app.run(debug=True)
