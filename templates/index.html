@@ -4,20 +4,125 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MusicReef</title>
+    <style>
+      ul.topnav {
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        background-color: #044f88;
+      }
+      ul.topnav li {
+        float: left;
+      }
+      ul.topnav li a {
+        display: block;
+        text-align: center;
+        text-decoration: none;
+        color: white;
+      }
+      ul.topnav li a.left {
+        background-color: #044f88;
+      }
+      ul.topnav li.right {
+        float: right;
+      }
+      .contaner {
+        display: flex;
+        width: 100%;
+      }
+      span {
+        display: block;
+      }
+      .blockitem {
+        flex: 1;
+        font-size: 28px;
+        text-align: center;
+        padding-top: 10px;
+        height: 60px;
+        position: relative;
+      }
+      .body {
+        flex: 4;
+        height: 500px;
+        border-left: 1px solid #747474;
+      }
+      .blockitem a {
+        vertical-align: 10px;
+        text-decoration: none;
+      }
+      .btn--orange,
+      a.btn--orange {
+        color: #fff;
+        background-color: #548eba;
+        font-size: 25px;
+        margin-left: 300px;
+      }
+      a.btn--radius {
+        /*ボタンの丸み*/
+        border-radius: 100vh;
+      }
+    </style>
   </head>
   <body>
-    <h2>音源管理</h2>
-    <a href="{{url_for('logout')}}">ログアウト</a>
-    <a href="">音源検索</a>
-    <a href="{{url_for('music_register')}}">音源登録</a>
-    <h2>口コミ管理</h2>
-    <a href="">口コミ削除</a>
-    <h2>アカウント管理</h2>
-    <a href="">管理者一覧</a>
-    <a href="">アカウント編集</a>
-    
-    <h3>フリー音源の検索</h3>
-    <option value="genre1">A</option><input type="text" name="">
-    <button type="submit">検索</button>
+    <ul class="topnav">
+      <li>
+        <a class="left" href="#"><h2>　MUSIC REEF 管理者</h2></a>
+      </li>
+      <li class="right">
+        <a
+          href="#"
+          style="
+            border-left: 2px solid white; /*線の設定*/
+            padding: 2px 8px; /*余白の設定*/
+          "
+          ><h2>ログアウト</h2></a
+        >
+      </li>
+    </ul>
+    <div class="contaner">
+      <div>
+        <span style="background-color: #548eba; height: 45px" class="blockitem"
+          ><a style="color: white; font-size: 23px">音源の管理</a></span
+        >
+        <span class="blockitem" style="height: 45px"
+          ><a href="#" style="color: rgb(60, 60, 60); font-size: 23px"
+            >音源検索</a
+          ></span
+        >
+        <span class="blockitem" style="height: 45px"
+          ><a href="{{url_for('music_register')}}" style="color: rgb(60, 60, 60); font-size: 23px"
+            >音源登録</a
+          ></span
+        >
+        <span style="background-color: #548eba; height: 45px" class="blockitem"
+          ><a style="color: white; font-size: 23px">口コミ管理</a></span
+        >
+        <span class="blockitem" style="height: 45px"
+          ><a href="#" style="color: rgb(60, 60, 60); font-size: 23px"
+            >口コミ削除</a
+          ></span
+        >
+        <span style="background-color: #548eba; height: 45px" class="blockitem"
+          ><a style="color: white; font-size: 23px">アカウント管理</a></span
+        >
+        <span class="blockitem" style="height: 45px"
+          ><a href="#" style="color: rgb(60, 60, 60); font-size: 23px"
+            >管理者一覧</a
+          ></span
+        >
+        <span class="blockitem" style="height: 45px"
+          ><a href="#" style="color: rgb(60, 60, 60); font-size: 23px"
+            >アカウント編集</a
+          ></span
+        >
+      </div>
+      <div class="body">
+        <h3>フリー音源の検索</h3>
+        <option value="genre1">A</option>
+        <input type="text" name="" />
+        <button type="submit">検索</button>
+      </div>
+    </div>
   </body>
 </html>
