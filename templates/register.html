@@ -1,23 +1,96 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{url_for('static', filename='/css/register.css')}}">
-    <title>新規登録画面</title>
-</head>
-<body>
-    <h3 class="register">新規登録画面</h3>
-    
-<div class="regi">
-    <form action= "{{url_for('register_exe')}}" method="post">
-        メール
-        <input type="text" name = "mail"><br>
-        <button type = "submit">登録</button>
-    </form>
-    <h4 style="margin-top:25px"><a href="{{url_for('index')}}">戻る</a></h4>
-</div>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='/css/register.css')}}"
+    />
+    <title>アカウント新規登録画面</title>
+    <style>
+      .container {
+        font-family: arial;
+        font-size: 30px;
+        width: 100%;
+      }
+      .container h1 {
+        text-align: center;
+        color: #044f88;
+        margin: 0;
+      }
+
+      .container1 {
+        font-family: arial;
+        font-size: 50px;
+        width: 50%;
+        background-color: #548eba;
+        margin-left: auto;
+        margin-right: auto;
+        border-bottom: 1px solid;
+        border-right: 1px solid;
+        border-left: 1px solid;
+      }
+      .container1 p {
+        text-align: center;
+        color: white;
+        margin: 0;
+      }
+
+      .container2 {
+        font-family: arial;
+        font-size: 20px;
+        border-bottom: 1px solid;
+        border-right: 1px solid;
+        border-left: 1px solid;
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .container2 p {
+        text-align: center;
+        margin: 0;
+      }
+      .container2 .container2-1 {
+        font-family: arial;
+        font-size: 20px;
+        text-align: left;
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      input::placeholder {
+        font-size: 20px;
+        color: #dcdcdc;
+      }
+    </style>
+  </head>
+  <body>
+    <p>　　　</p>
+    <div class="container">
+      <h1>MUSIC REEF</h1>
+    </div>
+    <div class="container1">
+      <p>メール送信</p>
+    </div>
+    <div class="container2">
+      <br />
+      <p>入力されたメールアドレスにメールを送信します</p>
+      <br />
+      <div class="container2-1">
+        <form action="{{url_for('register_exe')}}" method="post">
+          <input
+            type="text"
+            style="width: 350px; height: 40px"
+            size="80"
+            placeholder="　メール"
+            name="mail"
+          /><br /><br />
+          <button type="submit">送信</button>
+        </form>
+      </div>
+      <br />
+    </div>
+  </body>
 </html>
