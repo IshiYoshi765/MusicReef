@@ -8,15 +8,14 @@
   <body>
     <h3>タグ追加</h3>
     <form action="{{url_for('insert_tag')}}" method="post">
-        ジャンル<select name="genre1">
-            <option value = "1">雰囲気</option>
-            <option value = "2">感情</option>
-            <option value = "3">楽器</option>
-            <option value = "4">用途</option>
-            </select><br>
-        タグ名<input type="text" name="tag_name"><br>
-        <button type="submit">登録</button>
-      </form>
-    
+      ジャンル<select name="genre1">
+        <option value="1">雰囲気</option>
+        <option value="2">感情</option>
+        <option value="3">楽器</option>
+        <option value="4">用途</option></select
+      ><br />
+      タグ名<input type="text" name="tag_name" /><br />
+      <button type="submit">登録</button>
+    </form>
   </body>
 </html>

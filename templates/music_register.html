@@ -1,57 +1,68 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{url_for('static', filename='/css/register.css')}}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='/css/register.css')}}"
+    />
     <title>音源登録画面</title>
-</head>
-<body>
+  </head>
+  <body>
     <h3 class="register">音源の登録</h3>
-    
-<div class="regi">
-    <form action= "{{url_for('music_regi_exe')}}" method="post">
-        名前<input type="text" name="name"><br>
+
+    <div class="regi">
+      <form action="{{url_for('music_regi_exe')}}" method="post">
+        名前<input type="text" name="name" /><br />
         ジャンル
         <select name="genre">
-            <option value="1">指定しない</option>
-            <option value="2">ポップ</option>
-            <option value="3">EDM</option>
-            <option value="4">ロック</option>
-            <option value="5">クラシック</option>
-            <option value="6">和風</option>
-            <option value="7">ピアノ</option>
-            <option value="8">アンビエント</option>
-            <option value="9">エレクトロ</option>
-            <option value="10">アコースティック</option>
-            <option value="11">Chill Hop</option>
-        </select><br>
-        詳細<textarea name="detail" rows="4" cols="60">音楽に関する説明</textarea><br>
-        長さ<input type="text" name="length" pattern="\d{1,2}:\d{2}"><br>
-        作曲者<input type="text" name="composer"><br>
+          <option value="1">指定しない</option>
+          <option value="2">ポップ</option>
+          <option value="3">EDM</option>
+          <option value="4">ロック</option>
+          <option value="5">クラシック</option>
+          <option value="6">和風</option>
+          <option value="7">ピアノ</option>
+          <option value="8">アンビエント</option>
+          <option value="9">エレクトロ</option>
+          <option value="10">アコースティック</option>
+          <option value="11">Chill Hop</option></select
+        ><br />
+        詳細<textarea name="detail" rows="4" cols="60">
+音楽に関する説明</textarea
+        ><br />
+        長さ<input type="text" name="length" pattern="\d{1,2}:\d{2}" /><br />
+        作曲者<input type="text" name="composer" /><br />
         参照元
         <select name="source">
-            <option value="1">A</option>
-            <option value="2">B</option>
-            <option value="3">C</option>
-            <option value="4">D</option>
-            <option value="5">サイト名</option><br>
-        </select><br>
-        URL<input type="text" name="url"><br>
+          <option value="1">A</option>
+          <option value="2">B</option>
+          <option value="3">C</option>
+          <option value="4">D</option>
+          <option value="5">サイト名</option>
+          <br /></select
+        ><br />
+        URL<input type="text" name="url" /><br />
         タグ
-        <b>雰囲気</b><br>
-        <input type="checkbox" name="tag_name" value="おだやか">おだやか<br>
-        <b>感情</b><br>
-        <input type="checkbox" name="tag_name" value="かなしい">かなしい<br>
-        <b>楽器</b><br>
-        <input type="checkbox" name="tag_name" value="ピアノ">ピアノ<br>
-        <b>用途</b><br>
-        <input type="checkbox" name="tag_name" value="YouTube">YouTube<br>
-        <button type = "submit">登録</button>
-    </form>
-    <h4 style="margin-top:25px"><a href="{{url_for('mypage')}}">戻る</a></h4>
-</div>
-</body>
+        <b>雰囲気</b><br />
+        <input type="checkbox" name="tag_name" value="おだやか" />おだやか<br />
+        <b>感情</b><br />
+        <input type="checkbox" name="tag_name" value="かなしい" />かなしい<br />
+        <b>楽器</b><br />
+        <input type="checkbox" name="tag_name" value="ピアノ" />ピアノ<br />
+        <b>用途</b><br />
+        <input type="checkbox" name="tag_name" value="YouTube" />YouTube<br />
+        <button type="submit">登録</button>
+      </form>
+      <h4 style="margin-top: 25px"><a href="{{url_for('mypage')}}">戻る</a></h4>
+    </div>
+  </body>
 </html>
