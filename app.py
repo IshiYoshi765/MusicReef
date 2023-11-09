@@ -155,8 +155,8 @@ def music_regi_exe():
     composer = request.form.get("composer")
     source = request.form.get("source")
     URL = request.form.get("url")
-    
-    db.insert_music(name,genre,detail,length,composer,source,URL)
+    tags_list = request.form.getlist("tag_name")
+    db.insert_music(name,genre,detail,length,composer,source,URL,tags_list)
     return render_template("music_register.html")
 if __name__ == "__main__":
     app.run(debug=True)
