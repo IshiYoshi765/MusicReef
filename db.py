@@ -138,22 +138,45 @@ def cal_length_num(length):
         return -1
     
 
-def insert_music(name,genre,detail,length,composer,source,URL):
+def insert_music(name,genre,detail,length,composer,source,URL,tags_list):
     # lengthが指定されるまで待つ
     while length is None or length == "":
         length = input("Please enter the length (format: HH:MM): ")
     length_number = cal_length_num(length)
-    sql = "INSERT INTO music VALUES(default, %s, %s, %s,%s,%s,%s,%s,%s,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,default)"
+    sql = "INSERT INTO music VALUES(default, %s, %s, %s,%s,%s,%s,%s,%s,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,default) RETURNING music_id"
 
     connection = get_connection()
     cursor = connection.cursor()
 
     cursor.execute(sql,(name,genre,detail,length,length_number,composer,source,URL))
+    music_id = cursor.fetchone()[0]
+    print(music_id)
+    for tag_name in tags_list:
+        print(tags_list)
+        # タグが存在するか確認
+        sql = "SELECT tag_id FROM tags WHERE tag_name = %s"
+        cursor.execute(sql,(tag_name,))
+        tag_id = cursor.fetchone()
+        if tag_id:
+            tag_id = tag_id[0]
+            print(tag_id)
+            sql = "INSERT INTO music_tags VALUES (%s,%s)"
+            cursor.execute(sql, (music_id, tag_id))
+            print(music_id)
     connection.commit()
 
     cursor.close()
     connection.close()
 
+# def get_tags(genre):
+#     connection = get_connection()
+#     cursor = connection.cursor()
+#     sql = "SELECT tag_name FROM tags WHERE genre = %s"
+#     cursor.execute(sql,(genre,))
+#     tags_list = [row[0] for row in cursor.fetchall()]
+#     cursor.close()
+#     connection.close()
+#     return tags_list
 
 def delete_book(id):
     connection = get_connection()
