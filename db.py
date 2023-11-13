@@ -208,11 +208,11 @@ def search_book(title):
     return rows
 
 
-def list_book():
+def music_list():
     connection = get_connection()
     cursor = connection.cursor()
 
-    sql = "SELECT ISBN,title,author,publisher FROM books"
+    sql = "SELECT music_id,name,genre,detail,length,composer,source,URL FROM music"
 
     cursor.execute(sql)
 

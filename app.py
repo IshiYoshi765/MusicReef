@@ -61,7 +61,8 @@ def login():
 def mypage():
     # session にキー：'user' があるか判定
     if "user" in session:
-        return render_template("index.html")  # session があれば index.html を表示
+        sound_list = db.music_list()
+        return render_template("index.html",music=sound_list)  # session があれば index.html を表示
     else:
         return redirect(url_for("index"))  # session がなければログイン画面にリダイレクト
 
@@ -158,5 +159,8 @@ def music_regi_exe():
     tags_list = request.form.getlist("tag_name")
     db.insert_music(name,genre,detail,length,composer,source,URL,tags_list)
     return render_template("music_register.html")
+
+
+    
 if __name__ == "__main__":
     app.run(debug=True)
