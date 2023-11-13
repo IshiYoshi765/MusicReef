@@ -2,67 +2,16 @@
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
+    <link href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% block css %}
+    <link rel="stylesheet" href="{{url_for('static', filename='/css/route.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='/css/modal.css')}}">
+    
     <title>MusicReef</title>
-    <style>
-      ul.topnav {
-        overflow: hidden;
-        margin: 0;
-        padding: 0;
-        list-style-type: none;
-        background-color: #044f88;
-      }
-      ul.topnav li {
-        float: left;
-      }
-      ul.topnav li a {
-        display: block;
-        text-align: center;
-        text-decoration: none;
-        color: white;
-      }
-      ul.topnav li a.left {
-        background-color: #044f88;
-      }
-      ul.topnav li.right {
-        float: right;
-      }
-      .contaner {
-        display: flex;
-        width: 100%;
-      }
-      span {
-        display: block;
-      }
-      .blockitem {
-        flex: 1;
-        font-size: 28px;
-        text-align: center;
-        padding-top: 10px;
-        height: 60px;
-        position: relative;
-      }
-      .body {
-        flex: 4;
-        height: 500px;
-        border-left: 1px solid #747474;
-      }
-      .blockitem a {
-        vertical-align: 10px;
-        text-decoration: none;
-      }
-      .btn--orange,
-      a.btn--orange {
-        color: #fff;
-        background-color: #548eba;
-        font-size: 25px;
-        margin-left: 300px;
-      }
-      a.btn--radius {
-        /*ボタンの丸み*/
-        border-radius: 100vh;
-      }
-    </style>
+    {% endblock %}
+    
+      
   </head>
   <body>
     <ul class="topnav">
@@ -118,11 +67,137 @@
         >
       </div>
       <div class="body">
-        <h3>フリー音源の検索</h3>
-        <option value="genre1">A</option>
-        <input type="text" name="" />
-        <button type="submit">検索</button>
+        <h3 class="title1">フリー音源の検索</h3>
+        <div class="search-box">
+            <select name=”item”>
+                <option value=”item1”>項目1</option>
+                <option value=”item2”>項目2</option>
+                <option value=”item3”>項目3</option>
+                <option value=”item4”>項目4</option>
+                <option value=”item5”>項目5</option>
+            </select>
+            <input type="text" placeholder="検索ワード">
+            <button type="submit">
+                <i class="fas fa-search fa-fw"></i>
+            </button>
+        </div>
+        <div class="example" style="padding: 5px; margin-left: 10px">
+        </div>
+        <h3 class="title2">並び替え</h3>
+        <select class="sort" name=”item”>
+            <option value=”item1”>項目1</option>
+            <option value=”item2”>項目2</option>
+            <option value=”item3”>項目3</option>
+            <option value=”item4”>項目4</option>
+            <option value=”item5”>項目5</option>
+        </select>
+        <h3 class="title3">音源時間</h3>
+        <select class="time" name=”item”>
+            <option value=”item1”>項目1</option>
+            <option value=”item2”>項目2</option>
+            <option value=”item3”>項目3</option>
+            <option value=”item4”>項目4</option>
+            <option value=”item5”>項目5</option>
+        </select>
+        <h3 class="title4">サイト</h3>
+        <select class="site" name=”item”>
+            <option value=”item1”>項目1</option>
+            <option value=”item2”>項目2</option>
+            <option value=”item3”>項目3</option>
+            <option value=”item4”>項目4</option>
+            <option value=”item5”>項目5</option>
+        </select>
+        <div class="example" style="padding: 5px;">
+          <div class="page "style="display: none;">
+            {% for sound in music %}
+              {% if loop.index % 15 == 1 %}
+                <div style="clear:both;"></div>
+              {% endif %}
+              <div style="float: left; margin: 10px; width: 18%;">
+                <table border="1" style="margin-bottom: 10px; width: 210px;">
+                  <tr>
+                    <td style="width: 45px; height: 45px">logo</td>
+                    <td colspan="3" style="width: 150px; background-color: #DEDEDE">{{ sound[1] }}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="4" style="border: none">作曲者：{{ sound[5] }}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="4" style="border: none">参照元：{{ sound[6] }}</td>
+                  </tr>
+                  <tr>
+                    <td style="border: none;"><button class="js-detail-modal-button" >詳細</button></td>
+                    <td style="border: none;"><button class="js-modal-button" >編集</button></td>
+                    <td style="border: none;"><button class="js-delete-modal-button" >削除</button></td>
+                    <td style="border: none; width:56px"><button class="js-modal-button" >口コミ</button></td>
+                    </td>
+                  </tr>
+                </table>
+                
+              </div>
+              {% if loop.index % 5 == 0 %}
+              <div style="clear:both;"></div>
+              {% endif %}
+              {% if loop.index % 15 == 0 or loop.last %}
+              </div>
+              <div class="page" style="display: none;">
+              {% endif %}
+            {% endfor %}
+            
+          </div>
+          <div id="pagination" style="clear: both;"></div>
+          
+        </div>
+        
+        <script>
+          const pages = document.querySelectorAll('.page');
+          let currentPage = 1;
+        
+          function showPage(pageNumber) {
+            pages.forEach(page => page.style.display = 'none');
+            pages[pageNumber - 1].style.display = 'block';
+            currentPage = pageNumber;
+          }
+        
+          function generatePagination() {
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = "";
+        
+            for (let i = 1; i <= pages.length; i++) {
+              const pageButton = document.createElement('button');
+              pageButton.textContent = i;
+              pageButton.addEventListener('click', () => showPage(i));
+              pagination.appendChild(pageButton);
+            }
+          }
+        
+          showPage(currentPage);
+          generatePagination();
+          
+        </script>
+        </div>
       </div>
     </div>
+    <!--　モーダル表示　-->   
+    <!--削除のモーダル-->
+    <div class="layer delete-modal">
+      <div class="modal-header">
+        <button class="msg-box msg-position js-delete-close-button">×</button>
+        <div class="modal-body">
+          <p>この音源を削除しますか？</p>
+          <button>削除</button>
+        </div> 
+      </div>
+    </div>
+    <!--詳細のモーダル-->
+    <div class="layer detail-modal">
+      <div class="modal-header">
+        <button class="msg-box msg-position js-detail-close-button">×</button>
+        <div class="modal-body">
+          
+        </div> 
+      </div>
+    </div>      
+  
   </body>
 </html>
