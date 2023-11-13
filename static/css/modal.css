@@ -1,0 +1,64 @@
+@charset "UTF-8";
+
+.layer {
+  background: rgba(0, 0, 0, 0.425);
+  width: 100%; /*画面全体*/
+  height: 100%;
+  position: fixed; /* 場所固定*/
+  top: 0;         
+  left: 0;
+  z-index: -1;  /*　表示階層を下に設定 */
+  opacity: 0;
+  visibility: hidden;  /* この部分で<div>以降を隠すに設定*/
+  transition: opacity 1s linear, visibility 1s linear, z-index 1s linear;
+}
+  
+.layer.is-open {
+  z-index: 999;  /*数字が大きいほど上に表示される*/
+  opacity: 1;  /*不透明度*/
+  visibility: visible;
+}
+.modal-header{
+  position: absolute;
+  top: 160px;
+  left: 25%;
+  width:700px;
+  height:50px;
+  background-color: rgb(255, 255, 255);
+  font-size:50px;
+  color:rgb(94, 94, 94);
+}
+.modal-body{
+  position: absolute;
+  top: 50px;
+  width:700px;
+  height:350px;
+  background-color: rgb(255, 255, 255);
+  color:rgb(94, 94, 94);
+}
+.modal-body p{
+  position:absolute;
+  left: 15%;
+  top: 60px;
+  font-size: 40px;
+}
+.modal-body button{
+  position:absolute;
+  left: 35%;
+  top: 50%;
+  font-size: 40px;
+  width: 200px;
+  height: 60px;
+  color: white;
+  background-color: rgb(211, 52, 52);
+}
+
+.msg-position{
+  position:absolute;
+  width: 50px;
+  height: 50px;
+  left:93%;
+  font-size: 30px;
+  color: white;
+  background-color: rgb(67, 67, 67);
+}
