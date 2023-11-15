@@ -178,12 +178,12 @@ def insert_music(name,genre,detail,length,composer,source,URL,tags_list):
 #     connection.close()
 #     return tags_list
 
-def delete_book(id):
+def delete_music(music_id):
     connection = get_connection()
     cursor = connection.cursor()
-    sql = "delete from books where id=%s"
+    sql = "delete from music where music_id=%s"
 
-    cursor.execute(sql, (id,))
+    cursor.execute(sql, (music_id,))
     connection.commit()
 
     cursor.close()
@@ -309,7 +309,31 @@ def get_id(mail):
     
     return result[0]
 
-
-
-
-
+def get_music_and_check(music_id):
+    connection = get_connection()
+    cursor = connection.cursor()
+    sql = "SELECT * FROM music WHERE music_id = %s"
+    
+    cursor.execute(sql, (music_id,))
+    row = cursor.fetchone()
+  
+    cursor.close()
+    connection.close()
+    if row:
+        music = {
+            "music_id": row[0],
+            "name": row[1],
+            "genre": row[2],
+            "detail": row[3],
+            "length": row[4],
+            "length_number": row[5],
+            "composer": row[6],
+            "source": row[7],
+            "URL": row[8],
+            "date_register": row[9],
+            "update_time": row[10],
+            "access": row[11]
+        }
+        return music
+    else:
+        return None
