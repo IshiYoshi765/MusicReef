@@ -160,7 +160,16 @@ def music_regi_exe():
     db.insert_music(name,genre,detail,length,composer,source,URL,tags_list)
     return render_template("music_register.html")
 
+@app.route("/music_delete/<int:music_id>", methods=['GET'])
+def music_delete(music_id):
+    sond = db.get_music_and_check(music_id)
+    return render_template('index.html',music=sond)
 
+@app.route("/delete_exe/<int:music_id>", methods=['POST'])
+def delete_exe(music_id):
+    db.delete_music(music_id)
+    sound_list = db.music_list()
+    return render_template('index.html',music=sound_list)
     
 if __name__ == "__main__":
     app.run(debug=True)
