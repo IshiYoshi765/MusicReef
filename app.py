@@ -171,5 +171,18 @@ def delete_exe(music_id):
     sound_list = db.music_list()
     return render_template('index.html',music=sound_list)
     
+    @app.route('/search_result')
+def search_result():
+    
+    genre = request.args.get('genre')
+    sort = request.args.get('sort')
+    time = request.args.get('time')
+    site = request.args.get('site')
+    
+    # search_result.htmlに条件と結果を渡して表示
+    
+    return render_template('search_result.html', genre=genre, sort=sort, time=time, site=site)
+
+    
 if __name__ == "__main__":
     app.run(debug=True)
