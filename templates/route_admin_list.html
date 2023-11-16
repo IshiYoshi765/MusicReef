@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" rel="stylesheet">
+  {% block css %}
+    <link rel="stylesheet" href="{{url_for('static', filename='/css/adminList.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='/css/modal.css')}}">
+    {% endblock %}
+  <title>アカウント管理</title>
+</head>
+
+<body>
+  <ul class="topnav">
+    <li>
+      <a class="left" href="#">
+        <h2>　MUSIC REEF 管理者</h2>s
+      </a>
+    </li>
+    <li class="right">
+      <a href="#" style="border-left: 2px solid white; /*線の設定*/padding: 2px 8px; /*余白の設定*/">
+        <h2>ログアウト</h2>
+      </a>
+    </li>
+  </ul>
+  <div class="contaner">
+    <!-- サイドメニューの表示部分 -->
+    <div>
+      <span style="background-color: #548eba; height: 45px" class="blockitem"><a
+          style="color: white; font-size: 23px">音源の管理</a></span>
+      <span class="blockitem" style="height: 45px"><a href="#"
+          style="color: rgb(60, 60, 60); font-size: 23px">音源検索</a></span>
+      <span class="blockitem" style="height: 45px"><a href="#"
+          style="color: rgb(60, 60, 60); font-size: 23px">音源登録</a></span>
+      <span style="background-color: #548eba; height: 45px" class="blockitem"><a
+          style="color: white; font-size: 23px">口コミ管理</a></span>
+      <span class="blockitem" style="height: 45px"><a href="#"
+          style="color: rgb(60, 60, 60); font-size: 23px">口コミ削除</a></span>
+      <span style="background-color: #548eba; height: 45px" class="blockitem"><a
+          style="color: white; font-size: 23px">アカウント管理</a></span>
+      <span class="blockitem" style="height: 45px"><a href="#"
+          style="color: rgb(60, 60, 60); font-size: 23px">管理者一覧</a></span>
+      <span class="blockitem" style="height: 45px"><a href="#"
+          style="color: rgb(60, 60, 60); font-size: 23px">アカウント編集</a></span>
+    </div>
+    <div class="body">
+      <h1 class="title1">管理者の一覧</h1>
+      <a class="route_register" href="#">管理者の新規登録</a>
+      {% for  admin in admins %}
+      <table border="1px">
+      <!-- 管理者の表示部分 -->
+        <tr>
+          <td colspan="3"style="width: 45px; height: 45px">{{admin[1]}}</td>
+          <td style="width: 45px; background-color: #DEDEDE"><button>×</button></td>
+        </tr>
+        <tr>
+          <td colspan="1" style="border: none">mail:</td>
+          <td colspan="3" style="border: none"><p style="font-size: 10px;">{{admin[2]}}</p></td>
+        </tr>
+        <tr>
+          <td style="border: none;"><button class="js-detail-modal-button" >ログ</button></td>
+          <td style="border: none;"><button class="js-modal-button" >凍結</button></td>
+        </tr>
+      </table>
+      {% endfor%}
+    </div>
+    </div>
+  </div>
+
+
+    <!--　モーダル表示　-->   
+    <!--削除のモーダル-->
+    <div class="layer delete-modal">
+      <div class="modal-header">
+        <button class="msg-box msg-position js-delete-close-button">×</button>
+        <div class="modal-body">
+          <p>この音源を削除しますか？</p>
+          <button>削除</button>
+        </div> 
+      </div>
+    </div>
+    <!--詳細のモーダル-->
+    <div class="layer detail-modal">
+      <div class="modal-header">
+        <button class="msg-box msg-position js-detail-close-button">×</button>
+        <div class="modal-body">
+          
+        </div> 
+      </div>
+    </div>      
+    
+    <script src="script.js"></script>
+</body>
+
+</html>
