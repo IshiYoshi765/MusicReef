@@ -1,175 +1,173 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="static/css/search_result.css">
-  <title>MusicReefについて</title>
-</head>
-<body>
-  <header>
-    <h1>MUSICREEF | <a href="#利用規約">※利用規約</a></h1>
-  </header>
-  
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="static/css/search_result.css" />
+    <title>MusicReefについて</title>
+  </head>
+  <body>
+    <header>
+      <h1>MUSICREEF | <a href="terms_of_service.html">※利用規約</a></h1>
+    </header>
 
-  <h2>検索結果</h2>
-  <div class="search-container">
-    <!-- 1つ目のドロップダウンメニュー -->
-    <div class="custom-select">
-      <select id="selectedGenre" class="select-selected">
-        <option value="指定しない">指定しない</option>
-        <option value="ポップ">ポップ</option>
-        <option value="EDM">EDM</option>
-        <option value="ロック">ロック</option>
-        <option value="クラシック">クラシック</option>
-        <option value="和風">和風</option>
-        <option value="ピアノ">ピアノ</option>
-        <option value="アンビエント">アンビエント</option>
-        <option value="エレクトロ">エレクトロ</option>
-        <option value="R&B・JAZZ">R&B・JAZZ</option>
-        <option value="アコースティック">アコースティック</option>
-        <option value="Chill Hop">Chill Hop</option>
-      </select>
-      <p class="p1">フリー音源の検索</p>
-      <p class="p2">music search</p>
-    </div>
-  
-
-    <!-- 2つ目のドロップダウンメニュー -->
-    <div class="custom-sort">
-      <p class="p3">並び替え</p>
-      <select id="sortSelect">
-        <option value="新しい">新しい</option>
-        <option value="古い">古い</option>
-        <option value="アクセス数">アクセス数</option>
-        <option value="五十音順">五十音順</option>
-        <option value="評価が高い">評価が高い</option>
-      </select>
-      <div id="musicResult"></div>
-    </div>
-    
-    
-    <div class="custom-time">
-      <p class="p4">音源時間</p>
-      <select id="timeSelect">
-        <option value="">指定なし</option>
-        <option value="0">～ 0:59</option>
-        <option value="1">1:00 ～ 1:59</option>
-        <option value="2">2:00 ～ 2:59</option>
-        <option value="3">3:00 ～ 3:59</option>
-        <option value="4">4:00 ～ 4:59</option>
-        <option value="5">5:00 ～ 5:59</option>
-        <option value="6">6:00 ～</option>
-      </select>
-      <div id="musicResult"></div>
-    </div>
-
-    <div class="custom-site">
-      <p class="p5">サイト</p>
-      <select id="siteSelect">
-        <option value="指定しない">指定しない</option>
-        <option value="DOVA">DOVA</option>
-        <option value="BGMer">BGMer</option>
-        <option value="ノスタルジア">ノスタルジア</option>
-        <option value="MusMus">MusMus</option>
-        <option value="SHW">SHW</option>
-      </select>
-      <div id="musicResult"></div>
-    </div>
-
-    <input
-      type="text"
-      class="search-input custom-select-input"
-      id="searchInput"
-      placeholder="検索キーワードを入力"
-    />
-    <button class="search-button" onclick="performSearch()">
-      <img src="static/image/search.png" alt="検索"/>
-    </button>
-  </div>
-  <div class="flex-container">
-    <div class="flex-item">ロゴ</div>
-    <div class="flex-item">
-      <div class="detail">
-        <p class="p7">ジョビくん</p>
-        <p class="p8">作曲・もり</p>
-        <p class="p9">♬ 4:35</p>
-        <p class="p10">ポップ</p>
-        <p class="p11">👁 50回</p>
-        <div class="detail-cursor">詳細な情報</div>
+    <h2>検索結果</h2>
+    <div class="search-container">
+      <!-- 1つ目のドロップダウンメニュー -->
+      <div class="custom-select">
+        <select id="selectedGenre" class="select-selected">
+          <option value="指定しない">指定しない</option>
+          <option value="ポップ">ポップ</option>
+          <option value="EDM">EDM</option>
+          <option value="ロック">ロック</option>
+          <option value="クラシック">クラシック</option>
+          <option value="和風">和風</option>
+          <option value="ピアノ">ピアノ</option>
+          <option value="アンビエント">アンビエント</option>
+          <option value="エレクトロ">エレクトロ</option>
+          <option value="R&B・JAZZ">R&B・JAZZ</option>
+          <option value="アコースティック">アコースティック</option>
+          <option value="Chill Hop">Chill Hop</option>
+        </select>
+        <p class="p1">フリー音源の検索</p>
+        <p class="p2">music search</p>
       </div>
+
+      <!-- 2つ目のドロップダウンメニュー -->
+      <div class="custom-sort">
+        <p class="p3">並び替え</p>
+        <select id="sortSelect">
+          <option value="新しい">新しい</option>
+          <option value="古い">古い</option>
+          <option value="アクセス数">アクセス数</option>
+          <option value="五十音順">五十音順</option>
+          <option value="評価が高い">評価が高い</option>
+        </select>
+        <div id="musicResult"></div>
+      </div>
+
+      <div class="custom-time">
+        <p class="p4">音源時間</p>
+        <select id="timeSelect">
+          <option value="">指定なし</option>
+          <option value="0">～ 0:59</option>
+          <option value="1">1:00 ～ 1:59</option>
+          <option value="2">2:00 ～ 2:59</option>
+          <option value="3">3:00 ～ 3:59</option>
+          <option value="4">4:00 ～ 4:59</option>
+          <option value="5">5:00 ～ 5:59</option>
+          <option value="6">6:00 ～</option>
+        </select>
+        <div id="musicResult"></div>
+      </div>
+
+      <div class="custom-site">
+        <p class="p5">サイト</p>
+        <select id="siteSelect">
+          <option value="指定しない">指定しない</option>
+          <option value="DOVA">DOVA</option>
+          <option value="BGMer">BGMer</option>
+          <option value="ノスタルジア">ノスタルジア</option>
+          <option value="MusMus">MusMus</option>
+          <option value="SHW">SHW</option>
+        </select>
+        <div id="musicResult"></div>
+      </div>
+
+      <input
+        type="text"
+        class="search-input custom-select-input"
+        id="searchInput"
+        placeholder="検索キーワードを入力"
+      />
+      <button class="search-button" onclick="performSearch()">
+        <img src="static/image/search.png" alt="検索" />
+      </button>
     </div>
-    <div class="flex-item">評価</div>
-    <div class="flex-item">ダウンロード</div>
-  </div>
-  <footer>
-    <h3>MUSICREEF</h3>
-    <p>
-      <a href="#ホーム">ホーム</a> |
-      <a href="#ミュージックリーフについて"
-        >MUSICREEF（ミュージックリーフ）について</a
-      >
-    </p>
-  </footer>
+    <div class="flex-container">
+      <div class="flex-item">ロゴ</div>
+      <div class="flex-item">
+        <div class="detail">
+          <p class="p7">ジョビくん</p>
+          <p class="p8">作曲・もり</p>
+          <p class="p9">♬ 4:35</p>
+          <p class="p10">ポップ</p>
+          <p class="p11">👁 50回</p>
+          <div class="detail-cursor">詳細な情報</div>
+        </div>
+      </div>
+      <div class="flex-item">評価</div>
+      <div class="flex-item">ダウンロード</div>
+    </div>
+    <footer>
+      <h3>MUSICREEF</h3>
+      <p>
+        <a href="user_top.html">ホーム</a> |
+        <a href="about_the_site.html"
+          >MUSICREEF（ミュージックリーフ）について</a
+        >
+      </p>
+    </footer>
 
-  <script>
-    var dropdownVisible = {
-      genreMenu: false,
-      genreMenu2: false, // 2番目のドロップダウンメニュー
-      genreMenu3: false, 
-      genreMenu4: false,
-    };
+    <script>
+      var dropdownVisible = {
+        genreMenu: false,
+        genreMenu2: false, // 2番目のドロップダウンメニュー
+        genreMenu3: false,
+        genreMenu4: false,
+      };
 
-    function onGenreSelected(selectedValue, menu) {
-      var selectedGenre = document.getElementById('selectedGenre' + menu);
-      selectedGenre.textContent = selectedValue;
-      document.getElementById('genreMenu' + menu).style.display = 'none';
-      dropdownVisible['genreMenu' + menu] = false;
-    }
-
-    document.addEventListener('click', function(event) {
-      var isOutsideDropdown = true;
-      var dropdownMenus = document.getElementsByClassName('genre-menu-content');
-      for (var i = 0; i < dropdownMenus.length; i++) {
-        if (dropdownMenus[i].contains(event.target)) {
-          isOutsideDropdown = false;
-          break;
-        }
+      function onGenreSelected(selectedValue, menu) {
+        var selectedGenre = document.getElementById("selectedGenre" + menu);
+        selectedGenre.textContent = selectedValue;
+        document.getElementById("genreMenu" + menu).style.display = "none";
+        dropdownVisible["genreMenu" + menu] = false;
       }
 
-      if (isOutsideDropdown) {
-        for (var menu in dropdownVisible) {
-          if (dropdownVisible[menu]) {
-            document.getElementById(menu).style.display = 'none';
-            dropdownVisible[menu] = false;
+      document.addEventListener("click", function (event) {
+        var isOutsideDropdown = true;
+        var dropdownMenus =
+          document.getElementsByClassName("genre-menu-content");
+        for (var i = 0; i < dropdownMenus.length; i++) {
+          if (dropdownMenus[i].contains(event.target)) {
+            isOutsideDropdown = false;
+            break;
           }
         }
-      }
-    });
 
-    function toggleDropdown(menu) {
-      var menuElement = document.getElementById(menu);
-      if (!dropdownVisible[menu]) {
-        for (var otherMenu in dropdownVisible) {
-          if (otherMenu !== menu && dropdownVisible[otherMenu]) {
-            document.getElementById(otherMenu).style.display = 'none';
-            dropdownVisible[otherMenu] = false;
+        if (isOutsideDropdown) {
+          for (var menu in dropdownVisible) {
+            if (dropdownVisible[menu]) {
+              document.getElementById(menu).style.display = "none";
+              dropdownVisible[menu] = false;
+            }
           }
         }
-        menuElement.style.display = 'block';
-      }
-    }
+      });
 
-    // 以下は検索ボタンがクリックされたときに呼び出される関数の例です。サーバーサイドからデータを取得して表示する部分を追加する必要があります。
-    function performSearch() {
-      var selectedGenre = document.getElementById('selectedGenre').textContent;
-      var selectedSort = document.getElementById('sortSelect').value;
-      var selectedTime = document.getElementById('timeSelect').value;
-      var selectedSite = document.getElementById('siteSelect').value;
-      var searchInput = document.getElementById('searchInput').value;
-      // サーバーサイドからデータを取得し、検索結果を表示する処理をここに追加する必要があります。
-    }
-    
-  </script>
-</body>
+      function toggleDropdown(menu) {
+        var menuElement = document.getElementById(menu);
+        if (!dropdownVisible[menu]) {
+          for (var otherMenu in dropdownVisible) {
+            if (otherMenu !== menu && dropdownVisible[otherMenu]) {
+              document.getElementById(otherMenu).style.display = "none";
+              dropdownVisible[otherMenu] = false;
+            }
+          }
+          menuElement.style.display = "block";
+        }
+      }
+
+      // 以下は検索ボタンがクリックされたときに呼び出される関数の例です。サーバーサイドからデータを取得して表示する部分を追加する必要があります。
+      function performSearch() {
+        var selectedGenre =
+          document.getElementById("selectedGenre").textContent;
+        var selectedSort = document.getElementById("sortSelect").value;
+        var selectedTime = document.getElementById("timeSelect").value;
+        var selectedSite = document.getElementById("siteSelect").value;
+        var searchInput = document.getElementById("searchInput").value;
+        // サーバーサイドからデータを取得し、検索結果を表示する処理をここに追加する必要があります。
+      }
+    </script>
+  </body>
 </html>
