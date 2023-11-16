@@ -337,3 +337,18 @@ def get_music_and_check(music_id):
         return music
     else:
         return None
+
+def admin_select_all():
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    sql = "SELECT id,name,mail FROM admin"
+
+    cursor.execute(sql)
+
+    rows = cursor.fetchall()
+
+    cursor.close()
+    connection.close()
+
+    return rows

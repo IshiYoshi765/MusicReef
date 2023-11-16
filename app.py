@@ -170,6 +170,13 @@ def delete_exe(music_id):
     db.delete_music(music_id)
     sound_list = db.music_list()
     return render_template('index.html',music=sound_list)
+
+@app.route("/admin_list", methods=['GET'])
+def admin_list():
+    admin_all = db.admin_select_all()
+    return render_template('route_admin_list.html',admins = admin_all)
+
     
 if __name__ == "__main__":
     app.run(debug=True)
+    
