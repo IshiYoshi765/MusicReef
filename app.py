@@ -6,6 +6,10 @@ from datetime import timedelta
 app = Flask(__name__)
 app.secret_key = ''.join(random.choices(string.ascii_letters, k=256))
 
+# @app.route("/", methods=["GET"])
+# def index():
+#     return render_template("top_page.html")
+
 @app.route("/", methods=["GET"])
 def index():
     msg = request.args.get("msg")
@@ -171,7 +175,7 @@ def delete_exe(music_id):
     sound_list = db.music_list()
     return render_template('index.html',music=sound_list)
     
-    @app.route('/search_result')
+@app.route('/search_result')
 def search_result():
     
     genre = request.args.get('genre')
