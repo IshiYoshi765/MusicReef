@@ -180,6 +180,19 @@ def admin_list():
     return render_template('route_admin_list.html',admins = admin_all)
 
     
+    @app.route('/search_result')
+def search_result():
+    
+    genre = request.args.get('genre')
+    sort = request.args.get('sort')
+    time = request.args.get('time')
+    site = request.args.get('site')
+    
+    # search_result.htmlに条件と結果を渡して表示
+    
+    return render_template('search_result.html', genre=genre, sort=sort, time=time, site=site)
+
+    
 if __name__ == "__main__":
     app.run(debug=True)
     
