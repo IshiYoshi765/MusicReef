@@ -58,7 +58,7 @@
           ><a style="color: white; font-size: 23px">アカウント管理</a></span
         >
         <span class="blockitem" style="height: 45px"
-          ><a href="#" style="color: rgb(60, 60, 60); font-size: 23px"
+          ><a href="{{url_for('admin_list')}}" style="color: rgb(60, 60, 60); font-size: 23px"
             >管理者一覧</a
           ></span
         >
@@ -130,12 +130,11 @@
                   <tr>
                     <td style="border: none;"><button class="js-detail-modal-button" >詳細</button></td>
                     <td style="border: none;"><button class="js-modal-button" >編集</button></td>
-                    <td style="border: none;"><button class="js-delete-modal-button" >削除</button></td>
+                    <td style="border: none;"><button class="js-delete-modal-button" data-music="{{ sound[0] }}">削除</button></td>
                     <td style="border: none; width:56px"><button class="js-modal-button" >口コミ</button></td>
                     </td>
                   </tr>
                 </table>
-                
               </div>
               {% if loop.index % 5 == 0 %}
               <div style="clear:both;"></div>
@@ -187,7 +186,13 @@
         <button class="msg-box msg-position js-delete-close-button">×</button>
         <div class="modal-body">
           <p>この音源を削除しますか？</p>
-          <button>削除</button>
+
+          <form action="{{url_for('delete_exe')}}" method="post">
+          <input  class="delete-music-id" type='hidden' name="music_id" value="">
+          
+          <button type="submit">削除</button>
+          </form>
+
         </div> 
       </div>
     </div>
