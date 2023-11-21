@@ -8,23 +8,107 @@
       href="{{url_for('static', filename='favicon/mrロゴ.ico')}}"
     />
     <title>ログイン画面</title>
+    <style>
+      .container {
+        font-family: arial;
+        font-size: 30px;
+        width: 100%;
+      }
+      .container h1 {
+        text-align: center;
+        color: #044f88;
+        margin: 0;
+      }
+
+      .container1 {
+        font-family: arial;
+        font-size: 50px;
+        width: 50%;
+        background-color: #548eba;
+        margin-left: auto;
+        margin-right: auto;
+        border-bottom: 1px solid;
+        border-right: 1px solid;
+        border-left: 1px solid;
+      }
+      .container1 p {
+        text-align: center;
+        color: white;
+        margin: 0;
+      }
+
+      .container2 {
+        font-family: arial;
+        font-size: 20px;
+        border-bottom: 1px solid;
+        border-right: 1px solid;
+        border-left: 1px solid;
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .container2 p {
+        text-align: center;
+        margin: 0;
+      }
+      .container2 .container2-1 {
+        font-family: arial;
+        font-size: 20px;
+        text-align: left;
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      input::placeholder {
+        font-size: 20px;
+        color: #dcdcdc;
+      }
+
+      .btn--orange,
+      a.btn--orange {
+        color: #fff;
+        background-color: #548eba;
+        font-size: 25px;
+        margin-left: 120px;
+      }
+      a.btn--radius {
+        /*ボタンの丸み*/
+        border-radius: 100vh;
+      }
+    </style>
   </head>
   <body>
-    <div>
-      <h3>ログイン画面</h3>
-      {% if error != null %}
-      <p style="color: red">{{error}}</p>
-      {% endif %} {% if msg != null %}
-      <p style="color: blue">{{msg}}</p>
-      {% endif %}
-      <form action="{{url_for('login')}}" method="post">
-        メールアドレス:<input type="text" name="mail" value="{{data.mail if data
-        is defined else ''}}" /required><br />
-        パスワード：<input type="password" name="password"
-        value="{{data.password if data is defined else ''}}" /required><br />
-        <button type="submit">ログイン</button>
-      </form>
-      <a href="{{url_for('register_form')}}">新規登録</a>
+    <p>　　　</p>
+    <div class="container">
+      <h1>MUSIC REEF</h1>
     </div>
+    <div class="container1">
+      <p>login</p>
+    </div>
+    <div class="container2">
+      <br />
+      <br />
+      <div class="container2-1">
+        {% if error != null %}
+        <p style="color: red">{{error}}</p>
+        {% endif %} {% if msg != null %}
+        <p style="color: blue">{{msg}}</p>
+        {% endif %}
+        <form action="{{url_for('login')}}" method="post">
+          <input type="text" style="width: 350px; height: 40px" size="80"
+          placeholder="　メール" name="mail" value="{{data.mail if data is
+          defined else ''}}" /required><br /><br />
+          <input type="password" style="width: 350px; height: 40px" size="80"
+          placeholder="　パスワード" name="password" value="{{data.password if
+          data is defined else ''}}" /required><br /><br />
+          <button type="submit">ログイン</button>
+        </form>
+      </div>
+      <br />
+    </div>
+    <br />
+    <p style="text-align: center">
+      <a href="{{url_for('register_form')}}">新規登録</a>
+    </p>
   </body>
 </html>
