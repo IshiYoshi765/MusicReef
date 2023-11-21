@@ -167,6 +167,36 @@ def insert_music(name,genre,detail,length,composer,source,URL,tags_list):
 
     cursor.close()
     connection.close()
+    
+def edit_music(name,genre,detail,length,composer,source,URL,id):
+    # lengthが指定されるまで待つ
+    # while length is None or length == "":
+    #     length = input("Please enter the length (format: HH:MM): ")
+    # length_number = cal_length_num(length)
+    sql = "UPDATE music SET name = %s,genre = %s,detail = %s,length = %s,composer = %s,source = %s,URL = %s WHERE music_id = %s"
+
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    cursor.execute(sql,(name,genre,detail,length,composer,source,URL,id))
+    # music_id = cursor.fetchone()[0]
+    # print(music_id)
+    # for tag_name in tags_list:
+    #     print(tags_list)
+    #     # タグが存在するか確認
+    #     sql = "SELECT tag_id FROM tags WHERE tag_name = %s"
+    #     cursor.execute(sql,(tag_name,))
+    #     tag_id = cursor.fetchone()
+    #     if tag_id:
+    #         tag_id = tag_id[0]
+    #         print(tag_id)
+    #         sql = "INSERT INTO music_tags VALUES (%s,%s)"
+    #         cursor.execute(sql, (music_id, tag_id))
+    #         print(music_id)
+    connection.commit()
+
+    cursor.close()
+    connection.close()
 
 # def get_tags(genre):
 #     connection = get_connection()
@@ -207,6 +237,32 @@ def search_book(title):
 
     return rows
 
+def get_music_and_check(id):
+    connection = get_connection()
+    cursor = connection.cursor()
+    sql = "SELECT * FROM music WHERE music_id = %s"
+    cursor.execute(sql, (id,))
+    row = cursor.fetchone()
+    cursor.close()
+    connection.close()
+    if row:
+        music = {
+            "music_id": row[0],
+            "name": row[1],
+            "genre": row[2],
+            "detail": row[3],
+            "length": row[4],
+            "length_number": row[5],
+            "composer": row[6],
+            "source": row[7],
+            "URL": row[8],
+            "date_register": row[9],
+            "update_time": row[10],
+            "access": row[11]
+        }
+        return music
+    else:
+        return None
 
 def music_list():
     connection = get_connection()
@@ -309,34 +365,6 @@ def get_id(mail):
     
     return result[0]
 
-def get_music_and_check(music_id):
-    connection = get_connection()
-    cursor = connection.cursor()
-    sql = "SELECT * FROM music WHERE music_id = %s"
-    
-    cursor.execute(sql, (music_id,))
-    row = cursor.fetchone()
-  
-    cursor.close()
-    connection.close()
-    if row:
-        music = {
-            "music_id": row[0],
-            "name": row[1],
-            "genre": row[2],
-            "detail": row[3],
-            "length": row[4],
-            "length_number": row[5],
-            "composer": row[6],
-            "source": row[7],
-            "URL": row[8],
-            "date_register": row[9],
-            "update_time": row[10],
-            "access": row[11]
-        }
-        return music
-    else:
-        return None
 
 def admin_select_all():
     connection = get_connection()

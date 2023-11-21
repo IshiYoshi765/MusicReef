@@ -160,6 +160,27 @@ def music_regi_exe():
     db.insert_music(name,genre,detail,length,composer,source,URL,tags_list)
     return render_template("music_register.html")
 
+@app.route("/music_edit/<int:id>",methods=["GET"])
+def music_edit(id):
+    music = db.get_music_and_check(id)
+    
+    return render_template('music_edit.html',music = music)
+
+@app.route("/music_edit_exe/<int:id>" ,methods=["POST"])
+def music_edit_exe(id):
+    name = request.form.get("name")
+    genre = request.form.get("genre")
+    detail = request.form.get("detail")
+    length = request.form.get("length")
+    composer = request.form.get("composer")
+    source = request.form.get("source")
+    URL = request.form.get("url")
+    # tags_list = request.form.getlist("tag_name")
+    #music_id = request.form.get("music_id")
+    db.edit_music(name,genre,detail,length,composer,source,URL,id)
+    return render_template("index.html")
+    
+
 @app.route("/music_delete", methods=['GET'])
 def music_delete(music_id):
     sond = db.get_music_and_check(music_id)
