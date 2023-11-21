@@ -77,11 +77,13 @@
                 <option value=”item3”>項目3</option>
                 <option value=”item4”>項目4</option>
                 <option value=”item5”>項目5</option>
-            </select>
-            <input type="text" placeholder="検索ワード">
-            <button type="submit">
-                <i class="fas fa-search fa-fw"></i>
-            </button>
+            </select>      
+            <form action="{{url_for('search_result')}}" method="post">
+              <input type="text" placeholder="検索ワード" name="name" value="{{name}}"/required>
+                  <button type="submit">
+                    <i class="fas fa-search fa-fw"></i>
+                  </button>      
+            </form>
         </div>
         <div class="example" style="padding: 5px; margin-left: 10px">
         </div>
