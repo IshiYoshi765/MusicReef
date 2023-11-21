@@ -190,15 +190,15 @@ def delete_music(music_id):
     connection.close()
 
 
-def search_book(title):
+def search_music(name):
     connection = get_connection()
     cursor = connection.cursor()
 
-    sql = "SELECT * FROM books WHERE title LIKE %s"
+    sql = "SELECT * FROM music WHERE name LIKE %s"
 
-    title2 = "%" + title + "%"
+    name2 = "%" + name + "%"
 
-    cursor.execute(sql, (title2,))
+    cursor.execute(sql, (name2,))
 
     rows = cursor.fetchall()
 

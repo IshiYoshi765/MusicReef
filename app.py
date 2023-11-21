@@ -184,18 +184,20 @@ def admin_list():
     return render_template('route_admin_list.html',admins = admin_all)
 
     
-@app.route('/search_result')
+@app.route('/search_result', methods=["POST"])
 def search_result():
+    name=request.form.get("name")
+    #genre = request.args.get('genre')
+    #sort = request.args.get('sort')
+    #time = request.args.get('time')
+    #site = request.args.get('site')
     
-    genre = request.args.get('genre')
-    sort = request.args.get('sort')
-    time = request.args.get('time')
-    site = request.args.get('site')
+    music_list=db.search_music(name)
     
     # search_result.htmlに条件と結果を渡して表示
     
-    return render_template('search_result.html', genre=genre, sort=sort, time=time, site=site)
-
+    #return render_template('search_result.html', genre=genre, sort=sort, time=time, site=site)
+    return render_template('search_result.html', music=music_list)
     
 if __name__ == "__main__":
     app.run(debug=True)

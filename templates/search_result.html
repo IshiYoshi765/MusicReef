@@ -7,73 +7,19 @@
     <title>MusicReefについて</title>
   </head>
   <body>
-    <header>
-      <h1>MUSICREEF | <a href="terms_of_service.html">※利用規約</a></h1>
-    </header>
-
-    <h2>検索結果</h2>
-    <div class="search-container">
-      <!-- 1つ目のドロップダウンメニュー -->
-      <div class="custom-select">
-        <select id="selectedGenre" class="select-selected">
-          <option value="指定しない">指定しない</option>
-          <option value="ポップ">ポップ</option>
-          <option value="EDM">EDM</option>
-          <option value="ロック">ロック</option>
-          <option value="クラシック">クラシック</option>
-          <option value="和風">和風</option>
-          <option value="ピアノ">ピアノ</option>
-          <option value="アンビエント">アンビエント</option>
-          <option value="エレクトロ">エレクトロ</option>
-          <option value="R&B・JAZZ">R&B・JAZZ</option>
-          <option value="アコースティック">アコースティック</option>
-          <option value="Chill Hop">Chill Hop</option>
-        </select>
-        <p class="p1">フリー音源の検索</p>
-        <p class="p2">music search</p>
-      </div>
-
-      <!-- 2つ目のドロップダウンメニュー -->
-      <div class="custom-sort">
-        <p class="p3">並び替え</p>
-        <select id="sortSelect">
-          <option value="新しい">新しい</option>
-          <option value="古い">古い</option>
-          <option value="アクセス数">アクセス数</option>
-          <option value="五十音順">五十音順</option>
-          <option value="評価が高い">評価が高い</option>
-        </select>
-        <div id="musicResult"></div>
-      </div>
-
-      <div class="custom-time">
-        <p class="p4">音源時間</p>
-        <select id="timeSelect">
-          <option value="">指定なし</option>
-          <option value="0">～ 0:59</option>
-          <option value="1">1:00 ～ 1:59</option>
-          <option value="2">2:00 ～ 2:59</option>
-          <option value="3">3:00 ～ 3:59</option>
-          <option value="4">4:00 ～ 4:59</option>
-          <option value="5">5:00 ～ 5:59</option>
-          <option value="6">6:00 ～</option>
-        </select>
-        <div id="musicResult"></div>
-      </div>
-
-      <div class="custom-site">
-        <p class="p5">サイト</p>
-        <select id="siteSelect">
-          <option value="指定しない">指定しない</option>
-          <option value="DOVA">DOVA</option>
-          <option value="BGMer">BGMer</option>
-          <option value="ノスタルジア">ノスタルジア</option>
-          <option value="MusMus">MusMus</option>
-          <option value="SHW">SHW</option>
-        </select>
-        <div id="musicResult"></div>
-      </div>
-
+    <tbody>
+      {% for book in music %}
+      <tr>
+        <td>{{ book[0] }}</td>
+        <td>{{ book[1] }}</td>
+        <td>{{ book[2] }}</td>
+        <td>{{ book[3] }}</td>
+        <td>{{ book[4] }}</td>
+        <td>{{ book[5] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    <!--<div class="search-container">
       <input
         type="text"
         class="search-input custom-select-input"
@@ -99,15 +45,6 @@
       <div class="flex-item">評価</div>
       <div class="flex-item">ダウンロード</div>
     </div>
-    <footer>
-      <h3>MUSICREEF</h3>
-      <p>
-        <a href="user_top.html">ホーム</a> |
-        <a href="about_the_site.html"
-          >MUSICREEF（ミュージックリーフ）について</a
-        >
-      </p>
-    </footer>
 
     <script>
       var dropdownVisible = {
@@ -168,6 +105,6 @@
         var searchInput = document.getElementById("searchInput").value;
         // サーバーサイドからデータを取得し、検索結果を表示する処理をここに追加する必要があります。
       }
-    </script>
+    </script>-->
   </body>
 </html>
