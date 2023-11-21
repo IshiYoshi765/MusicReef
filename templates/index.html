@@ -130,8 +130,11 @@
                     <td colspan="4" style="border: none">参照元：{{ sound[6] }}</td>
                   </tr>
                   <tr>
+
                     <td style="border: none;"><button class="js-detail-modal-button" >詳細</button></td>
-                    <td style="border: none;"><button class="js-modal-button" >編集</button></td>
+                    <td style="border: none;">
+                      <a href="{{url_for('music_edit',id=sound[0])}}">編集</a>
+                    </td>
                     <td style="border: none;"><button class="js-delete-modal-button" data-music="{{ sound[0] }}">削除</button></td>
                     <td style="border: none; width:56px"><button class="js-modal-button" >口コミ</button></td>
                     </td>
