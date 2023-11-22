@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="static/css/search_result.css" />
+    <title>MusicReefについて</title>
+  </head>
+  <body>
+    <table border>
+      <thead>
+        <tr>
+          <th>music_id</th>
+          <th>曲名</th>
+          <th>ジャンル</th>
+          <th>詳細</th>
+          <th>長さ</th>
+          <th>長さ番号</th>
+          <th>作曲者</th>
+          <th>参照元</th>
+          <th>URL</th>
+          <th>登録日</th>
+          <th>更新日</th>
+          <th>アクセス回数</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for search_music in music %}
+        <tr>
+          <td>{{ search_music[0] }}</td>
+          <td>{{ search_music[1] }}</td>
+          <td>{{ search_music[2] }}</td>
+          <td>{{ search_music[3] }}</td>
+          <td>{{ search_music[4] }}</td>
+          <td>{{ search_music[5] }}</td>
+          <td>{{ search_music[6] }}</td>
+          <td>{{ search_music[7] }}</td>
+          <td>{{ search_music[8] }}</td>
+          <td>{{ search_music[9] }}</td>
+          <td>{{ search_music[10] }}</td>
+          <td>{{ search_music[11] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <!--<div class="search-container">
+      <input
+        type="text"
+        class="search-input custom-select-input"
+        id="searchInput"
+        placeholder="検索キーワードを入力"
+      />
+      <button class="search-button" onclick="performSearch()">
+        <img src="static/image/search.png" alt="検索" />
+      </button>
+    </div>
+    <div class="flex-container">
+      <div class="flex-item">ロゴ</div>
+      <div class="flex-item">
+        <div class="detail">
+          <p class="p7">ジョビくん</p>
+          <p class="p8">作曲・もり</p>
+          <p class="p9">♬ 4:35</p>
+          <p class="p10">ポップ</p>
+          <p class="p11">👁 50回</p>
+          <div class="detail-cursor">詳細な情報</div>
+        </div>
+      </div>
+      <div class="flex-item">評価</div>
+      <div class="flex-item">ダウンロード</div>
+    </div>
+
+    <script>
+      var dropdownVisible = {
+        genreMenu: false,
+        genreMenu2: false, // 2番目のドロップダウンメニュー
+        genreMenu3: false,
+        genreMenu4: false,
+      };
+
+      function onGenreSelected(selectedValue, menu) {
+        var selectedGenre = document.getElementById("selectedGenre" + menu);
+        selectedGenre.textContent = selectedValue;
+        document.getElementById("genreMenu" + menu).style.display = "none";
+        dropdownVisible["genreMenu" + menu] = false;
+      }
+
+      document.addEventListener("click", function (event) {
+        var isOutsideDropdown = true;
+        var dropdownMenus =
+          document.getElementsByClassName("genre-menu-content");
+        for (var i = 0; i < dropdownMenus.length; i++) {
+          if (dropdownMenus[i].contains(event.target)) {
+            isOutsideDropdown = false;
+            break;
+          }
+        }
+
+        if (isOutsideDropdown) {
+          for (var menu in dropdownVisible) {
+            if (dropdownVisible[menu]) {
+              document.getElementById(menu).style.display = "none";
+              dropdownVisible[menu] = false;
+            }
+          }
+        }
+      });
+
+      function toggleDropdown(menu) {
+        var menuElement = document.getElementById(menu);
+        if (!dropdownVisible[menu]) {
+          for (var otherMenu in dropdownVisible) {
+            if (otherMenu !== menu && dropdownVisible[otherMenu]) {
+              document.getElementById(otherMenu).style.display = "none";
+              dropdownVisible[otherMenu] = false;
+            }
+          }
+          menuElement.style.display = "block";
+        }
+      }
+
+      // 以下は検索ボタンがクリックされたときに呼び出される関数の例です。サーバーサイドからデータを取得して表示する部分を追加する必要があります。
+      function performSearch() {
+        var selectedGenre =
+          document.getElementById("selectedGenre").textContent;
+        var selectedSort = document.getElementById("sortSelect").value;
+        var selectedTime = document.getElementById("timeSelect").value;
+        var selectedSite = document.getElementById("siteSelect").value;
+        var searchInput = document.getElementById("searchInput").value;
+        // サーバーサイドからデータを取得し、検索結果を表示する処理をここに追加する必要があります。
+      }
+    </script>-->
+  </body>
+</html>

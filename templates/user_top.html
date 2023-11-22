@@ -3,8 +3,49 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>利用規約</title>
+    <link
+      href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+      rel="stylesheet"
+    />
+    <title>利用者トップ</title>
     <style>
+      .search-box select {
+        position: absolute;
+        left: 270px;
+        top: 130px;
+        width: 100px;
+        height: 50px;
+      }
+      .search-box input {
+        position: absolute;
+        top: 130px;
+        left: 370px;
+        width: 400px;
+        height: 50px;
+        margin-bottom: 5px;
+        padding: 5px 15px;
+        box-sizing: border-box;
+        font-size: 1em;
+      }
+      .search-box button {
+        position: absolute;
+        top: 130px;
+        left: 770px;
+        width: 80px;
+        height: 50px;
+        background-color: rgb(94, 94, 94);
+      }
+      .search-box button i {
+        color: rgb(255, 255, 255);
+        font-size: 2rem;
+        top: 20px;
+        left: 600px;
+      }
+      .title1 {
+        position: absolute;
+        top: 80px;
+        left: 270px;
+      }
       a {
         text-decoration: none;
         color: #747474;
@@ -83,7 +124,7 @@
       </li>
       <li class="right">
         <a
-          href="#"
+          href="terms_of_service.html"
           style="
             border-left: 2px solid white; /*線の設定*/
             padding: 2px 8px; /*余白の設定*/
@@ -92,17 +133,24 @@
         >
       </li>
     </ul>
-    <h1
-      style="
-        background-color: #ececec;
-        margin: 0;
-        padding-top: 10px;
-        padding-bottom: 10px;
-      "
-    >
-      　　利用規約
-    </h1>
-    <h2>　　各サイトの指示にしたがって使用してください</h2>
+    <div style="background-color: #ececec; margin: 0; height: 120px">
+      <h3 class="title1">フリー音源の検索</h3>
+
+      <div class="search-box">
+        <select name="”item”">
+          <option value="”item1”">項目1</option>
+          <option value="”item2”">項目2</option>
+          <option value="”item3”">項目3</option>
+          <option value="”item4”">項目4</option>
+          <option value="”item5”">項目5</option>
+        </select>
+        <input type="text" placeholder="検索ワード" />
+        <button type="submit">
+          <i class="fas fa-search fa-fw"></i>
+        </button>
+      </div>
+    </div>
+
     <br /><br /><br /><br /><br /><br /><br /><br /><br />
     <div class="footer04">
       <h1>MUSIC REEF</h1>

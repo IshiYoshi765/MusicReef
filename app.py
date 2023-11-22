@@ -6,6 +6,10 @@ from datetime import timedelta
 app = Flask(__name__)
 app.secret_key = ''.join(random.choices(string.ascii_letters, k=256))
 
+# @app.route("/", methods=["GET"])
+# def index():
+#     return render_template("top_page.html")
+
 @app.route("/", methods=["GET"])
 def index():
     msg = request.args.get("msg")
@@ -160,16 +164,68 @@ def music_regi_exe():
     db.insert_music(name,genre,detail,length,composer,source,URL,tags_list)
     return render_template("music_register.html")
 
-@app.route("/music_delete/<int:music_id>", methods=['GET'])
+@app.route("/music_edit/<int:id>",methods=["GET"])
+def music_edit(id):
+    music = db.get_music_and_check(id)
+    
+    return render_template('music_edit.html',music = music)
+
+@app.route("/music_edit_exe/<int:id>" ,methods=["POST"])
+def music_edit_exe(id):
+    name = request.form.get("name")
+    genre = request.form.get("genre")
+    detail = request.form.get("detail")
+    length = request.form.get("length")
+    composer = request.form.get("composer")
+    source = request.form.get("source")
+    URL = request.form.get("url")
+    # tags_list = request.form.getlist("tag_name")
+    #music_id = request.form.get("music_id")
+    db.edit_music(name,genre,detail,length,composer,source,URL,id)
+    return render_template("index.html")
+    
+
+@app.route("/music_delete", methods=['GET'])
 def music_delete(music_id):
     sond = db.get_music_and_check(music_id)
+    print(sond)
     return render_template('index.html',music=sond)
 
-@app.route("/delete_exe/<int:music_id>", methods=['POST'])
-def delete_exe(music_id):
+@app.route("/delete_exe", methods=['POST'])
+def delete_exe():
+    music_id = request.form.get("music_id")
+    print(music_id)
     db.delete_music(music_id)
     sound_list = db.music_list()
     return render_template('index.html',music=sound_list)
+
+@app.route("/admin_list", methods=['GET'])
+def admin_list():
+    admin_all = db.admin_select_all()
+    return render_template('route_admin_list.html',admins = admin_all)
+
+
+@app.route("/list_of_review", methods=['GET'])
+def list_of_review():
+    review_all = db.list_of_review()
+    return render_template('list_of_review.html',reviews = review_all)
+
+    
+@app.route('/search_result', methods=["POST"])
+def search_result():
+    name=request.form.get("name")
+    #genre = request.args.get('genre')
+    #sort = request.args.get('sort')
+    #time = request.args.get('time')
+    #site = request.args.get('site')
+    
+    music_list=db.search_music(name)
+    
+    # search_result.htmlに条件と結果を渡して表示
+    
+    #return render_template('search_result.html', genre=genre, sort=sort, time=time, site=site)
+    return render_template('search_result.html', music=music_list)
     
 if __name__ == "__main__":
     app.run(debug=True)
+    

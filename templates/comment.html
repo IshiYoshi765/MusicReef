@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="static/css/comment.css">
+    <title>MusicReefについて</title>
+</head>
+<body>
+<header>
+    <h1>MUSICREEF | <a href="#利用規約">※利用規約</a></h1>
+</header>
+<div class="centered">
+    <button class="button-rounded" onclick="goBack()" style="margin-left: 20px;">戻る</button>
+    <h1 style="display: inline-block; margin-left: 30px;">音源評価</h1>
+</div>
+
+<h2>評価</h2>
+<div class="centered">
+    <form method="POST" action="/comment">
+        <div class="rating">
+            <span class="star" id="star1" onmouseover="hoverRating(0)" onclick="toggleRating(0)" onmouseout="resetRating()">&#9733</span>
+            <span class="star" id="star2" onmouseover="hoverRating(1)" onclick="toggleRating(1)" onmouseout="resetRating()">&#9733</span>
+            <span class="star" id="star3" onmouseover="hoverRating(2)" onclick="toggleRating(2)" onmouseout="resetRating()">&#9733</span>
+            <span class="star" id="star4" onmouseover="hoverRating(3)" onclick="toggleRating(3)" onmouseout="resetRating()">&#9733</span>
+            <span class="star" id="star5" onmouseover="hoverRating(4)" onclick="toggleRating(4)" onmouseout="resetRating()">&#9733</span>
+        </div>
+        
+    </form>
+</div>
+<h2>口コミ</h2>
+<div class="centered">
+    <form method="POST" action="/comment">
+        <textarea id="review" name "review" rows="8" cols="50" placeholder="(コメントを入力)"></textarea>
+        <button class="button-rounded-2" "submit">投稿</button>
+    </form>
+</div>
+<script>
+    
+
+    function goBack() {
+        window.history.back();
+    }
+
+    let ratings = [0, 0, 0, 0, 0];
+    let clickedIndex = -1;
+
+    function initializeRating() {
+        // ページ読み込み時に星を初期化
+        for (let i = 0; i < 5; i++) {
+            const star = document.getElementById(`star${i + 1}`);
+            star.textContent = '☆';
+            star.style.color = 'gray';
+        }
+    }
+
+    // ページ読み込み時に星を初期化
+    initializeRating();
+
+    function hoverRating(starIndex) {
+        if (clickedIndex === -1) {
+            for (let i = 0; i <= starIndex; i++) {
+                const star = document.getElementById(`star${i + 1}`);
+                star.textContent = '★';
+                star.style.color = 'gold';
+            }
+            for (let i = starIndex + 1; i < 5; i++) {
+                const star = document.getElementById(`star${i + 1}`);
+                star.textContent = '☆';
+                star.style.color = 'gray';
+            }
+        }
+    }
+
+    function toggleRating(starIndex) {
+        if (starIndex === clickedIndex) {
+            clickedIndex = -1;
+            for (let i = 0; i < 5; i++) {
+                const star = document.getElementById(`star${i + 1}`);
+                star.textContent = '☆';
+                star.style.color = 'gray';
+                ratings[i] = 0;
+            }
+            document.getElementById('rating_input').value = 0;
+        } else {
+            clickedIndex = starIndex;
+            for (let i = 0; i <= starIndex; i++) {
+                const star = document.getElementById(`star${i + 1}`);
+                star.textContent = '★';
+                star.style.color = 'gold';
+                ratings[i] = 1; // 評価を設定
+            }
+            for (let i = starIndex + 1; i < 5; i++) {
+                const star = document.getElementById(`star${i + 1}`);
+                star.textContent = '☆';
+                star.style.color = 'gray';
+                ratings[i] = 0;
+            }
+            document.getElementById('rating_input').value = starIndex + 1;
+        }
+    }
+    
+    function resetRating() {
+        if (clickedIndex === -1) {
+            for (let i = 0; i < 5; i++) {
+                const star = document.getElementById(`star${i + 1}`);
+                 star.textContent = '☆';
+                    star.style.color = 'gray'; // 星の色だけをリセット
+            }
+        }
+    }
+    
+</script>
+<footer>
+    <h3>MUSICREEF</h3> <p><a href="#ホーム">ホーム</a> | <a href="#ミュージックリーフについて">MUSICREEF（ミュージックリーフ）について</a></p>
+</footer>
+</body>
+</html>

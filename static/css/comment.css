@@ -1,0 +1,49 @@
+.centered {
+    text-align: center;
+    display: flex;
+    align-items: center; /* テキストとボタンを垂直方向で中央寄せ */
+}
+
+h1 {
+    line-height: 1; /* テキストの高さ位置を調整 */
+    margin: 5; /* テキストの余白 */
+}
+
+.button-rounded {
+    border-radius: 10px;
+    padding: 5px 20px;
+    background-color: #FFFFFF;
+    color: gray;
+    font-size: 16px;
+    border: 1px solid gray;
+    cursor: pointer;
+}
+
+
+
+.button-rounded-2 {
+    border-radius: 10px;
+    padding: 5px 20px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    line-height: 2 !important; /* !important を追加 */
+}
+
+.rating {
+    display: inline-block;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+.star {
+    font-size: 60px; /* 星のサイズを60pxに調整 */
+    color: write;
+    margin: 0 5px; /* 星と星の間の間隔を設定します。適宜調整してください。 */
+}
+
+.rating:hover .star {
+    color: gold; /* カーソルが星に合ったときの色を設定 */
+}
