@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session,flash
 import db, random,string
 import tags
 from datetime import timedelta
@@ -31,6 +31,9 @@ def password_changed(mail):
 def login():
     mail = request.form.get("mail")
     password = request.form.get("password")
+    otp = db.get_otp_pass()
+    
+    print(otp)
     if db.login(mail,password):
                 
         if check_password(mail, password):
@@ -62,6 +65,7 @@ def mypage():
     # session にキー：'user' があるか判定
     if "user" in session:
         sound_list = db.music_list()
+        
         return render_template("index.html",music=sound_list)  # session があれば index.html を表示
     else:
         return redirect(url_for("index"))  # session がなければログイン画面にリダイレクト
@@ -98,6 +102,53 @@ def register_exe():
     else:
         error = "登録に失敗しました。"
         return render_template("register.html", error=error)
+
+@app.route("/pass_reset", methods=['GET'])
+def pass_reset():
+    return render_template('pass_reset.html')
+
+@app.route('/pass_reset_exe', methods=["POST"])
+def pass_reset_exe():
+    mail = request.form.get("mail")
+    session['user'] = mail
+    db.save_otp(mail)
+    return render_template('check_one_pass.html', mail=mail)
+
+
+@app.route("/check_one_pass", methods=["POST"])
+def check_one_pass():
+    mail = session['user']
+    print(mail)
+    otp_code = request.form.get("otp")
+    print(otp_code)
+    if db.verify_otp(mail,otp_code):
+        return render_template("change_password.html", mail=mail)
+    else:
+        flash('ワンタイムパスワードが正しくありません')
+    return redirect(url_for('pass_reset'))
+
+@app.route("/change_password", methods=["POST"])
+def change_password():
+    password = request.form.get("new_pass")
+    confirm_pass = request.form.get("confirm_password")
+    mail = session['user']
+    
+    print(password)
+    print(confirm_pass)
+    
+    if password == confirm_pass:
+        db.update_pass(password,mail)
+        print('a')
+    else:
+        msg = 'パスワード不一致でした・・・'
+        return render_template('change_password.html', msg=msg) 
+        print('b')
+    
+    if request.method == 'POST':
+        msg = 'パスワード変更がされました'
+        print('c')
+        return redirect(url_for('login'))
+    return render_template('change_password.html', msg=msg)
 
 @app.route("/admin_update")
 def admin_update():
@@ -160,16 +211,6 @@ def music_regi_exe():
     db.insert_music(name,genre,detail,length,composer,source,URL,tags_list)
     return render_template("music_register.html")
 
-@app.route("/music_delete/<int:music_id>", methods=['GET'])
-def music_delete(music_id):
-    sond = db.get_music_and_check(music_id)
-    return render_template('index.html',music=sond)
 
-@app.route("/delete_exe/<int:music_id>", methods=['POST'])
-def delete_exe(music_id):
-    db.delete_music(music_id)
-    sound_list = db.music_list()
-    return render_template('index.html',music=sound_list)
-    
 if __name__ == "__main__":
     app.run(debug=True)
