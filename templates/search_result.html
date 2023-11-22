@@ -7,18 +7,42 @@
     <title>MusicReefについて</title>
   </head>
   <body>
-    <tbody>
-      {% for book in music %}
-      <tr>
-        <td>{{ book[0] }}</td>
-        <td>{{ book[1] }}</td>
-        <td>{{ book[2] }}</td>
-        <td>{{ book[3] }}</td>
-        <td>{{ book[4] }}</td>
-        <td>{{ book[5] }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
+    <table border>
+      <thead>
+        <tr>
+          <th>music_id</th>
+          <th>曲名</th>
+          <th>ジャンル</th>
+          <th>詳細</th>
+          <th>長さ</th>
+          <th>長さ番号</th>
+          <th>作曲者</th>
+          <th>参照元</th>
+          <th>URL</th>
+          <th>登録日</th>
+          <th>更新日</th>
+          <th>アクセス回数</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for search_music in music %}
+        <tr>
+          <td>{{ search_music[0] }}</td>
+          <td>{{ search_music[1] }}</td>
+          <td>{{ search_music[2] }}</td>
+          <td>{{ search_music[3] }}</td>
+          <td>{{ search_music[4] }}</td>
+          <td>{{ search_music[5] }}</td>
+          <td>{{ search_music[6] }}</td>
+          <td>{{ search_music[7] }}</td>
+          <td>{{ search_music[8] }}</td>
+          <td>{{ search_music[9] }}</td>
+          <td>{{ search_music[10] }}</td>
+          <td>{{ search_music[11] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
     <!--<div class="search-container">
       <input
         type="text"
