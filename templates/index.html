@@ -16,11 +16,11 @@
   <body>
     <ul class="topnav">
       <li>
-        <a class="left" href="#"><h2>　MUSIC REEF 管理者</h2></a>
+        <a class="left" href="{{url_for('mypage')}}"><h2>　MUSIC REEF 管理者</h2></a>
       </li>
       <li class="right">
         <a
-          href="#"
+          href="{{url_for('logout')}}"
           style="
             border-left: 2px solid white; /*線の設定*/
             padding: 2px 8px; /*余白の設定*/
@@ -192,15 +192,18 @@
         <div class="modal-body">
           <p>この音源を削除しますか？</p>
 
+
           <form action="{{url_for('delete_exe')}}" method="post">
           <input  class="delete-music-id" type='hidden' name="music_id" value="">
           
+
           <button type="submit">削除</button>
           </form>
 
         </div> 
       </div>
     </div>
+    {% endfor %}
     <!--詳細のモーダル-->
     <div class="layer detail-modal">
       <div class="modal-header">
@@ -210,6 +213,8 @@
         </div> 
       </div>
     </div>      
-  
+
+    <script type="text/javascript" src="{{ url_for('static', filename='/js/script.js') }}"></script>
+
   </body>
 </html>

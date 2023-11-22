@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <title>アカウント新規登録画面</title>
+  </head>
+  <body>
+    <p>　　　</p>
+    <div class="container">
+      <h1>MUSIC REEF</h1>
+    </div>
+    <div class="container1">
+      <p>メール送信</p>
+    </div>
+    <div class="container2">
+      <br />
+      <p>ワンタイムパスワードを入力してください</p>
+      <br />
+      <div class="container2-1">
+        <p>ワンタイムパスワードが{{ mail }}に送信されました<p>
+        <form action="{{url_for('check_one_pass')}}" method="post">
+          ワンタイムパスワード<input type="password" name="otp">
+          <button type="submit">送信</button>
+        </form>
+      </div>
+      <br />
+    </div>
+  </body>
+</html>
