@@ -1,165 +1,165 @@
-.search-box select{
-    position:  absolute;
-    left: 200px;
-    top: 130px;
-    width: 100px;
-    height: 50px;
+@charset "UTF-8";
+
+.search-box select {
+  position: absolute;
+  left: 200px;
+  top: 130px;
+  width: 100px;
+  height: 50px;
 }
-.search-box input{
-    position:  absolute;
-    top: 130px;
-    left: 300px;
-    width: 400px;
-    height: 50px;
-    margin-bottom: 5px;
-    padding: 5px 15px;
-    box-sizing: border-box;
-    font-size: 1em;
+.search-box input {
+  position: absolute;
+  top: 130px;
+  left: 300px;
+  width: 400px;
+  height: 50px;
+  margin-bottom: 5px;
+  padding: 5px 15px;
+  box-sizing: border-box;
+  font-size: 1em;
 }
-.search-box button{
-    position:  absolute;
-    top: 130px;
-    left: 700px;
-    width: 80px;
-    height: 50px;
-    background-color: rgb(94, 94, 94);
+.search-box button {
+  position: absolute;
+  top: 130px;
+  left: 700px;
+  width: 80px;
+  height: 50px;
+  background-color: rgb(94, 94, 94);
 }
 .search-box button i {
-    
-    color: rgb(255, 255, 255);
-    font-size: 2rem;
-    top: 20px;
-    left: 530px;
+  color: rgb(255, 255, 255);
+  font-size: 2rem;
+  top: 20px;
+  left: 530px;
 }
-.title1{
-    position:  absolute;
-    top: 80px;
-    left: 200px;
+.title1 {
+  position: absolute;
+  top: 80px;
+  left: 200px;
 }
-.title2{
-    position:  absolute;
-    top: 175px;;
-    left: 200px;
+.title2 {
+  position: absolute;
+  top: 175px;
+  left: 200px;
 }
-.title3{
-    position:  absolute;
-    top: 175px;;
-    left: 350px;
+.title3 {
+  position: absolute;
+  top: 175px;
+  left: 350px;
 }
-.title4{
-    position:  absolute;
-    top: 175px;;
-    left: 500px;
+.title4 {
+  position: absolute;
+  top: 175px;
+  left: 500px;
 }
-.sort{
-    position:  absolute;
-    left: 200px;
-    top: 230px;
-    width: 100px;
-    height: 30px;
+.sort {
+  position: absolute;
+  left: 200px;
+  top: 230px;
+  width: 100px;
+  height: 30px;
 }
-.time{
-    position:  absolute;
-    left: 350px;
-    top: 230px;
-    width: 100px;
-    height: 30px;
+.time {
+  position: absolute;
+  left: 350px;
+  top: 230px;
+  width: 100px;
+  height: 30px;
 }
-.site{
-    position:  absolute;
-    left: 500px;
-    top: 230px;
-    width: 100px;
-    height: 30px;
+.site {
+  position: absolute;
+  left: 500px;
+  top: 230px;
+  width: 100px;
+  height: 30px;
 }
 
 ul.topnav {
-    overflow: hidden;
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    background-color: #044f88;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  background-color: #044f88;
 }
 ul.topnav li {
-    float: left;
+  float: left;
 }
 ul.topnav li a {
-    display: block;
-    text-align: center;
-    text-decoration: none;
-    color: white;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  color: white;
 }
 ul.topnav li a.left {
-    background-color: #044f88;
+  background-color: #044f88;
 }
 ul.topnav li.right {
-    float: right;
+  float: right;
 }
 .contaner {
-    display: flex;
-    width: 100%;
+  display: flex;
+  width: 100%;
 }
 span {
-    display: block;
+  display: block;
 }
 .blockitem {
-    flex: 1;
-    font-size: 28px;
-    text-align: center;
-    padding-top: 10px;
-    height: 60px;
-    position: relative;
+  flex: 1;
+  font-size: 28px;
+  text-align: center;
+  padding-top: 10px;
+  height: 60px;
+  position: relative;
 }
 .body {
-    flex: 4;
-    height: 500px;
-    border-left: 1px solid #747474;
-    padding-top :400px;
+  flex: 4;
+  height: 500px;
+  border-left: 1px solid #747474;
+  padding-top: 400px;
 }
 .blockitem a {
-    vertical-align: 10px;
-    text-decoration: none;
+  vertical-align: 10px;
+  text-decoration: none;
 }
 .btn--orange,
 a.btn--orange {
-    color: #fff;
-    background-color: #548eba;
-    font-size: 25px;
-    margin-left: 300px;
+  color: #fff;
+  background-color: #548eba;
+  font-size: 25px;
+  margin-left: 300px;
 }
 a.btn--radius {
-    /*ボタンの丸み*/
-    border-radius: 100vh;
+  /*ボタンの丸み*/
+  border-radius: 100vh;
 }
 .example {
-  position:  absolute;
+  position: absolute;
   top: 300px;
   
 }
 .pagination-001 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0px;
-    list-style-type: none;
-    padding-right: 150px;
-  }
-  .pagination-001 a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 2em;
-    height: 2em;
-    border: 1px solid black;
-    border-radius: 1px;
-    color: black;
-  }
-  .pagination-001 a:not(:hover) {
-    text-decoration: none;
-  }
-  .pagination-001 .current a {
-    background-color: black;
-    color: #fff;
-    pointer-events: none;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0px;
+  list-style-type: none;
+  padding-right: 150px;
+}
+.pagination-001 a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2em;
+  height: 2em;
+  border: 1px solid black;
+  border-radius: 1px;
+  color: black;
+}
+.pagination-001 a:not(:hover) {
+  text-decoration: none;
+}
+.pagination-001 .current a {
+  background-color: black;
+  color: #fff;
+  pointer-events: none;
+}

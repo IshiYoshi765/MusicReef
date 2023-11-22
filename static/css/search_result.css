@@ -1,0 +1,451 @@
+/* コンテナ全体のスタイル */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* 検索コンテナのスタイル */
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+/* カスタムセレクトボックスのスタイル */
+.custom-select {
+  display: inline-block;
+  position: relative;
+  border: 1px solid #ccc; 
+}
+
+.select-selected {
+  background-color: #fff;
+  cursor: pointer;
+  padding: 6px 10px;
+  width: 160px;
+  height: 35px;
+}
+
+/* ジャンルメニューコンテンツのスタイル */
+.genre-menu-content {
+  display: none;
+  position: absolute;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  z-index: 1;
+  overflow-y: auto;
+  width: 150px;
+}
+
+
+/* ジャンルメニューコンテンツ内の要素のスタイル */
+.genre-menu-content div {
+  padding: 10px;
+  border: 1px solid transparent;
+  transition: background-color 0.3s;
+  cursor: pointer;
+  font-size: 11px;
+  height: 3px;
+  letter-spacing: -1px;
+  white-space: nowrap;
+}
+
+/* ホバー時のスタイルは適用できる場合のみ */
+.genre-menu-content div:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+/* カスタムセレクトインプットのスタイル */
+.custom-select-input {
+  width: 350px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+/* カスタムセレクトボタンのスタイル */
+.custom-select-button {
+  background-color: #f2f2f2;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+
+/* 検索ボタンのスタイル */
+.search-button {
+  padding: 17px;
+  position: relative;
+}
+
+.search-button img {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.p1 {
+  position: fixed;
+  top: -20px; /* 調整が必要かもしれません */
+  left: 14%;
+  transform: translateX(-50%);
+  font-size: 18px;
+  z-index: 1; /* セレクトボックスの上に表示するためにz-indexを追加 */
+}
+
+/* p2のスタイル */
+.p2 {
+  position: fixed;
+  top: -10px; /* 調整が必要かもしれません */
+  left: 40%;
+  transform: translateX(-50%);
+  font-size: 15px;
+  z-index: 1; /* セレクトボックスの上に表示するためにz-indexを追加 */
+}
+
+.p3 {
+  position: fixed;
+  top: 95px; /* 調整が必要かもしれません */
+  left: -40%;
+  transform: translateX(-50%);
+  font-size: 20px;
+  z-index: 1; /* セレクトボックスの上に表示するためにz-indexを追加 */
+}
+
+.p4 {
+  position: fixed;
+  top: 95px; /* 調整が必要かもしれません */
+  left: -15%;
+  transform: translateX(-50%);
+  font-size: 20px;
+  z-index: 1; /* セレクトボックスの上に表示するためにz-indexを追加 */
+}
+
+.p5 {
+  position: fixed;
+  top: 95px; /* 調整が必要かもしれません */
+  left: 12%;
+  transform: translateX(-50%);
+  font-size: 20px;
+  z-index: 1; /* セレクトボックスの上に表示するためにz-indexを追加 */
+}
+
+.p6{
+  position: fixed;
+  top: 350px; /* 調整が必要かもしれません */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 20px;
+  z-index: 1; /* セレクトボックスの上に表示するためにz-indexを追加 */
+}
+
+/* カスタムソートのスタイル */
+.custom-sort {
+  display: inline-block;
+  position: absolute;
+  border: 1px solid #ccc;
+  width: 110px;
+  bottom: -85px;
+  left: -270px;
+}
+
+.select-sort {
+  background-color: #fff;
+  cursor: pointer;
+  padding: 6px 10px;
+  width: 90px;
+  height: 23.3px;
+}
+
+/* カスタムタイムのスタイル */
+.custom-time {
+  display: inline-block;
+  position: absolute;
+  border: 1px solid #ccc;
+  width: 130px;
+  bottom: -85px;
+  left: -130px;
+}
+
+.select-time {
+  background-color: #fff;
+  cursor: pointer;
+  padding: 6px 10px;
+  width: 110px;
+  height: 23.3px;
+}
+
+/* カスタムサイトのスタイル */
+.custom-site {
+  display: inline-block;
+  position: absolute;
+  border: 1px solid #ccc;
+  width: 130px;
+  bottom: -85px;
+  left: 30px;
+}
+
+.select-site {
+  background-color: #fff;
+  cursor: pointer;
+  padding: 6px 10px;
+  width: 110px;
+  height: 23.3px;
+}
+
+/* カスタムセレクトホバー時のスタイル */
+.custom-select:hover .genre-menu-content,
+.custom-sort:hover .genre-menu-content2,
+.custom-time:hover .genre-menu-content3,
+.custom-site:hover .genre-menu-content4 {
+  display: block;
+}
+
+/* h2のスタイル */
+h2 {
+  position: fixed;
+  top: 210px; /* 調整が必要かもしれません */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 40px;
+  z-index: 1; /* セレクトボックスの上に表示するためにz-indexを追加 */
+}
+
+
+/* h3のスタイル */
+h3 {
+  font-size: 40px;
+}
+
+/* ジャンルメニューコンテンツ2のスタイル */
+.genre-menu-content2 {
+  display: none;
+  position: absolute;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  z-index: 1;
+  overflow-y: auto;
+  width: 110px;
+}
+
+.genre-menu-content2 div {
+  padding: 10px;
+  border: 1px solid transparent;
+  transition: background-color 0.3s;
+  cursor: pointer;
+  font-size: 11px;
+  height: 3px;
+  letter-spacing: -1px;
+  white-space: nowrap;
+}
+
+/* ホバー時のスタイルは適用できる場合のみ */
+.genre-menu-content2 div:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+/* ジャンルメニューコンテンツ3のスタイル */
+.genre-menu-content3 {
+  display: none;
+  position: absolute;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  z-index: 1;
+  overflow-y: auto;
+  width: 130px;
+}
+
+.genre-menu-content3 div {
+  padding: 10px;
+  border: 1px solid transparent;
+  transition: background-color 0.3s;
+  cursor: pointer;
+  font-size: 11px;
+  height: 3px;
+  letter-spacing: -1px;
+  white-space: nowrap;
+}
+
+/* ホバー時のスタイルは適用できる場合のみ */
+.genre-menu-content3 div:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+/* ジャンルメニューコンテンツ4のスタイル */
+.genre-menu-content4 {
+  display: none;
+  position: absolute;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  z-index: 1;
+  overflow-y: auto;
+  width: 130px;
+}
+
+.genre-menu-content4 div {
+  padding: 10px;
+  border: 1px solid transparent;
+  transition: background-color 0.3s;
+  cursor: pointer;
+  font-size: 11px;
+  height: 3px;
+  letter-spacing: -1px;
+  white-space: nowrap;
+}
+
+/* ホバー時のスタイルは適用できる場合のみ */
+.genre-menu-content4 div:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+/* フッターのスタイル */
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #4d4fdc;
+  color: #fff;
+  padding: 0px 0;
+  text-align: center;
+}
+
+/* リンクのスタイルを設定 */
+footer a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+/* リンクのホバー時のスタイルを設定 */
+footer a:hover {
+  color: #ffcc00;
+}
+
+#selectGenre{
+  width: 100%; /* 選択ボックスを親要素の幅いっぱいに広げる */
+  padding: 15px; /* 余白を追加 */
+  border: 1px solid #ccc;
+}
+
+#sortSelect{
+  width: 100%; /* 選択ボックスを親要素の幅いっぱいに広げる */
+  padding: 10px; /* 余白を追加 */
+  border: 1px solid #ccc;
+}
+#timeSelect {
+  width: 100%; /* 選択ボックスを親要素の幅いっぱいに広げる */
+  padding: 10px; /* 余白を追加 */
+  border: 1px solid #ccc;
+}
+#siteSelect{
+  width: 100%; /* 選択ボックスを親要素の幅いっぱいに広げる */
+  padding: 10px; /* 余白を追加 */
+  border: 1px solid #ccc;
+}
+/* 親要素のスタイル */
+#musicDataContainer {
+  display: flex; /* 要素を水平に配置するために Flexbox を使用 */
+  justify-content: center; /* 横方向中央揃え */
+  align-items: center; /* 縦方向中央揃え */
+  min-height: 100vh; /* ビューポートの高さいっぱいに要素を拡大 */
+  background-color: #f0f0f0; /* 背景色を設定 (必要に応じて変更) */
+  transform-origin: top;
+  transform: scale(1.2); /* 適宜調整 */
+}
+
+
+/* musicData のスタイル (必要に応じて変更) */
+#musicDataContainer {
+  background-color: #fff; /* 要素の背景色を設定 (必要に応じて変更) */
+  padding: 20px; /* 内部の余白を設定 (必要に応じて変更) */
+  border: 1px solid #ccc; /* 要素にボーダーを追加 (必要に応じて変更) */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* ボックスシャドウを追加 (必要に応じて変更) */
+  text-align: center; /* テキストを中央揃え (必要に応じて変更) */
+  max-width: 80%; /* 要素の最大幅を設定 (必要に応じて変更) */
+}
+
+.flex-container {
+  margin-top: 300px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.flex-item {
+  margin: 0px;
+  padding: 40px;
+  border: 1px solid #ccc;
+}
+
+.detail {
+  position: relative;
+  width: 600px;
+  height: 24px; /* 適切な高さに調整してください */
+}
+
+
+.p7 {
+  font-size: 30px;
+  bottom: -25px; /* 適宜調整 */
+  left: -3%;
+  position: absolute;
+}
+
+.p8, .p9, .p10, .p11 {
+  position: absolute;
+  bottom: 0;
+}
+
+.p8 {
+  bottom: -45px; /* 適宜調整 */
+  left: 0%;
+  position: absolute;
+}
+
+.p9 {
+  bottom: -45px; /* 適宜調整 */
+  left: 20%;
+  position: absolute;
+}
+
+.p10 {
+  bottom: -45px; /* 適宜調整 */
+  left: 40%;
+  position: absolute;
+}
+
+.p11 {
+  bottom: -45px; /* 適宜調整 */
+  left: 60%;
+  position: absolute;
+}
+
+.p12 {
+  bottom: -45px; /* 適宜調整 */
+  left: 80%;
+  position: absolute;
+}
+
+.detail-cursor{
+  bottom: -30px; /* 適宜調整 */
+  left: 100%;
+  position: relative;
+  border: 1px solid #ccc;
+  width: 90px;
+}

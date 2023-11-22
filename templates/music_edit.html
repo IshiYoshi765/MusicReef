@@ -3,12 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <link
-      rel="stylesheet"
-      href="{{url_for('static', filename='/css/register.css')}}"
-    />
-    <title>音源登録画面</title>
+    <title>音源編集画面</title>
     <style>
       ul.topnav {
         overflow: hidden;
@@ -61,11 +56,11 @@
   <body>
     <ul class="topnav">
       <li>
-        <a class="left" href="{{url_for('mypage')}}"><h2>　MUSIC REEF 管理者</h2></a>
+        <a class="left" href="#"><h2>　MUSIC REEF 管理者</h2></a>
       </li>
       <li class="right">
         <a
-          href="{{url_for('logout')}}"
+          href="#"
           style="
             border-left: 2px solid white; /*線の設定*/
             padding: 2px 8px; /*余白の設定*/
@@ -80,9 +75,7 @@
           ><a style="color: white; font-size: 23px">音源の管理</a></span
         >
         <span class="blockitem" style="height: 45px"
-          ><a
-            href="{{url_for('mypage')}}"
-            style="color: rgb(60, 60, 60); font-size: 23px"
+          ><a href="#" style="color: rgb(60, 60, 60); font-size: 23px"
             >音源検索</a
           ></span
         >
@@ -114,12 +107,14 @@
         >
       </div>
       <div class="body">
-        <h2 style="margin-left: 50px">音源の登録</h2>
+        <h2 style="margin-left: 50px">音源の編集</h2>
         <div style="margin-left: 40px">
-          <form action="{{url_for('music_regi_exe')}}" method="post">
+         
+          <form action="{{url_for('music_edit_exe' ,id = music.music_id)}}" method="post">
             名前<input
               type="text"
               name="name"
+              value = "{{music.name}}"
               style="
                 width: 300px;
                 height: 30px;
@@ -133,6 +128,7 @@
             ジャンル
             <select
               name="genre"
+              value = "{{music.genre}}"
               style="margin-bottom: 10px; text-align: center; margin-left: 20px"
             >
               <option value="1">指定しない</option>
@@ -150,6 +146,7 @@
             <p>詳細</p>
             <textarea
               name="detail"
+              value = "{{music.detail}}"
               rows="5"
               cols="60"
               style="margin-bottom: 10px; margin-left: 88px"
@@ -157,18 +154,21 @@
             ><br />
             長さ<input
               type="text"
+              value = "{{music.length}}"
               name="length"
               pattern="\d{1,2}:\d{2}"
               style="margin-bottom: 10px; margin-left: 57px"
             /><br />
             作曲者<input
               type="text"
+              value = "{{music.composer}}"
               name="composer"
               style="margin-bottom: 10px; margin-left: 40px"
             /><br />
             参照元
             <select
               name="source"
+              value = "{{music.source}}"
               style="margin-bottom: 10px; margin-left: 35px"
             >
               <option value="1">A</option>
@@ -180,6 +180,7 @@
             ><br />
             URL<input
               type="text"
+              value = "{{music.URL}}"
               name="url"
               style="margin-bottom: 10px; margin-left: 57px; width: 600px"
             /><br />
@@ -212,7 +213,8 @@
               value="YouTube"
               style="margin-bottom: 10px; margin-left: 80px"
             />YouTube<br />
-            <button type="submit">登録</button><br /><br /><br />
+            <button type="submit">編集</button><br /><br /><br />
+            
           </form>
         </div>
       </div>
