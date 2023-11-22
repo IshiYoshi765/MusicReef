@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <title>アカウント新規登録画面</title>
+  </head>
+  <body>
+    <p>　　　</p>
+    <div class="container">
+      <h1>MUSIC REEF</h1>
+    </div>
+    <div class="container1">
+      <p>メール送信</p>
+    </div>
+    <div class="container2">
+      <br />
+      <p>入力されたメールアドレスにメールを送信します</p>
+      <br />
+      <div class="container2-1">
+        <form action="{{url_for('pass_reset_exe')}}" method="post">
+          メールアドレス<input type="text" name="mail">
+          <button type="submit">送信</button>
+        </form>
+      </div>
+      <br />
+    </div>
+  </body>
+</html>
