@@ -396,5 +396,98 @@ def list_of_review():
 
     cursor.close()
     connection.close()
-
     return rows
+    
+
+
+
+def save_otp(mail):
+    
+    connection = get_connection()
+    cursor = connection.cursor()
+    
+    sql = "SELECT id FROM admin WHERE mail = %s"
+    cursor.execute(sql,(mail,))
+    admin_result = cursor.fetchone()
+
+    if admin_result:
+        admin_id = admin_result[0]
+        print(admin_id)
+        otp_code = get_otp_pass()
+        send_email(mail, otp_code)
+        sql = "INSERT INTO one_time_pass VALUES(default,%s,%s,CURRENT_TIMESTAMP,default)"
+        cursor.execute(sql,(admin_id,otp_code))
+        connection.commit()
+        print('成功')
+        
+    cursor.close()
+    connection.close()
+        
+def update_pass(password,mail):
+    salt = get_salt()
+    hashed_password = get_hash(password,salt)
+    
+    connection = get_connection()
+    cursor = connection.cursor()
+    
+    sql = "UPDATE admin SET hashed_password=%s, salt=%s  WHERE mail=%s"
+        
+    cursor.execute(sql,(hashed_password,salt,mail))
+    connection.commit()
+        
+    cursor.close()
+    connection.close()
+        
+
+# ランダムなソルトを生成
+def get_otp_pass():
+    # 文字列の候補(英大小文字 + 数字)
+    charset = string.ascii_letters + string.digits
+    
+    # charsetからランダムに30文字取り出して結合
+    one_time = ''.join(random.choices(charset, k=6))
+    now = datetime.datetime.now()
+    # print(one_time)
+    # print(now)
+    # print(time)
+    return one_time
+
+def verify_otp(admin_id, entered_otp):
+    connection = get_connection()
+    cursor = connection.cursor()
+    
+    try:
+        sql_select = "SELECT otp_code, expiration_time, is_used FROM one_time_pass WHERE admin_id = (SELECT id FROM admin WHERE mail = %s) ORDER BY expiration_time DESC LIMIT 1"
+        cursor.execute(sql_select, (admin_id,))
+        db_otp_result = cursor.fetchone()
+        print(db_otp_result)
+
+        if db_otp_result:
+            db_otp, expiration_time, is_used = db_otp_result
+            
+            current_time = datetime.datetime.now()
+            time = expiration_time + datetime.timedelta(seconds=30)
+            print(current_time)
+            print(expiration_time)
+            
+            # ワンタイムパスワードが使用されていないかつ有効期限内であることを確認
+            if not is_used and time >= current_time:
+                # 入力されたワンタイムパスワードとデータベースのワンタイムパスワードを比較
+                if entered_otp == db_otp:
+                    return True  # パスワードが一致する場合
+                else:
+                    print(f"Entered OTP: {entered_otp}, DB OTP: {db_otp}")
+            else:
+                print("Invalid expiration time or used OTP.")
+        else:
+            print("No valid OTP found.")
+
+    except Exception as e:
+        print(f"Error: {e}")
+
+    finally:
+        if connection:
+            connection.close()
+
+    return False  # パスワードが一致しない場合またはエラーが発生した場合
+
