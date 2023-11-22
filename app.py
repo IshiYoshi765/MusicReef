@@ -204,6 +204,12 @@ def admin_list():
     admin_all = db.admin_select_all()
     return render_template('route_admin_list.html',admins = admin_all)
 
+
+@app.route("/list_of_review", methods=['GET'])
+def list_of_review():
+    review_all = db.list_of_review()
+    return render_template('list_of_review.html',reviews = review_all)
+
     
 @app.route('/search_result', methods=["POST"])
 def search_result():

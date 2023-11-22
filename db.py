@@ -219,7 +219,7 @@ def delete_music(music_id):
     cursor.close()
     connection.close()
 
-
+#音源の検索
 def search_music(name):
     connection = get_connection()
     cursor = connection.cursor()
@@ -371,6 +371,24 @@ def admin_select_all():
     cursor = connection.cursor()
 
     sql = "SELECT id,name,mail FROM admin"
+
+    cursor.execute(sql)
+
+    rows = cursor.fetchall()
+
+    cursor.close()
+    connection.close()
+
+    return rows
+
+
+    
+
+def list_of_review():
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    sql = "SELECT * FROM music_review"
 
     cursor.execute(sql)
 
