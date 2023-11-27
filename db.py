@@ -491,3 +491,13 @@ def verify_otp(admin_id, entered_otp):
 
     return False  # パスワードが一致しない場合またはエラーが発生した場合
 
+def delete_review(review_id):
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    sql = "DELETE FROM music_review WHERE id = %s"
+    cursor.execute(sql, (review_id,))
+
+    connection.commit()
+    cursor.close()
+    connection.close()

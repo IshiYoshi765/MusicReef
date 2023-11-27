@@ -198,6 +198,14 @@
             <td class="overflow-y-area">
               <div class="overflow-y">{{ list_of_review[4] }}</div>
             </td>
+            <td style="width: 6%; border: none; background-color: red">
+              <a
+                href="{{ url_for('delete_review', review_id=list_of_review[0]) }}"
+                style="text-decoration: none; text-align: center"
+                class="btn btn--orange"
+                >削除</a
+              >
+            </td>
           </tr>
           {% endfor %}
         </table>
