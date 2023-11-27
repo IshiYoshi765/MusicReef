@@ -260,8 +260,7 @@ def admin_list():
 @app.route("/list_of_review", methods=['GET'])
 def list_of_review():
     review_all = db.list_of_review()
-    return render_template('list_of_review.html',reviews = review_all)
-
+    return render_template('list_of_review.html', reviews=review_all)
     
 @app.route('/search_result', methods=["POST"])
 def search_result():
@@ -278,6 +277,10 @@ def search_result():
     #return render_template('search_result.html', genre=genre, sort=sort, time=time, site=site)
     return render_template('search_result.html', music=music_list)
     
+@app.route("/delete_review/<int:review_id>", methods=['GET'])
+def delete_review(review_id):
+    db.delete_review(review_id)
+    return redirect(url_for('list_of_review'))
 
 if __name__ == "__main__":
     app.run(debug=True)
