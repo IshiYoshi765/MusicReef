@@ -231,10 +231,10 @@ def music_edit_exe(id):
     composer = request.form.get("composer")
     source = request.form.get("source")
     URL = request.form.get("url")
-    # tags_list = request.form.getlist("tag_name")
+    tags_list = request.form.getlist("tag_name")
     #music_id = request.form.get("music_id")
-    db.edit_music(name,genre,detail,length,composer,source,URL,id)
-    return render_template("index.html")
+    db.edit_music(name,genre,detail,length,composer,source,URL,tags_list,id)
+    return redirect(url_for("mypage"))
     
 
 @app.route("/music_delete", methods=['GET'])
