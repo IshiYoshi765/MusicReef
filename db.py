@@ -219,11 +219,16 @@ def edit_music(name,genre,detail,length,composer,source,URL,tags_list,id):
 def delete_music(music_id):
     connection = get_connection()
     cursor = connection.cursor()
+    
+    sql_delete_tags = "DELETE FROM music_tags WHERE music_id = %s"
+    cursor.execute(sql_delete_tags,(music_id,))
+
     sql = "delete from music where music_id=%s"
 
     cursor.execute(sql, (music_id,))
     connection.commit()
-
+    
+    
     cursor.close()
     connection.close()
 
