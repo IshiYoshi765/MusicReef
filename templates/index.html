@@ -71,15 +71,22 @@
       <div class="body">
         <h3 class="title1">フリー音源の検索</h3>
         <div class="search-box">
-            <select name=”item”>
-                <option value=”item1”>項目1</option>
-                <option value=”item2”>項目2</option>
-                <option value=”item3”>項目3</option>
-                <option value=”item4”>項目4</option>
-                <option value=”item5”>項目5</option>
+          <form action="{{url_for('search_result')}}" method="post">
+            <select name="genre">
+                <option value="">指定しない</option>
+                <option value="2">ポップ</option>
+                <option value="3">EDM</option>
+                <option value="4">ロック</option>
+                <option value="5">クラシック</option>
+                <option value="6">和風</option>
+                <option value="7">ピアノ</option>
+                <option value="8">アンビエント</option>
+                <option value="9">エレクトロ</option>
+                <option value="10">アコースティック</option>
+                <option value="11">Chill Hop</option>
             </select>      
-            <form action="{{url_for('search_result')}}" method="post">
-              <input type="text" placeholder="検索ワード" name="name" value="{{name}}"/required>
+            
+              <input type="text" placeholder="検索ワード" name="name">
                   <button type="submit">
                     <i class="fas fa-search fa-fw"></i>
                   </button>      

@@ -265,17 +265,18 @@ def list_of_review():
 @app.route('/search_result', methods=["POST"])
 def search_result():
     name=request.form.get("name")
-    #genre = request.args.get('genre')
+    genre = request.form.get("genre")
     #sort = request.args.get('sort')
     #time = request.args.get('time')
     #site = request.args.get('site')
     
-    music_list=db.search_music(name)
+    music_list=db.search_music(name,genre)
+    
     
     # search_result.htmlに条件と結果を渡して表示
     
     #return render_template('search_result.html', genre=genre, sort=sort, time=time, site=site)
-    return render_template('search_result.html', music=music_list)
+    return render_template('search_result.html', music=music_list,genre=genre,name=name)
     
 @app.route("/delete_review/<int:review_id>", methods=['GET'])
 def delete_review(review_id):

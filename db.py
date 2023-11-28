@@ -233,15 +233,16 @@ def delete_music(music_id):
     connection.close()
 
 #音源の検索
-def search_music(name):
+def search_music(name,genre):
     connection = get_connection()
     cursor = connection.cursor()
 
-    sql = "SELECT * FROM music WHERE name LIKE %s"
+    sql = "SELECT * FROM music WHERE name LIKE %s AND genre LIKE %s"
 
     name2 = "%" + name + "%"
-
-    cursor.execute(sql, (name2,))
+    genre2 = "%" + genre + "%"
+    
+    cursor.execute(sql, (name2,genre2))
 
     rows = cursor.fetchall()
 
@@ -249,6 +250,8 @@ def search_music(name):
     connection.close()
 
     return rows
+
+
 
 def get_music_and_check(id):
     connection = get_connection()
