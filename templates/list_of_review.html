@@ -80,11 +80,11 @@
   <body>
     <ul class="topnav">
       <li>
-        <a class="left" href="#"><h2>　MUSIC REEF 管理者</h2></a>
+        <a class="left" href="{{url_for('mypage')}}"><h2>　MUSIC REEF 管理者</h2></a>
       </li>
       <li class="right">
         <a
-          href="#"
+          href="{{url_for('logout')}}"
           style="
             border-left: 2px solid white; /*線の設定*/
             padding: 2px 8px; /*余白の設定*/
@@ -99,12 +99,12 @@
           ><a style="color: white; font-size: 23px">音源の管理</a></span
         >
         <span class="blockitem" style="height: 45px"
-          ><a href="#" style="color: rgb(60, 60, 60); font-size: 23px"
+          ><a href="{{url_for('mypage')}}" style="color: rgb(60, 60, 60); font-size: 23px"
             >音源検索</a
           ></span
         >
         <span class="blockitem" style="height: 45px"
-          ><a href="#" style="color: rgb(60, 60, 60); font-size: 23px"
+          ><a href="{{url_for('music_register')}}" style="color: rgb(60, 60, 60); font-size: 23px"
             >音源登録</a
           ></span
         >
