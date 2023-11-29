@@ -29,22 +29,48 @@
   <div class="contaner">
     <!-- サイドメニューの表示部分 -->
     <div>
-      <span style="background-color: #548eba; height: 45px" class="blockitem"><a
-          style="color: white; font-size: 23px">音源の管理</a></span>
-      <span class="blockitem" style="height: 45px"><a href="#"
-          style="color: rgb(60, 60, 60); font-size: 23px">音源検索</a></span>
-      <span class="blockitem" style="height: 45px"><a href="#"
-          style="color: rgb(60, 60, 60); font-size: 23px">音源登録</a></span>
-      <span style="background-color: #548eba; height: 45px" class="blockitem"><a
-          style="color: white; font-size: 23px">口コミ管理</a></span>
-      <span class="blockitem" style="height: 45px"><a href="#"
-          style="color: rgb(60, 60, 60); font-size: 23px">口コミ削除</a></span>
-      <span style="background-color: #548eba; height: 45px" class="blockitem"><a
-          style="color: white; font-size: 23px">アカウント管理</a></span>
-      <span class="blockitem" style="height: 45px"><a href="#"
-          style="color: rgb(60, 60, 60); font-size: 23px">管理者一覧</a></span>
-      <span class="blockitem" style="height: 45px"><a href="#"
-          style="color: rgb(60, 60, 60); font-size: 23px">アカウント編集</a></span>
+      <span style="background-color: #548eba; height: 45px" class="blockitem"
+        ><a style="color: white; font-size: 23px">音源の管理</a></span
+      >
+      <span class="blockitem" style="height: 45px"
+        ><a
+          href="{{url_for('mypage')}}"
+          style="color: rgb(60, 60, 60); font-size: 23px"
+          >音源検索</a
+        ></span
+      >
+      <span class="blockitem" style="height: 45px"
+        ><a
+          href="{{url_for('music_register')}}"
+          style="color: rgb(60, 60, 60); font-size: 23px"
+          >音源登録</a
+        ></span
+      >
+      <span style="background-color: #548eba; height: 45px" class="blockitem"
+        ><a style="color: white; font-size: 23px">口コミ管理</a></span
+      >
+      <span class="blockitem" style="height: 45px"
+        ><a
+          href="{{url_for('list_of_review')}}"
+          style="color: rgb(60, 60, 60); font-size: 23px"
+          >口コミ削除</a
+        ></span
+      >
+      <span style="background-color: #548eba; height: 45px" class="blockitem"
+        ><a style="color: white; font-size: 23px">アカウント管理</a></span
+      >
+      <span class="blockitem" style="height: 45px"
+        ><a
+          href="{{url_for('admin_list')}}"
+          style="color: rgb(60, 60, 60); font-size: 23px"
+          >管理者一覧</a
+        ></span
+      >
+      <span class="blockitem" style="height: 45px"
+        ><a href="#" style="color: rgb(60, 60, 60); font-size: 23px"
+          >アカウント編集</a
+        ></span
+      >
     </div>
     <div class="body">
       <h1 class="title1">管理者の一覧</h1>
