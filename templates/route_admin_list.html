@@ -16,12 +16,12 @@
 <body>
   <ul class="topnav">
     <li>
-      <a class="left" href="#">
+      <a class="left" href="{{url_for('mypage')}}">
         <h2>　MUSIC REEF 管理者</h2>
       </a>
     </li>
     <li class="right">
-      <a href="#" style="border-left: 2px solid white; /*線の設定*/padding: 2px 8px; /*余白の設定*/">
+      <a href="{{url_for('logout')}}" style="border-left: 2px solid white; /*線の設定*/padding: 2px 8px; /*余白の設定*/">
         <h2>ログアウト</h2>
       </a>
     </li>
@@ -29,6 +29,7 @@
   <div class="contaner">
     <!-- サイドメニューの表示部分 -->
     <div>
+
       <span style="background-color: #548eba; height: 45px" class="blockitem"
         ><a style="color: white; font-size: 23px">音源の管理</a></span
       >

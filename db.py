@@ -284,7 +284,7 @@ def music_list():
     connection = get_connection()
     cursor = connection.cursor()
 
-    sql = "SELECT music_id,name,genre,detail,length,composer,source,URL FROM music ORDER BY music_id ASC"
+    sql = "SELECT music_id,name,genre,detail,length,composer,source,URL,date_register,update_time FROM music ORDER BY music_id ASC"
 
     cursor.execute(sql)
 
