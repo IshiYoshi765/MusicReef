@@ -154,6 +154,7 @@ def change_password():
         return redirect(url_for('login'))
     return render_template('change_password.html', msg=msg)
 
+
 @app.route("/admin_update")
 def admin_update():
     if "user" in session:
@@ -257,6 +258,14 @@ def admin_list():
     admin_all = db.admin_select_all()
     return render_template('route_admin_list.html',admins = admin_all)
 
+
+@app.route("/admin_delete_exe", methods=['POST'])
+def admin_delete_exe():
+    id = request.form.get("id")
+    print(id)
+    db.delete_user(id)
+    admin_list = db.admin_select_all()
+    return render_template('route_admin_list.html',admin=admin_list)
 
 @app.route("/list_of_review", methods=['GET'])
 def list_of_review():

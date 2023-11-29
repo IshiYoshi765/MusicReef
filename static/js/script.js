@@ -1,5 +1,5 @@
 // 削除の確認モーダル
-const modal = document.querySelector(".delete-modal");
+const deleteModal = document.querySelector(".delete-modal");
 const deleteMusicId = document.querySelector(".delete-music-id");
 
 const modalButtons = document.querySelectorAll(".js-delete-modal-button");
@@ -8,13 +8,13 @@ modalButtons.forEach((elm, i) => {
     let music = e.target.dataset.music;
     console.log(music);
     deleteMusicId.setAttribute("value", music);
-    modal.classList.add("is-open");
+    deleteModal.classList.add("is-open");
   });
 });
 //モーダルの閉じるボタン
 const modalClose = document.querySelector(".js-delete-close-button");
 modalClose.addEventListener("click", () => {
-  modal.classList.remove("is-open");
+  deleteModal.classList.remove("is-open");
 });
 
 //詳細モーダルーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
@@ -53,3 +53,4 @@ function closeModal() {
   document.querySelector(".layer.detail-modal").classList.remove("is-open");
 }
 //ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+

@@ -60,15 +60,14 @@ a.btn--orange {
     font-size: 25px;
     margin-left: 300px;
 }
-.example {
-  position:  absolute;
-  top: 300px;
-  display: flex;
-  align-items: flex-start;
-}
+
 table{
+    left: 200px;
+}
+.adminList{
     position: absolute;
     top: 200px;
     left: 200px;
+    float: left; 
 }
   

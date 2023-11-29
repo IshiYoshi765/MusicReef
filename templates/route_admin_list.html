@@ -75,41 +75,45 @@
     </div>
     <div class="body">
       <h1 class="title1">管理者の一覧</h1>
-      <a class="route_register" href="#">管理者の新規登録</a>
-      {% for  admin in admins %}
-      <table border="1px">
-      <!-- 管理者の表示部分 -->
-        <tr>
-          <td colspan="3"style="width: 45px; height: 45px">{{admin[1]}}</td>
-          <td style="width: 45px; background-color: #DEDEDE"><button>×</button></td>
-        </tr>
-        <tr>
-          <td colspan="1" style="border: none">mail:</td>
-          <td colspan="3" style="border: none"><p style="font-size: 10px;">{{admin[2]}}</p></td>
-        </tr>
-        <tr>
-          <td style="border: none;"><button class="js-detail-modal-button" >ログ</button></td>
-          <td style="border: none;"><button class="js-modal-button" >凍結</button></td>
-        </tr>
-      </table>
-      {% endfor%}
+      <a class="route_register" href="register">管理者の新規登録</a>
+      <div class="adminList">
+        {% for  admin in admins %}
+          <table border="1px">
+          <!-- 管理者の表示部分 -->
+            <tr>
+              <td colspan="3"style="width: 45px; height: 45px">{{admin[1]}}</td>
+              <td style="width: 45px; background-color: #DEDEDE"><button class="js-admin-delete-modal-button" data-admin="{{ admin[0] }}">×</button></td>
+            </tr>
+            <tr>
+              <td colspan="1" style="border: none">mail:</td>
+              <td colspan="3" style="border: none"><p style="font-size: 10px;">{{admin[2]}}</p></td>
+            </tr>
+            <tr>
+              <td style="border: none;"><button class="" >ログ</button></td>
+              <td style="border: none;"><button class="" >凍結</button></td>
+            </tr>
+          </table>
+        {% endfor%}
+      </div>
     </div>
     </div>
   </div>
 
 
     <!--　モーダル表示　-->   
-    <!--削除のモーダル-->
-    <div class="layer delete-modal">
+    <!--管理者削除のモーダル-->
+    <div class="layer admin-delete-modal">
       <div class="modal-header">
-        <button class="msg-box msg-position js-delete-close-button">×</button>
+        <button class="msg-box msg-position js-admin-delete-close-button">×</button>
         <div class="modal-body">
-          <p>この音源を削除しますか？</p>
+          <p>この管理者を削除しますか？</p>
+          <form action="{{url_for('admin_delete_exe')}}" method="post">
+            <input  class="delete-admin-id" type='hidden' name="id" value="">
           <button>削除</button>
         </div> 
       </div>
     </div>
-    <!--詳細のモーダル-->
+    <!--凍結のモーダル-->
     <div class="layer detail-modal">
       <div class="modal-header">
         <button class="msg-box msg-position js-detail-close-button">×</button>
@@ -119,7 +123,7 @@
       </div>
     </div>      
     
-    <script src="script.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='/js/admin_list.js') }}"></script>
 </body>
 
 </html>
