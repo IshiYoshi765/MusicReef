@@ -124,7 +124,7 @@
               {% if loop.index % 15 == 1 %}
                 <div style="clear:both;"></div>
               {% endif %}
-              <div style="float: left; margin: 10px; width: 18%;">
+              <div style="float: left; margin: 10px; width: 195px;">
                 <table border="1" style="margin-bottom: 10px; width: 210px;">
                   <tr>
                     <td style="width: 45px; height: 45px">logo</td>
@@ -202,12 +202,8 @@
         <button class="msg-box msg-position js-delete-close-button">×</button>
         <div class="modal-body">
           <p>この音源を削除しますか？</p>
-
-
           <form action="{{url_for('delete_exe')}}" method="post">
           <input  class="delete-music-id" type='hidden' name="music_id" value="">
-          
-
           <button type="submit">削除</button>
           </form>
 

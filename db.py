@@ -82,7 +82,18 @@ def insert_user(mail):
 
     return count
 
+def delete_user(id):
+    connection = get_connection()
+    cursor = connection.cursor()
 
+    sql = "delete from admin where id=%s"
+
+    cursor.execute(sql, (id,))
+    connection.commit()
+        
+    cursor.close()
+    connection.close()
+    
 def login(mail, password):
     sql = "SELECT hashed_password, salt FROM admin WHERE mail = %s"
     flg = False
