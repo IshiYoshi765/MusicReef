@@ -16,3 +16,18 @@ def insert_tags(genre,tag_name):
     connection.commit()
     cursor.close()
     connection.close() 
+    
+def select_tag():
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    sql = "SELECT * FROM tags"
+
+    cursor.execute(sql)
+
+    rows = cursor.fetchall()
+
+    cursor.close()
+    connection.close()
+
+    return rows

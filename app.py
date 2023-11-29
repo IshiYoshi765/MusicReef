@@ -200,7 +200,8 @@ def insert_tag():
 
 @app.route("/music_register")
 def music_register():
-    return render_template('music_register.html')
+    tag = tags.select_tag()
+    return render_template('music_register.html',music=tag)
 
 @app.route("/music_regi_exe", methods=["POST"])
 def music_regi_exe():
@@ -219,8 +220,8 @@ def music_regi_exe():
 @app.route("/music_edit/<int:id>",methods=["GET"])
 def music_edit(id):
     music = db.get_music_and_check(id)
-    
-    return render_template('music_edit.html',music = music)
+    sound = tags.select_tag()
+    return render_template('music_edit.html',music = music,sound=sound)
 
 @app.route("/music_edit_exe/<int:id>" ,methods=["POST"])
 def music_edit_exe(id):
