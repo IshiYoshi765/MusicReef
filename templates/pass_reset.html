@@ -4,76 +4,11 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='/css/login.css')}}"
+    />
     <title>メール送信</title>
-    <style>
-      .container {
-        font-family: arial;
-        font-size: 30px;
-        width: 100%;
-      }
-      .container h1 {
-        text-align: center;
-        color: #044f88;
-        margin: 0;
-      }
-
-      .container1 {
-        font-family: arial;
-        font-size: 50px;
-        width: 50%;
-        background-color: #548eba;
-        margin-left: auto;
-        margin-right: auto;
-        border-bottom: 1px solid;
-        border-right: 1px solid;
-        border-left: 1px solid;
-      }
-      .container1 p {
-        text-align: center;
-        color: white;
-        margin: 0;
-      }
-
-      .container2 {
-        font-family: arial;
-        font-size: 20px;
-        border-bottom: 1px solid;
-        border-right: 1px solid;
-        border-left: 1px solid;
-        width: 50%;
-        margin-left: auto;
-        margin-right: auto;
-      }
-      .container2 p {
-        text-align: center;
-        margin: 0;
-      }
-      .container2 .container2-1 {
-        font-family: arial;
-        font-size: 20px;
-        text-align: left;
-        width: 60%;
-        margin-left: auto;
-        margin-right: auto;
-      }
-      input::placeholder {
-        font-size: 20px;
-        color: #dcdcdc;
-      }
-
-      .btn--orange,
-      a.btn--orange {
-        color: #fff;
-        background-color: #548eba;
-        font-size: 25px;
-        margin-left: 120px;
-      }
-      a.btn--radius {
-        /*ボタンの丸み*/
-        border-radius: 100vh;
-      }
-    </style>
   </head>
   <body>
     <p>　　　</p>
@@ -88,17 +23,19 @@
       <p>入力されたメールアドレスにメールを送信します</p>
       <br />
       <div class="container2-1">
-        <form action="{{url_for('pass_reset_exe')}}" method="post">
+        <form
+          action="{{url_for('pass_reset_exe')}}"
+          method="post"
+          style="text-align: center"
+        >
           <input
             type="text"
             style="width: 100%; height: 40px"
             size="80"
             name="mail"
             placeholder="　メール"
-          /><br />
-          　　　　　　　　<button type="submit" style="text-align: center">
-            送信
-          </button>
+          /><br /><br />
+          <button type="submit" style="text-align: center">送信</button>
         </form>
       </div>
       <br />

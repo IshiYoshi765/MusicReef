@@ -4,83 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>口コミ削除</title>
-    <style>
-      th,
-      td {
-        border: solid 1px; /* 枠線指定 */
-      }
-
-      .a {
-        border-collapse: collapse; /* セルの線を重ねる */
-      }
-      ul.topnav {
-        overflow: hidden;
-        margin: 0;
-        padding: 0;
-        list-style-type: none;
-        background-color: #044f88;
-      }
-      ul.topnav li {
-        float: left;
-      }
-      ul.topnav li a {
-        display: block;
-        text-align: center;
-        text-decoration: none;
-        color: white;
-      }
-      ul.topnav li a.left {
-        background-color: #044f88;
-      }
-      ul.topnav li.right {
-        float: right;
-      }
-      .contaner {
-        display: flex;
-        width: 100%;
-      }
-      span {
-        display: block;
-      }
-      .blockitem {
-        flex: 1;
-        font-size: 28px;
-        text-align: center;
-        padding-top: 10px;
-        height: 60px;
-        position: relative;
-      }
-      .body {
-        flex: 4;
-        height: 500px;
-        border-left: 1px solid #747474;
-      }
-      .blockitem a {
-        vertical-align: 10px;
-        text-decoration: none;
-      }
-      .btn--orange,
-      a.btn--orange {
-        color: #fff;
-        background-color: red;
-        font-size: 15px;
-      }
-
-      .overflow-y-area {
-        border: 1px solid;
-        height: 50px;
-      }
-      .overflow-y {
-        overflow-y: scroll;
-        height: 100%;
-        font-size: 12px;
-      }
-    </style>
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='/css/list_of_review.css')}}"
+    />
   </head>
   <body>
     <ul class="topnav">
       <li>
-        <a class="left" href="{{url_for('mypage')}}"><h2>　MUSIC REEF 管理者</h2></a>
+        <a class="left" href="{{url_for('mypage')}}"
+          ><h2>　MUSIC REEF 管理者</h2></a
+        >
       </li>
       <li class="right">
         <a
@@ -99,17 +33,16 @@
           ><a style="color: white; font-size: 23px">音源の管理</a></span
         >
         <span class="blockitem" style="height: 45px"
-
-          ><a href="{{url_for('mypage')}}" style="color: rgb(60, 60, 60); font-size: 23px"
-
+          ><a
+            href="{{url_for('mypage')}}"
+            style="color: rgb(60, 60, 60); font-size: 23px"
             >音源検索</a
           ></span
         >
         <span class="blockitem" style="height: 45px"
-          ><a href="{{url_for('music_register')}}" style="color: rgb(60, 60, 60); font-size: 23px"
-
           ><a
-
+            href="{{url_for('music_register')}}"
+            style="color: rgb(60, 60, 60); font-size: 23px"
             >音源登録</a
           ></span
         >
