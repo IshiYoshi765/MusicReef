@@ -214,7 +214,7 @@ def music_regi_exe():
     URL = request.form.get("url")
     tags_list = request.form.getlist("tag_name")
     db.insert_music(name,genre,detail,length,composer,source,URL,tags_list)
-    return render_template("music_register.html")
+    return redirect(url_for('music_register'))
 
 
 @app.route("/music_edit/<int:id>",methods=["GET"])
