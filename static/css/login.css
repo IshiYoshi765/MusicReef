@@ -1,0 +1,69 @@
+@charset "UTF-8";
+/*ログイン画面、メール送信画面、ワンタイムパスワード認証画面、新規パスワード入力画面*/
+
+.container {
+  font-family: arial;
+  font-size: 30px;
+  width: 100%;
+}
+.container h1 {
+  text-align: center;
+  color: #044f88;
+  margin: 0;
+}
+
+.container1 {
+  font-family: arial;
+  font-size: 50px;
+  width: 50%;
+  background-color: #548eba;
+  margin-left: auto;
+  margin-right: auto;
+  border-bottom: 1px solid;
+  border-right: 1px solid;
+  border-left: 1px solid;
+}
+.container1 p {
+  text-align: center;
+  color: white;
+  margin: 0;
+}
+
+.container2 {
+  font-family: arial;
+  font-size: 20px;
+  border-bottom: 1px solid;
+  border-right: 1px solid;
+  border-left: 1px solid;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.container2 p {
+  text-align: center;
+  margin: 0;
+}
+.container2 .container2-1 {
+  font-family: arial;
+  font-size: 20px;
+  text-align: left;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+input::placeholder {
+  font-size: 20px;
+  color: #dcdcdc;
+}
+
+.btn--orange,
+a.btn--orange {
+  color: #fff;
+  background-color: #548eba;
+  font-size: 25px;
+  margin-left: 120px;
+}
+a.btn--radius {
+  /*ボタンの丸み*/
+  border-radius: 100vh;
+}
