@@ -71,3 +71,9 @@ a.btn--orange {
   height: 100%;
   font-size: 12px;
 }
+
+.body .table1 tr td {
+  font-size: large;
+  font-weight: bold;
+  border: none;
+}
