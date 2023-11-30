@@ -2,133 +2,236 @@
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
+    <link href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="static/css/search_result.css" />
+    {% block css %}
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='/css/route.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='/css/modal.css')}}"
+    />
+    {% endblock %}
     <title>MusicReefについて</title>
   </head>
   <body>
-    <table border>
-      <thead>
-        <tr>
-          <th>music_id</th>
-          <th>曲名</th>
-          <th>ジャンル</th>
-          <th>詳細</th>
-          <th>長さ</th>
-          <th>長さ番号</th>
-          <th>作曲者</th>
-          <th>参照元</th>
-          <th>URL</th>
-          <th>登録日</th>
-          <th>更新日</th>
-          <th>アクセス回数</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for search_music in music %}
-        <tr>
-          <td>{{ search_music[0] }}</td>
-          <td>{{ search_music[1] }}</td>
-          <td>{{ search_music[2] }}</td>
-          <td>{{ search_music[3] }}</td>
-          <td>{{ search_music[4] }}</td>
-          <td>{{ search_music[5] }}</td>
-          <td>{{ search_music[6] }}</td>
-          <td>{{ search_music[7] }}</td>
-          <td>{{ search_music[8] }}</td>
-          <td>{{ search_music[9] }}</td>
-          <td>{{ search_music[10] }}</td>
-          <td>{{ search_music[11] }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    <!--<div class="search-container">
-      <input
-        type="text"
-        class="search-input custom-select-input"
-        id="searchInput"
-        placeholder="検索キーワードを入力"
-      />
-      <button class="search-button" onclick="performSearch()">
-        <img src="static/image/search.png" alt="検索" />
-      </button>
-    </div>
-    <div class="flex-container">
-      <div class="flex-item">ロゴ</div>
-      <div class="flex-item">
-        <div class="detail">
-          <p class="p7">ジョビくん</p>
-          <p class="p8">作曲・もり</p>
-          <p class="p9">♬ 4:35</p>
-          <p class="p10">ポップ</p>
-          <p class="p11">👁 50回</p>
-          <div class="detail-cursor">詳細な情報</div>
-        </div>
+    <ul class="topnav">
+      <li>
+        <a class="left" href="{{url_for('mypage')}}"
+          ><h2>　MUSIC REEF 管理者</h2></a
+        >
+      </li>
+      <li class="right">
+        <a
+          href="{{url_for('logout')}}"
+          style="
+            border-left: 2px solid white; /*線の設定*/
+            padding: 2px 8px; /*余白の設定*/
+          "
+          ><h2>ログアウト</h2></a
+        >
+      </li>
+    </ul>
+    <div class="contaner">
+    <div>
+      <span style="background-color: #548eba; height: 45px" class="blockitem"
+        ><a style="color: white; font-size: 23px">音源の管理</a></span
+      >
+      <span class="blockitem" style="height: 45px"
+        ><a
+          href="{{url_for('mypage')}}"
+          style="color: rgb(60, 60, 60); font-size: 23px"
+          >音源検索</a
+        ></span
+      >
+      <span class="blockitem" style="height: 45px"
+        ><a
+          href="{{url_for('music_register')}}"
+          style="color: rgb(60, 60, 60); font-size: 23px"
+          >音源登録</a
+        ></span
+      >
+      <span style="background-color: #548eba; height: 45px" class="blockitem"
+        ><a style="color: white; font-size: 23px">口コミ管理</a></span
+      >
+      <span class="blockitem" style="height: 45px"
+        ><a
+          href="{{url_for('list_of_review')}}"
+          style="color: rgb(60, 60, 60); font-size: 23px"
+          >口コミ削除</a
+        ></span
+      >
+      <span style="background-color: #548eba; height: 45px" class="blockitem"
+        ><a style="color: white; font-size: 23px">アカウント管理</a></span
+      >
+      <span class="blockitem" style="height: 45px"
+        ><a
+          href="{{url_for('admin_list')}}"
+          style="color: rgb(60, 60, 60); font-size: 23px"
+          >管理者一覧</a
+        ></span
+      >
+      <span class="blockitem" style="height: 45px"
+        ><a href="#" style="color: rgb(60, 60, 60); font-size: 23px"
+          >アカウント編集</a
+        ></span
+      >
+    </div>     
+     <div class="body">
+      <h3 class="title1">フリー音源の検索</h3>
+      <div class="search-box">
+        <form action="{{url_for('search_result')}}" method="post">
+          <select name="genre">
+              <option value="">指定しない</option>
+              <option value="2">ポップ</option>
+              <option value="3">EDM</option>
+              <option value="4">ロック</option>
+              <option value="5">クラシック</option>
+              <option value="6">和風</option>
+              <option value="7">ピアノ</option>
+              <option value="8">アンビエント</option>
+              <option value="9">エレクトロ</option>
+              <option value="10">アコースティック</option>
+              <option value="11">Chill Hop</option>
+          </select>      
+          
+            <input type="text" placeholder="検索ワード" name="name">
+                <button type="submit">
+                  <i class="fas fa-search fa-fw"></i>
+                </button>      
+          </form>
       </div>
-      <div class="flex-item">評価</div>
-      <div class="flex-item">ダウンロード</div>
+      <div class="example" style="padding: 5px; margin-left: 10px">
+      </div>
+      <h3 class="title2">並び替え</h3>
+      <select class="sort" name=”item”>
+          <option value=”item1”>項目1</option>
+          <option value=”item2”>項目2</option>
+          <option value=”item3”>項目3</option>
+          <option value=”item4”>項目4</option>
+          <option value=”item5”>項目5</option>
+      </select>
+      <h3 class="title3">音源時間</h3>
+      <select class="time" name=”item”>
+          <option value=”item1”>項目1</option>
+          <option value=”item2”>項目2</option>
+          <option value=”item3”>項目3</option>
+          <option value=”item4”>項目4</option>
+          <option value=”item5”>項目5</option>
+      </select>
+      <h3 class="title4">サイト</h3>
+      <select class="site" name=”item”>
+          <option value=”item1”>項目1</option>
+          <option value=”item2”>項目2</option>
+          <option value=”item3”>項目3</option>
+          <option value=”item4”>項目4</option>
+          <option value=”item5”>項目5</option>
+      </select>
+      <div class="example" style="padding: 5px;">
+        <div class="page "style="display: none;">
+          {% for sound in music %}
+            {% if loop.index % 15 == 1 %}
+              <div style="clear:both;"></div>
+            {% endif %}
+            <div style="float: left; margin: 10px; width: 195px;">
+              <table border="1" style="margin-bottom: 10px; width: 210px;">
+                <tr>
+                  <td style="width: 45px; height: 45px">logo</td>
+                  <td colspan="3" style="width: 150px; background-color: #DEDEDE">{{ sound[1] }}</td>
+                </tr>
+                <tr>
+                  <td colspan="4" style="border: none">作曲者：{{ sound[5] }}</td>
+                </tr>
+                <tr>
+                  <td colspan="4" style="border: none">参照元：{{ sound[6] }}</td>
+                </tr>
+                <tr>
+
+                  <td style="border: none;">
+                    <button class="js-detail-modal-button" onclick="openModal('{{ sound[1] }}', '{{ sound[2] }}', '{{ sound[3] }}', '{{ sound[4] }}', '{{ sound[5] }}', '{{ sound[6] }}', '{{ sound[7] }}', '{{ sound[8] }}', '{{ sound[9] }}')">
+                        詳細
+                    </button>
+                </td>
+                  <td style="border: none;">
+                    <a href="{{url_for('music_edit',id=sound[0])}}">編集</a>
+                  </td>
+                  <td style="border: none;"><button class="js-delete-modal-button" data-music="{{ sound[0] }}">削除</button></td>
+                  <td style="border: none; width:56px"><button class="js-modal-button" >口コミ</button></td>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            {% if loop.index % 5 == 0 %}
+            <div style="clear:both;"></div>
+            {% endif %}
+            {% if loop.index % 15 == 0 or loop.last %}
+            </div>
+            <div class="page" style="display: none;">
+            {% endif %}
+          {% endfor %}
+          
+        </div>
+        <div id="pagination" style="clear: both;"></div>
+        
+      </div>
+      
+      <script>
+        const pages = document.querySelectorAll('.page');
+        let currentPage = 1;
+      
+        function showPage(pageNumber) {
+          pages.forEach(page => page.style.display = 'none');
+          pages[pageNumber - 1].style.display = 'block';
+          currentPage = pageNumber;
+        }
+      
+        function generatePagination() {
+          const pagination = document.getElementById('pagination');
+          pagination.innerHTML = "";
+      
+          for (let i = 1; i <= pages.length; i++) {
+            const pageButton = document.createElement('button');
+            pageButton.textContent = i;
+            pageButton.addEventListener('click', () => showPage(i));
+            pagination.appendChild(pageButton);
+          }
+        }
+      
+        showPage(currentPage);
+        generatePagination();
+        
+      </script>
+      </div>
+    </div>
+  </div>
+    <!--　モーダル表示　-->   
+    <!--削除のモーダル-->
+    <div class="layer delete-modal">
+      <div class="modal-header">
+        <button class="msg-box msg-position js-delete-close-button">×</button>
+        <div class="modal-body">
+          <p>この音源を削除しますか？</p>
+          <form action="{{url_for('delete_exe')}}" method="post">
+          <input  class="delete-music-id" type='hidden' name="music_id" value="">
+          <button type="submit">削除</button>
+          </form>
+
+        </div> 
+      </div>
     </div>
 
-    <script>
-      var dropdownVisible = {
-        genreMenu: false,
-        genreMenu2: false, // 2番目のドロップダウンメニュー
-        genreMenu3: false,
-        genreMenu4: false,
-      };
+    <!--詳細のモーダル-->
+    <div class="layer detail-modal">
+      <div class="modal-header">
+          <button class="msg-box msg-position js-detail-close-button" onclick="closeModal()">×</button>
+          <div class="modal-body1" id="modal-body1">
+          </div>
+      </div>
+    </div>
 
-      function onGenreSelected(selectedValue, menu) {
-        var selectedGenre = document.getElementById("selectedGenre" + menu);
-        selectedGenre.textContent = selectedValue;
-        document.getElementById("genreMenu" + menu).style.display = "none";
-        dropdownVisible["genreMenu" + menu] = false;
-      }
+    <script type="text/javascript" src="{{ url_for('static', filename='/js/script.js') }}"></script>
 
-      document.addEventListener("click", function (event) {
-        var isOutsideDropdown = true;
-        var dropdownMenus =
-          document.getElementsByClassName("genre-menu-content");
-        for (var i = 0; i < dropdownMenus.length; i++) {
-          if (dropdownMenus[i].contains(event.target)) {
-            isOutsideDropdown = false;
-            break;
-          }
-        }
-
-        if (isOutsideDropdown) {
-          for (var menu in dropdownVisible) {
-            if (dropdownVisible[menu]) {
-              document.getElementById(menu).style.display = "none";
-              dropdownVisible[menu] = false;
-            }
-          }
-        }
-      });
-
-      function toggleDropdown(menu) {
-        var menuElement = document.getElementById(menu);
-        if (!dropdownVisible[menu]) {
-          for (var otherMenu in dropdownVisible) {
-            if (otherMenu !== menu && dropdownVisible[otherMenu]) {
-              document.getElementById(otherMenu).style.display = "none";
-              dropdownVisible[otherMenu] = false;
-            }
-          }
-          menuElement.style.display = "block";
-        }
-      }
-
-      // 以下は検索ボタンがクリックされたときに呼び出される関数の例です。サーバーサイドからデータを取得して表示する部分を追加する必要があります。
-      function performSearch() {
-        var selectedGenre =
-          document.getElementById("selectedGenre").textContent;
-        var selectedSort = document.getElementById("sortSelect").value;
-        var selectedTime = document.getElementById("timeSelect").value;
-        var selectedSite = document.getElementById("siteSelect").value;
-        var searchInput = document.getElementById("searchInput").value;
-        // サーバーサイドからデータを取得し、検索結果を表示する処理をここに追加する必要があります。
-      }
-    </script>-->
   </body>
 </html>
