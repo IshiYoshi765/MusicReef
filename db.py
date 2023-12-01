@@ -248,12 +248,23 @@ def search_music(name,genre):
     connection = get_connection()
     cursor = connection.cursor()
 
-    sql = "SELECT * FROM music WHERE name LIKE %s AND genre LIKE %s"
+    #sql = "SELECT * FROM music WHERE name LIKE %s AND genre LIKE %s"
+    
+    sql = """
+    SELECT DISTINCT music.*
+    FROM music
+    LEFT JOIN music_tags ON music.music_id = music_tags.music_id
+    LEFT JOIN tags ON music_tags.tag_id = tags.tag_id
+    WHERE (music.name LIKE %s OR tags.tag_name LIKE %s)
+    AND music.genre LIKE %s
+    """
 
     name2 = "%" + name + "%"
+    tag2 = "%" + name + "%"
     genre2 = "%" + genre + "%"
     
-    cursor.execute(sql, (name2,genre2))
+    
+    cursor.execute(sql, (name2,tag2,genre2))
 
     rows = cursor.fetchall()
 
@@ -295,7 +306,7 @@ def music_list():
     connection = get_connection()
     cursor = connection.cursor()
 
-    sql = "SELECT music_id,name,genre,detail,length,composer,source,URL FROM music ORDER BY music_id ASC"
+    sql = "SELECT music_id,name,genre,detail,length,composer,source,URL,date_register,update_time FROM music ORDER BY music_id ASC"
 
     cursor.execute(sql)
 

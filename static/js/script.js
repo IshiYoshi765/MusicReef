@@ -33,6 +33,11 @@ function openModal(
   const formattedDateRegister = new Date(date_register).toLocaleString();
   const formattedUpdateDate = new Date(update_time).toLocaleString();
 
+  // URLをリンクとして表示する
+  const urlLink = URL
+    ? `<p>URL: <a href="${URL}" target="_blank">${URL}</a></p>`
+    : "";
+
   document.getElementById("modal-body1").innerHTML = `
       <p>曲名: ${name}</p>
       <p>ジャンル: ${genre}</p>
@@ -40,10 +45,10 @@ function openModal(
       <p>長さ: ${length}</p>
       <p>作曲家: ${composer}</p>
       <p>参照元: ${source}</p>
-      <p>URL: ${URL}</p>
+      ${urlLink}
       <p>登録日時: ${formattedDateRegister}</p>
       <p>更新日時: ${formattedUpdateDate}</p>
-      <button class="js-detail-close-button" onclick="closeModal()">閉じる</button>
+
   `;
 
   document.querySelector(".layer.detail-modal").classList.add("is-open");
@@ -53,6 +58,7 @@ function closeModal() {
   document.querySelector(".layer.detail-modal").classList.remove("is-open");
 }
 //ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
 
 // 口コミのモーダル
 const reviewModal = document.querySelector(".review-modal");
@@ -68,3 +74,4 @@ const modalClose2 = document.querySelector(".js-review-close-button");
 modalClose2.addEventListener("click", () => {
   reviewModal.classList.remove("is-open");
 });
+

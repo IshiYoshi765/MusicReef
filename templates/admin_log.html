@@ -3,22 +3,88 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>口コミ削除</title>
-    <link
-      rel="stylesheet"
-      href="{{url_for('static', filename='/css/list_of_review.css')}}"
-    />
+    <title>管理者ログ</title>
+    <style>
+      th,
+      td {
+        border: solid 1px; /* 枠線指定 */
+      }
+
+      .a {
+        border-collapse: collapse; /* セルの線を重ねる */
+      }
+      ul.topnav {
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        background-color: #044f88;
+      }
+      ul.topnav li {
+        float: left;
+      }
+      ul.topnav li a {
+        display: block;
+        text-align: center;
+        text-decoration: none;
+        color: white;
+      }
+      ul.topnav li a.left {
+        background-color: #044f88;
+      }
+      ul.topnav li.right {
+        float: right;
+      }
+      .contaner {
+        display: flex;
+        width: 100%;
+      }
+      span {
+        display: block;
+      }
+      .blockitem {
+        flex: 1;
+        font-size: 28px;
+        text-align: center;
+        padding-top: 10px;
+        height: 60px;
+        position: relative;
+      }
+      .body {
+        flex: 4;
+        height: 500px;
+        border-left: 1px solid #747474;
+      }
+      .blockitem a {
+        vertical-align: 10px;
+        text-decoration: none;
+      }
+      .btn--orange,
+      a.btn--orange {
+        color: #fff;
+        background-color: red;
+        font-size: 15px;
+      }
+
+      .overflow-y-area {
+        border: 1px solid;
+        height: 50px;
+      }
+      .overflow-y {
+        overflow-y: scroll;
+        height: 100%;
+        font-size: 12px;
+      }
+    </style>
   </head>
   <body>
     <ul class="topnav">
       <li>
-        <a class="left" href="{{url_for('mypage')}}"
-          ><h2>　MUSIC REEF 管理者</h2></a
-        >
+        <a class="left" href="#"><h2>　MUSIC REEF 管理者</h2></a>
       </li>
       <li class="right">
         <a
-          href="{{url_for('logout')}}"
+          href="#"
           style="
             border-left: 2px solid white; /*線の設定*/
             padding: 2px 8px; /*余白の設定*/
@@ -75,7 +141,6 @@
       <div class="body">
         <br />
         <table
-          class="table1"
           style="
             border-bottom: 1px solid #707070;
             width: 100%;
@@ -83,35 +148,36 @@
           "
         >
           <tr>
-            <td style="width: 10%">　音源名</td>
-            <td style="width: 10%">投稿日時</td>
-            <td style="width: 7%">評価</td>
-            <td style="width: 63%">　口コミ</td>
+            <td
+              style="
+                width: 10%;
+                font-size: large;
+                font-weight: bold;
+                border: none;
+              "
+            >
+              　　時間
+            </td>
+
+            <td
+              style="
+                width: 63%;
+                font-size: large;
+                font-weight: bold;
+                border: none;
+              "
+            >
+              　　履歴
+            </td>
           </tr>
         </table>
         <br />
         <table class="a" style="margin-left: 20px; width: 100%">
-          {% for list_of_review in reviews%}
+          {% for admin_log in log%}
           <tr>
-            <th style="width: 10%; text-align: center; font-size: 12px">
-              {{ list_of_review[1] }}
-            </th>
-            <td style="width: 10%; text-align: center; font-size: 12px">
-              {{ list_of_review[2] }}
-            </td>
-            <td style="width: 7%; text-align: center; font-size: 12px">
-              {{ list_of_review[3] }}
-            </td>
-            <td class="overflow-y-area">
-              <div class="overflow-y">{{ list_of_review[4] }}</div>
-            </td>
-            <td style="width: 6%; border: none; background-color: red">
-              <a
-                href="{{ url_for('delete_review', review_id=list_of_review[0]) }}"
-                style="text-decoration: none; text-align: center"
-                class="btn btn--orange"
-                >削除</a
-              >
+            <td style="width: 20%; text-align: center">{{ admin_log[3] }}</td>
+            <td style="width: 80%; padding-left: 15px">
+              ああああああああああああああああああああああ
             </td>
           </tr>
           {% endfor %}
