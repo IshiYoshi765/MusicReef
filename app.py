@@ -10,13 +10,13 @@ app.secret_key = ''.join(random.choices(string.ascii_letters, k=256))
 # def index():
 #     return render_template("top_page.html")
 
-@app.route("/", methods=["GET"])
-def index():
-    msg = request.args.get("msg")
-    if msg == None:
-        return render_template("login.html")
-    else:
-        return render_template("login.html", msg=msg)
+# @app.route("/", methods=["GET"])
+# def index():
+#     msg = request.args.get("msg")
+#     if msg == None:
+#         return render_template("login.html")
+#     else:
+#         return render_template("login.html", msg=msg)
 
 
 def check_password(mail, password):
@@ -309,6 +309,26 @@ def search_result():
 def delete_review(review_id):
     db.delete_review(review_id)
     return redirect(url_for('list_of_review'))
+
+@app.route('/', methods=["GET"])
+def user_top():
+    recent_music = db.get_recent_music()
+    week_top_songs = db.get_top_songs_weekly()
+    month_top_songs = db.get_top_songs_monthly()
+    
+
+    return render_template('user_top.html', recent_music=recent_music, week_top_songs=week_top_songs, month_top_songs=month_top_songs)
+
+
+@app.route('/download/<int:music_id>', methods=['GET'])
+def download_music(music_id):
+    
+    db.increment_access_count(music_id)
+
+    
+    music_url = db.get_music_url(music_id)
+
+    return redirect(music_url)
 
 if __name__ == "__main__":
     app.run(debug=True)
