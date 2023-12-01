@@ -57,7 +57,7 @@ def send_email(to_email, password):
 def insert_user(mail):
     
     sql = "INSERT INTO admin VALUES(default, %s, %s, %s, %s, %s)"
-
+    
     
     random_pass = get_random_pass()
     send_email(mail, random_pass)
@@ -408,7 +408,16 @@ def admin_select_all():
 
     return rows
 
+def admin_edit(name,id):
+    connection = get_connection()
+    cursor = connection.cursor()
+    sql = "UPDATE admin SET name = %s WHERE id= %s"
 
+    cursor.execute(sql, (name,id))
+    connection.commit()
+
+    cursor.close()
+    connection.close()
     
 
 def list_of_review():

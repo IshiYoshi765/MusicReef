@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <link href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% block css %}
+    <link rel="stylesheet" href="{{url_for('static', filename='/css/route.css')}}">
+    <title>MusicReef</title>
+    {% endblock %}
+    </head>
+  <body>
+    <ul class="topnav">
+      <li>
+        <a class="left" href="{{url_for('mypage')}}"><h2>　MUSIC REEF 管理者</h2></a>
+      </li>
+      <li class="right">
+        <a
+          href="{{url_for('logout')}}"
+          style="
+            border-left: 2px solid white; /*線の設定*/
+            padding: 2px 8px; /*余白の設定*/
+          "
+          ><h2>ログアウト</h2></a
+        >
+      </li>
+    </ul>
+    <div class="contaner">
+        <div>
+            <span style="background-color: #548eba; height: 45px" class="blockitem"
+              ><a style="color: white; font-size: 23px">音源の管理</a></span
+            >
+            <span class="blockitem" style="height: 45px"
+              ><a href="{{url_for('mypage')}}" style="color: rgb(60, 60, 60); font-size: 23px"
+                >音源検索</a
+              ></span
+            >
+            <span class="blockitem" style="height: 45px"
+              ><a
+                href="{{url_for('music_register')}}"
+                style="color: rgb(60, 60, 60); font-size: 23px"
+                >音源登録</a
+              ></span
+            >
+            <span style="background-color: #548eba; height: 45px" class="blockitem"
+              ><a style="color: white; font-size: 23px">口コミ管理</a></span
+            >
+            <span class="blockitem" style="height: 45px"
+              ><a href="{{url_for('list_of_review')}}" style="color: rgb(60, 60, 60); font-size: 23px"
+                >口コミ削除</a
+              ></span
+            >
+            <span style="background-color: #548eba; height: 45px" class="blockitem"
+              ><a style="color: white; font-size: 23px">アカウント管理</a></span
+            >
+            <span class="blockitem" style="height: 45px"
+              ><a href="{{url_for('admin_list')}}" style="color: rgb(60, 60, 60); font-size: 23px"
+                >管理者一覧</a
+              ></span
+            >
+            <span class="blockitem" style="height: 45px"
+              ><a href="{{url_for('admin_edit')}}" style="color: rgb(60, 60, 60); font-size: 23px"
+                >アカウント編集</a
+              ></span
+            >
+          </div>
+        <div class="body">
+            <h3 class="title">アカウント編集</h3>
+            <form action="{{url_for('admin_edit_exe')}}" method="post">
+                <input type="text" placeholder="名前" name="name">
+                <button type="submit">変更</button>     
+            </form>
+            <form action="{{url_for('admin_edit_exe')}}" method="post">
+                <input type="text" placeholder="現在のパスワード" name="password">
+                <input type="text" placeholder="新しいパスワード"name="newPassword">
+                <input type="text" placeholder="新しいパスワード（確認）" name="Checkpassword">
+                <button type="submit">変更</button> 
+            </form>
+        </div>
+    </div>
+    
+  </body>
+</html>

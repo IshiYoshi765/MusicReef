@@ -54,3 +54,17 @@ function closeModal() {
 }
 //ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 
+// 口コミのモーダル
+const reviewModal = document.querySelector(".review-modal");
+
+const reviewModalButtons = document.querySelectorAll(".js-review-modal-button");
+reviewModalButtons.forEach((elm, i) => {
+  elm.addEventListener("click", (e) => {
+    reviewModal.classList.add("is-open");
+  });
+});
+//モーダルの閉じるボタン
+const modalClose2 = document.querySelector(".js-review-close-button");
+modalClose2.addEventListener("click", () => {
+  reviewModal.classList.remove("is-open");
+});
