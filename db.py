@@ -516,12 +516,15 @@ def verify_otp(admin_id, entered_otp):
             current_time = datetime.datetime.now()
             time = expiration_time + datetime.timedelta(seconds=30)
             print(current_time)
-            print(expiration_time)
+            print(time)
             
             # ワンタイムパスワードが使用されていないかつ有効期限内であることを確認
             if not is_used and time >= current_time:
                 # 入力されたワンタイムパスワードとデータベースのワンタイムパスワードを比較
                 if entered_otp == db_otp:
+                    sql = "UPDATE one_time_pass SET is_used = true WHERE admin_id = (SELECT id FROM admin WHERE mail = %s) AND otp_code = %s"
+                    cursor.execute(sql,(admin_id,db_otp))
+                    connection.commit()
                     return True  # パスワードが一致する場合
                 else:
                     print(f"Entered OTP: {entered_otp}, DB OTP: {db_otp}")
