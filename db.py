@@ -4,6 +4,7 @@ import datetime
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import os
+from datetime import datetime, timedelta
 
 
 
@@ -548,3 +549,165 @@ def delete_review(review_id):
     connection.commit()
     cursor.close()
     connection.close()
+    
+def get_recent_music():
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    sql = """
+        SELECT m.*, AVG(r.star) AS avg_rating
+        FROM music m
+        LEFT JOIN music_review r ON m.music_id = r.music_id
+        GROUP BY m.music_id
+        ORDER BY m.date_register DESC
+        LIMIT 5
+    """
+
+    cursor.execute(sql)
+
+    rows = cursor.fetchall()
+
+    cursor.close()
+    connection.close()
+
+    return rows
+
+
+def increment_access_count(music_id):
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    try:
+        # アクセス数を1加算
+        sql = "UPDATE music SET access = access + 1 WHERE music_id = %s"
+        cursor.execute(sql, (music_id,))
+        connection.commit()
+    except psycopg2.DatabaseError as e:
+        print(f"アクセス数の更新エラー: {e}")
+        connection.rollback()
+    finally:
+        cursor.close()
+        connection.close()
+
+def get_music_url(music_id):
+    try:
+        connection = get_connection()
+        cursor = connection.cursor()
+
+        sql = "SELECT URL FROM music WHERE music_id = %s"
+        cursor.execute(sql, (music_id,))
+
+        result = cursor.fetchone()
+
+        if result:
+            return result[0]
+        else:
+            print(f"Error: No URL found for music_id {music_id}")
+            return None
+
+    except Exception as e:
+        print(f"Error in get_music_url: {e}")
+        return None
+
+    finally:
+        cursor.close()
+        connection.close()
+
+def get_top_songs_weekly():
+    today = datetime.utcnow()
+    monday = today - timedelta(days=today.weekday())
+
+    try:
+        connection = get_connection()
+        cursor = connection.cursor()
+        
+        sql = """
+            WITH WeeklyRank AS (
+                SELECT
+                    music_id,
+                    ROW_NUMBER() OVER (ORDER BY access DESC) AS ranking
+                FROM
+                    music
+                WHERE
+                    EXTRACT(DOW FROM date_register) BETWEEN 1 AND 6
+            )
+            UPDATE music m
+            SET access = 0
+            FROM WeeklyRank wr
+            WHERE m.music_id = wr.music_id;
+
+            SELECT
+                m.*
+            FROM
+                music m
+            WHERE
+                EXTRACT(DOW FROM m.date_register) BETWEEN 1 AND 6
+            ORDER BY
+                m.access DESC
+            LIMIT 3;
+        """
+
+        cursor.execute(sql)
+
+        week_top_songs = cursor.fetchall()
+
+    except psycopg2.DatabaseError as e:
+        print(f"Error in get_top_songs_weekly: {e}")
+        week_top_songs = []
+
+    finally:
+        cursor.close()
+        connection.close()
+
+    return week_top_songs
+
+def get_top_songs_monthly():
+    today = datetime.utcnow()
+    first_day_of_month = today.replace(day=1)
+    last_day_of_month = (
+        today.replace(day=28) + timedelta(days=4)
+    ).replace(day=1) - timedelta(days=1)
+
+    try:
+        connection = get_connection()
+        cursor = connection.cursor()
+        
+        sql = """
+            WITH MonthlyRank AS (
+                SELECT
+                    music_id,
+                    ROW_NUMBER() OVER (ORDER BY access DESC) AS ranking
+                FROM
+                    music
+                WHERE
+                    date_register BETWEEN %s AND %s
+            )
+            UPDATE music m
+            SET access = 0
+            FROM MonthlyRank mr
+            WHERE m.music_id = mr.music_id;
+
+            SELECT
+                m.*
+            FROM
+                music m
+            WHERE
+                date_register BETWEEN %s AND %s
+            ORDER BY
+                m.access DESC
+            LIMIT 3;
+        """
+
+        cursor.execute(sql, (first_day_of_month, last_day_of_month, first_day_of_month, last_day_of_month))
+
+        month_top_songs = cursor.fetchall()
+
+    except psycopg2.DatabaseError as e:
+        print(f"get_top_songs_monthly でエラーが発生しました: {e}")
+        month_top_songs = []
+
+    finally:
+        cursor.close()
+        connection.close()
+
+    return month_top_songs
