@@ -63,7 +63,7 @@
           ></span
         >
         <span class="blockitem" style="height: 45px"
-          ><a href="#" style="color: rgb(60, 60, 60); font-size: 23px"
+          ><a href="{{url_for('admin_edit')}}" style="color: rgb(60, 60, 60); font-size: 23px"
             >アカウント編集</a
           ></span
         >
@@ -96,19 +96,22 @@
         </div>
         <h3 class="title2">並び替え</h3>
         <select class="sort" name=”item”>
-            <option value=”item1”>項目1</option>
-            <option value=”item2”>項目2</option>
+            <option value=”item1”>新しい順</option>
+            <option value=”item2”>古い順</option>
             <option value=”item3”>項目3</option>
             <option value=”item4”>項目4</option>
             <option value=”item5”>項目5</option>
         </select>
         <h3 class="title3">音源時間</h3>
-        <select class="time" name=”item”>
-            <option value=”item1”>項目1</option>
-            <option value=”item2”>項目2</option>
-            <option value=”item3”>項目3</option>
-            <option value=”item4”>項目4</option>
-            <option value=”item5”>項目5</option>
+        <select class="music-length" name="length">
+          <option value="0">指定しない</option>
+          <option value="1">~0:59</option>
+          <option value="2">1:00~1:59</option>
+          <option value="3">2:00~2:59</option>
+          <option value="4">3:00~3:59</option>
+          <option value="5">4:00~4:59</option>
+          <option value="6">5:00~5:59</option>
+          <option value="7">6:00~</option>
         </select>
         <h3 class="title4">サイト</h3>
         <select class="site" name=”item”>
@@ -147,7 +150,7 @@
                       <a href="{{url_for('music_edit',id=sound[0])}}">編集</a>
                     </td>
                     <td style="border: none;"><button class="js-delete-modal-button" data-music="{{ sound[0] }}">削除</button></td>
-                    <td style="border: none; width:56px"><button class="js-modal-button" >口コミ</button></td>
+                    <td style="border: none; width:56px"><button class="js-review-modal-button" data-music="{{ sound[0] }}">口コミ</button></td>
                     </td>
                   </tr>
                 </table>
@@ -218,9 +221,18 @@
           <div class="modal-body1" id="modal-body1">
           </div>
       </div>
-  </div>
+    </div>
 
-    <script type="text/javascript" src="{{ url_for('static', filename='/js/script.js') }}"></script>
+    <!--口コミのモーダル-->
+    <div class="layer review-modal">
+      <div class="modal-header">
+          <button class="msg-box msg-position js-review-close-button" >×</button>
+          <div class="modal-body">
+          </div>
+      </div>
+    </div>
+
+  <script type="text/javascript" src="{{ url_for('static', filename='/js/script.js') }}"></script>
 
   </body>
 </html>

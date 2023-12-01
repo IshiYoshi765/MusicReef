@@ -258,11 +258,28 @@ def admin_list():
     admin_all = db.admin_select_all()
     return render_template('route_admin_list.html',admins = admin_all)
 
+@app.route('/admin_edit')
+def admin_edit():
+    if "user" in session:
+        return render_template('admin_edit.html')
+    else:
+        return render_template('index.html')
+
+@app.route('/admin_edit_exe', methods=['POST'])
+def admin_edit_exe():
+    name = request.form.get("name")
+   
+    if "user" in session:
+        mail = session["user"]
+    else:
+        ""
+    id = db.get_id(mail)
+    db.admin_edit(name,id)
+    return redirect(url_for("admin_edit"))
 
 @app.route("/admin_delete_exe", methods=['POST'])
 def admin_delete_exe():
     id = request.form.get("id")
-    print(id)
     db.delete_user(id)
     admin_list = db.admin_select_all()
     return render_template('route_admin_list.html',admin=admin_list)
