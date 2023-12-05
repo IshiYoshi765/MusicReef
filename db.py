@@ -1,10 +1,10 @@
 import os, psycopg2, string, random, hashlib
 import smtplib 
-import datetime
+from datetime import datetime, timedelta
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-import os
-from datetime import datetime, timedelta
+
+
 
 
 
@@ -494,7 +494,7 @@ def get_otp_pass():
     
     # charsetからランダムに30文字取り出して結合
     one_time = ''.join(random.choices(charset, k=6))
-    now = datetime.datetime.now()
+    now = datetime.now()
     # print(one_time)
     # print(now)
     # print(time)
@@ -513,8 +513,8 @@ def verify_otp(admin_id, entered_otp):
         if db_otp_result:
             db_otp, expiration_time, is_used = db_otp_result
             
-            current_time = datetime.datetime.now()
-            time = expiration_time + datetime.timedelta(seconds=30)
+            current_time = datetime.now()
+            time = expiration_time + timedelta(seconds=30)
             print(current_time)
             print(time)
             

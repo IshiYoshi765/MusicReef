@@ -6,17 +6,17 @@ from datetime import timedelta
 app = Flask(__name__)
 app.secret_key = ''.join(random.choices(string.ascii_letters, k=256))
 
-# @app.route("/", methods=["GET"])
+# @app.route("/admin", methods=["GET"])
 # def index():
 #     return render_template("top_page.html")
 
-# @app.route("/", methods=["GET"])
-# def index():
-#     msg = request.args.get("msg")
-#     if msg == None:
-#         return render_template("login.html")
-#     else:
-#         return render_template("login.html", msg=msg)
+@app.route("/admin", methods=["GET"])
+def index():
+    msg = request.args.get("msg")
+    if msg == None:
+        return render_template("login.html")
+    else:
+        return render_template("login.html", msg=msg)
 
 
 def check_password(mail, password):
