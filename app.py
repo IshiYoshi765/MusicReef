@@ -268,14 +268,23 @@ def admin_edit():
 @app.route('/admin_edit_exe', methods=['POST'])
 def admin_edit_exe():
     name = request.form.get("name")
-   
-    if "user" in session:
-        mail = session["user"]
+    mail = session["user"]
+    password = request.form.get("password")
+    new_pass = request.form.get("newPassword")
+    check_pass = request.form.get("Checkpassword")
+    
+    if name:
+        id = db.get_id(mail)
+        db.admin_edit(name,id)
+        return render_template("admin_edit.html")
+    
+    if db.login(mail,password):
+        if new_pass == check_pass:
+            db.update_pass(new_pass,mail)
+            return redirect(url_for("admin_edit"))
     else:
-        ""
-    id = db.get_id(mail)
-    db.admin_edit(name,id)
-    return redirect(url_for("admin_edit"))
+        msg = "現在のパスワードと一致しません"
+        return render_template("admin_edit.html", msg=msg)
 
 @app.route("/admin_delete_exe", methods=['POST'])
 def admin_delete_exe():
