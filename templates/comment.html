@@ -1,118 +1,327 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="static/css/comment.css">
-    <title>MusicReefについて</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+    rel="stylesheet"
+  />
+  <title>音源評価</title>
+  <style>
+    .title {
+      position: absolute;
+      top: 80px;
+      left: 270px;
+    }
+    a {
+      text-decoration: none;
+      color: #747474;
+    }
+    ul.topnav {
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+      background-color: #044f88;
+    }
+    ul.topnav li {
+      float: left;
+    }
+    ul.topnav li a {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      color: white;
+    }
+    ul.topnav li a.left {
+      background-color: #044f88;
+    }
+    ul.topnav li.right {
+      float: right;
+    }
+
+    .button-rounded {
+      border-radius: 10px;
+      padding: 7px 22px;
+      background-color: #FFFFFF;
+      color: gray;
+      font-size: 17px;
+      border: 1px solid gray;
+      cursor: pointer;
+    }
+
+    .button-rounded-2 {
+      border-radius: 10px;
+      padding: 5px 20px;
+      background-color: #007bff;
+      color: #fff;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      line-height: 2 !important; 
+    }
+
+    .rating {
+      display: inline-block;
+      font-size: 40px;
+      cursor: pointer;
+    }
+
+    .star {
+      font-size: 50px; 
+      color: write;
+      margin: 0 5px; 
+    }
+
+    .rating:hover .star {
+    }
+
+    
+    .footer04 {
+      color: white;
+      background: #548eba;
+      text-align: center;
+      padding: 15px;
+    }
+    .footer04 a {
+      color: white;
+      text-decoration: none;
+    }
+    .footer04 a:hover {
+      text-decoration: underline;
+    }
+    .footer04 .menu {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .footer04 .menu li {
+      margin: 0;
+      padding: 0 20px;
+      border-right: 1px white solid;
+    }
+    .footer04 .menu li:last-child {
+      border: none;
+    }
+
+    @media only screen and (max-width: 599px) {
+      .footer04 .menu {
+        justify-content: flex-start;
+      }
+      .footer04 .menu li {
+        width: 50%;
+        box-sizing: border-box;
+        border: none;
+      }
+      .footer04 .menu li:nth-child(odd) {
+        border-right: 1px white solid;
+      }
+    }
+  </style>
 </head>
 <body>
-<header>
-    <h1>MUSICREEF | <a href="#利用規約">※利用規約</a></h1>
-</header>
-<div class="centered">
-    <button class="button-rounded" onclick="goBack()" style="margin-left: 20px;">戻る</button>
-    <h1 style="display: inline-block; margin-left: 30px;">音源評価</h1>
-</div>
+  <ul class="topnav">
+    <li>
+      <a class="left" href="#"><h2>　MUSIC REEF</h2></a>
+    </li>
+    <li class="right">
+      <a
+        href="terms_of_service.html"
+        style="border-left: 2px solid white; padding: 2px 8px;"
+      ><h2>利用規約</h2></a>
+    </li>
+  </ul>
+  <div style="background-color: #ececec; margin: 0; height: 120px">
+    <div class="centered">
+      <button class="button-rounded" onclick="goBack()" style="margin-left: 20px;">戻る</button>
+      <h1 style="display: inline-block; margin-left: 30px;" >音源評価</h1>
+    </div>
+  </div>
 
-<h2>評価</h2>
-<div class="centered">
-    <form method="POST" action="/comment">
-        <div class="rating">
-            <span class="star" id="star1" onmouseover="hoverRating(0)" onclick="toggleRating(0)" onmouseout="resetRating()">&#9733</span>
-            <span class="star" id="star2" onmouseover="hoverRating(1)" onclick="toggleRating(1)" onmouseout="resetRating()">&#9733</span>
-            <span class="star" id="star3" onmouseover="hoverRating(2)" onclick="toggleRating(2)" onmouseout="resetRating()">&#9733</span>
-            <span class="star" id="star4" onmouseover="hoverRating(3)" onclick="toggleRating(3)" onmouseout="resetRating()">&#9733</span>
-            <span class="star" id="star5" onmouseover="hoverRating(4)" onclick="toggleRating(4)" onmouseout="resetRating()">&#9733</span>
-        </div>
-        
+  {% if music_info %}
+  <h2>{{ music_info[1] }}</h2>
+  {% else %}
+  <p>音源が見つかりません</p>
+  {% endif %}
+  <div class="centered">
+    <!-- 評価を入力するフォーム -->
+    <form action="{{ url_for('post_comment') }}" method="POST">
+      <div class="rating">
+        <span class="star" id="star1" onmouseover="hoverRating(0)" onclick="toggleRating(0)" onmouseout="resetRating()">&#9733</span>
+        <span class="star" id="star2" onmouseover="hoverRating(1)" onclick="toggleRating(1)" onmouseout="resetRating()">&#9733</span>
+        <span class="star" id="star3" onmouseover="hoverRating(2)" onclick="toggleRating(2)" onmouseout="resetRating()">&#9733</span>
+        <span class="star" id="star4" onmouseover="hoverRating(3)" onclick="toggleRating(3)" onmouseout="resetRating()">&#9733</span>
+        <span class="star" id="star5" onmouseover="hoverRating(4)" onclick="toggleRating(4)" onmouseout="resetRating()">&#9733</span>
+
+        <input type="hidden" name="music_id" value="{{ music_id }}">
+
+
+      </div>
+
+      <h2>口コミ</h2>
+
+      <!-- 口コミを入力するテキストエリア -->
+      <textarea id="review" name="review" rows="10" cols="100" placeholder="(コメントを入力)"></textarea>
+
+      <!-- 評価を格納するための hidden フィールド -->
+      <input type="hidden" name="rating" id="rating_input" value="0">
+
+      <button class="button-rounded-2" type="submit">投稿</button>
     </form>
-</div>
-<h2>口コミ</h2>
-<div class="centered">
-    <form method="POST" action="/comment">
-        <textarea id="review" name "review" rows="8" cols="50" placeholder="(コメントを入力)"></textarea>
-        <button class="button-rounded-2" "submit">投稿</button>
-    </form>
-</div>
+
+    <div class="centered">
+      <h3>投稿されたコメント</h3>
+  
+      {% if get_info %}
+          <ul id="comment-list">
+              {% for comment in get_info %}
+                  <li>
+                      <span class="comment-datetime">{{ comment.date_time }}</span>
+                      <span id="stars-container">
+                          {% for _ in range(comment.star) %}
+                              <span class="star" style="font-size: 30px; color: gold;">★</span>
+                          {% endfor %}
+                          {% for _ in range(5 - comment.star) %}
+                              <span class="star" style="font-size: 30px; color: gray;">☆</span>
+                          {% endfor %}
+                      </span>
+                      <p>{{ comment.review }}</p>
+                  </li>
+              {% endfor %}
+          </ul>
+          {% if get_info|length > 5 %}
+              <button id="load-more" data-offset="5">もっと見る</button>
+          {% endif %}
+      {% else %}
+          <p>コメントはありません。</p>
+      {% endif %}
+  </div>
+  
 <script>
-    
+  function goBack() {
+    window.location.href = "{{ url_for('user_top') }}";
+  }
 
-    function goBack() {
-        window.history.back();
-    }
+  let ratings = [0, 0, 0, 0, 0];
+  let clickedIndex = -1;
 
-    let ratings = [0, 0, 0, 0, 0];
-    let clickedIndex = -1;
-
-    function initializeRating() {
-        // ページ読み込み時に星を初期化
-        for (let i = 0; i < 5; i++) {
-            const star = document.getElementById(`star${i + 1}`);
-            star.textContent = '☆';
-            star.style.color = 'gray';
-        }
-    }
-
+  function initializeRating() {
     // ページ読み込み時に星を初期化
-    initializeRating();
+    for (let i = 0; i < 5; i++) {
+      const star = document.getElementById(`star${i + 1}`);
+      star.textContent = '☆';
+      star.style.color = 'gray';
+    }
+  }
 
-    function hoverRating(starIndex) {
-        if (clickedIndex === -1) {
-            for (let i = 0; i <= starIndex; i++) {
-                const star = document.getElementById(`star${i + 1}`);
-                star.textContent = '★';
-                star.style.color = 'gold';
-            }
-            for (let i = starIndex + 1; i < 5; i++) {
-                const star = document.getElementById(`star${i + 1}`);
-                star.textContent = '☆';
-                star.style.color = 'gray';
-            }
-        }
-    }
+  // ページ読み込み時に星を初期化
+  initializeRating();
 
-    function toggleRating(starIndex) {
-        if (starIndex === clickedIndex) {
-            clickedIndex = -1;
-            for (let i = 0; i < 5; i++) {
-                const star = document.getElementById(`star${i + 1}`);
-                star.textContent = '☆';
-                star.style.color = 'gray';
-                ratings[i] = 0;
-            }
-            document.getElementById('rating_input').value = 0;
-        } else {
-            clickedIndex = starIndex;
-            for (let i = 0; i <= starIndex; i++) {
-                const star = document.getElementById(`star${i + 1}`);
-                star.textContent = '★';
-                star.style.color = 'gold';
-                ratings[i] = 1; // 評価を設定
-            }
-            for (let i = starIndex + 1; i < 5; i++) {
-                const star = document.getElementById(`star${i + 1}`);
-                star.textContent = '☆';
-                star.style.color = 'gray';
-                ratings[i] = 0;
-            }
-            document.getElementById('rating_input').value = starIndex + 1;
-        }
+  function hoverRating(starIndex) {
+    if (clickedIndex === -1) {
+      for (let i = 0; i <= starIndex; i++) {
+        const star = document.getElementById(`star${i + 1}`);
+        star.textContent = '★';
+        star.style.color = 'gold';
+      }
+      for (let i = starIndex + 1; i < 5; i++) {
+        const star = document.getElementById(`star${i + 1}`);
+        star.textContent = '☆';
+        star.style.color = 'gray';
+      }
     }
-    
-    function resetRating() {
-        if (clickedIndex === -1) {
-            for (let i = 0; i < 5; i++) {
-                const star = document.getElementById(`star${i + 1}`);
-                 star.textContent = '☆';
-                    star.style.color = 'gray'; // 星の色だけをリセット
+  }
+
+  function toggleRating(starIndex) {
+    if (starIndex === clickedIndex) {
+      clickedIndex = -1;
+      for (let i = 0; i < 5; i++) {
+        const star = document.getElementById(`star${i + 1}`);
+        star.textContent = '☆';
+        star.style.color = 'gray';
+        ratings[i] = 0;
+      }
+      document.getElementById('rating_input').value = 0;
+    } else {
+      clickedIndex = starIndex;
+      for (let i = 0; i <= starIndex; i++) {
+        const star = document.getElementById(`star${i + 1}`);
+        star.textContent = '★';
+        star.style.color = 'gold';
+        ratings[i] = 1; // 評価を設定
+      }
+      for (let i = starIndex + 1; i < 5; i++) {
+        const star = document.getElementById(`star${i + 1}`);
+        star.textContent = '☆';
+        star.style.color = 'gray';
+        ratings[i] = 0;
+      }
+      document.getElementById('rating_input').value = starIndex + 1;
+    }
+  }
+
+  function resetRating() {
+    if (clickedIndex === -1) {
+      for (let i = 0; i < 5; i++) {
+        const star = document.getElementById(`star${i + 1}`);
+        star.textContent = '☆';
+        star.style.color = 'gray'; // 星の色だけをリセット
+      }
+    }
+  }
+  function loadMore() {
+    document.getElementById('load-more-btn').style.display = 'none';
+    document.getElementById('hidden-comments').style.display = 'block';
+  }
+  
+  document.getElementById('load-more').addEventListener('click', function() {
+    var offset = parseInt(this.getAttribute('data-offset'));
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                var newComments = JSON.parse(xhr.responseText);
+                var commentList = document.getElementById('comment-list');
+                for (var i = 0; i < newComments.length; i++) {
+                    var comment = newComments[i];
+                    var li = document.createElement('li');
+                    li.innerHTML = `
+                        <span class="comment-datetime">${comment.date_time}</span>
+                        <span id="stars-container">
+                            ${'#'.repeat(comment.star)}
+                            ${'☆'.repeat(5 - comment.star)}
+                        </span>
+                        <p>${comment.review}</p>
+                    `;
+                    commentList.appendChild(li);
+                }
+                offset += newComments.length;
+                document.getElementById('load-more').setAttribute('data-offset', offset);
+                if (newComments.length < 10) {
+                    // Hide the "Load More" button if there are no more comments
+                    document.getElementById('load-more').style.display = 'none';
+                }
+            } else {
+                console.error('コメントの読み込みに失敗しました。');
             }
         }
-    }
-    
+    };
+    xhr.open('GET', `/load_comments?offset=${offset}`, true);
+    xhr.send();
+});
 </script>
-<footer>
-    <h3>MUSICREEF</h3> <p><a href="#ホーム">ホーム</a> | <a href="#ミュージックリーフについて">MUSICREEF（ミュージックリーフ）について</a></p>
-</footer>
+<div class="footer04">
+  <h1>MUSIC REEF</h1>
+  <ul class="menu">
+    <li><a href="#">ホーム</a></li>
+    <li>
+      <a href="about_the_site.html">MUSIC REEF(ミュージックリーフ)について</a>
+    </li>
+  </ul>
+</div>
 </body>
 </html>
