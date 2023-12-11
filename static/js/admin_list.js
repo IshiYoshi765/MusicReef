@@ -18,3 +18,20 @@ adminDeleteModalClose.addEventListener("click", () => {
   adminDeleteModal.classList.remove("is-open");
 });
 
+//凍結モーダル
+const adminFreezeModal = document.querySelector('.admin-freeze-modal')
+const adminFreezeButton = document.querySelectorAll(".admin-freeze-button")
+
+adminFreezeButton.forEach((elm,i) =>{
+  elm.addEventListener("click",(e) =>{
+    let freezAdmin = e.target.dataset.freezAdmin;
+    console.log(freezAdmin);
+    adminFreezeModal.classList.add("is-open");
+  });
+});
+
+//モーダルの閉じるボタン
+const freezeCloseButton = document.querySelector(".js-freeze-close-button");
+freezeCloseButton.addEventListener("click", () => {
+  adminFreezeModal.classList.remove("is-open");
+});
