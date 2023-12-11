@@ -355,6 +355,22 @@
                   </div>
                 </div>
               </div>
+        
+              <a href="{{ url_for('review', music_id=music[0]) }}" class="review">
+                評価
+                {% if average_ratings and music[0] in average_ratings %}
+                    <span style="font-size: 18px; margin-left: 5px;">
+                        {{ average_ratings[music[0]] | round(1) }}/5
+                    </span>
+                {% else %}
+                    <span style="font-size: 18px; margin-left: 5px;">
+                        N/A
+                    </span>
+                {% endif %}
+            </a>
+            
+            
+              
               <div class="flex-item" style="width: 100px; height: auto;">
                 {% if music[8] %}
                   <a href="{{ url_for('download_music', music_id=music[0]) }}" class="download-link">ダウンロード</a>
