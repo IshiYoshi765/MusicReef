@@ -194,7 +194,7 @@
           const pagination = document.getElementById('pagination');
           pagination.innerHTML = "";
       
-          for (let i = 1; i <= pages.length; i++) {
+          for (let i = 1; i < pages.length; i++) {
             const pageButton = document.createElement('button');
             pageButton.textContent = i;
             pageButton.addEventListener('click', () => showPage(i));
