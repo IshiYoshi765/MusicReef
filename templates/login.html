@@ -14,7 +14,6 @@
     <title>ログイン画面</title>
   </head>
   <body>
-    <p>　　　</p>
     <div class="container">
       <h1>MUSIC REEF</h1>
     </div>
@@ -26,7 +25,7 @@
       <br />
       <div class="container2-1">
         {% if error != null %}
-        <p style="color: red">{{error}}</p>
+        <p style="color: red;font-size: 15px;">{{error}}</p>
         {% endif %} {% if msg != null %}
         <p style="color: blue">{{msg}}</p>
         {% endif %}
@@ -47,8 +46,8 @@
       <br />
     </div>
     <br />
-    <p style="text-align: center">
-      <a href="{{url_for('pass_reset')}}">忘れた方へ</a>
+    <p class="passtext" style="text-align: center">
+      <a href="{{url_for('pass_reset')}}">パスワードを忘れた方はこちら</a>
     </p>
   </body>
 </html>
