@@ -86,12 +86,16 @@ def insert_user(mail):
 def delete_user(id):
     connection = get_connection()
     cursor = connection.cursor()
-
-    sql = "delete from one_time_pass where id=%s"
-
-    cursor.execute(sql, (id,))
     
-    sql_one_pass = "delete from admin where admin_id=%s"
+    check_sql = "select * from one_time_pass where admin_id = %s"
+    cursor.execute(check_sql,(id,))
+    result = cursor.fetchone()
+
+    if result:     
+        sql = "delete from one_time_pass where admin_id=%s"
+        cursor.execute(sql, (id,))
+    
+    sql_one_pass = "delete from admin where id=%s"
     cursor.execute(sql_one_pass,(id,)) 
     connection.commit()
         

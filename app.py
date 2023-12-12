@@ -181,7 +181,7 @@ def admin_update_exe():
         id = db.get_id(mail)
         db.set_update_flag(id)
         
-        return render_template("index.html")
+        return redirect(url_for("mypage"))
     else:
         error = "パスワードが一致しません。"
         return render_template("admin_update.html", error=error)
