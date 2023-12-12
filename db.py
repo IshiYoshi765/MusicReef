@@ -86,12 +86,16 @@ def insert_user(mail):
 def delete_user(id):
     connection = get_connection()
     cursor = connection.cursor()
-
-    sql = "delete from one_time_pass where id=%s"
-
-    cursor.execute(sql, (id,))
     
-    sql_one_pass = "delete from admin where admin_id=%s"
+    check_sql = "select * from one_time_pass where admin_id = %s"
+    cursor.execute(check_sql,(id,))
+    result = cursor.fetchone()
+
+    if result:     
+        sql = "delete from one_time_pass where admin_id=%s"
+        cursor.execute(sql, (id,))
+    
+    sql_one_pass = "delete from admin where id=%s"
     cursor.execute(sql_one_pass,(id,)) 
     connection.commit()
         
@@ -248,39 +252,28 @@ def delete_music(music_id):
     connection.close()
 
 #音源の検索
-def search_music(name, genre):
+def search_music(name,genre):
     connection = get_connection()
     cursor = connection.cursor()
 
-    tag_names = name.split()
-
-    tag_name_placeholders = ','.join(['%s'] * len(tag_names))
+    #sql = "SELECT * FROM music WHERE name LIKE %s AND genre LIKE %s"
     
-    # タグ名がない場合の条件分岐
-    tag_condition = ""
-    if tag_names:
-        tag_condition = "OR (tags.tag_name IN ({tag_name_placeholders}))"
-    
-    sql = f"""
+    sql = """
     SELECT DISTINCT music.*
     FROM music
     LEFT JOIN music_tags ON music.music_id = music_tags.music_id
     LEFT JOIN tags ON music_tags.tag_id = tags.tag_id
-    WHERE (music.name LIKE %s {tag_condition})
+    WHERE (music.name LIKE %s OR tags.tag_name LIKE %s)
     AND music.genre LIKE %s
-    GROUP BY music.music_id
-    HAVING COUNT(DISTINCT tags.tag_id) >= {len(tag_names)};
     """
-    
-    print(tag_name_placeholders)
 
     name2 = "%" + name + "%"
+    tag2 = "%" + name + "%"
     genre2 = "%" + genre + "%"
+    
+    
+    cursor.execute(sql, (name2,tag2,genre2))
 
-    if tag_names:
-        cursor.execute(sql.format(tag_name_placeholders=tag_name_placeholders), ([name2] + tag_names + [genre2]))
-    else:
-        cursor.execute(sql, ([name2, genre2]))
     rows = cursor.fetchall()
 
     cursor.close()
