@@ -86,7 +86,7 @@
                 <option value="11">Chill Hop</option>
             </select>      
             
-              <input type="text" placeholder="検索ワード" name="name">
+              <input type="text" class="tagInput" placeholder="検索ワード" name="name">
                   <button type="submit">
                     <i class="fas fa-search fa-fw"></i>
                   </button>      
@@ -187,7 +187,7 @@
             const pagination = document.getElementById('pagination');
             pagination.innerHTML = "";
         
-            for (let i = 1; i <= pages.length; i++) {
+            for (let i = 1; i < pages.length; i++) {
               const pageButton = document.createElement('button');
               pageButton.textContent = i;
               pageButton.addEventListener('click', () => showPage(i));

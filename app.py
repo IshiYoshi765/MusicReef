@@ -182,7 +182,7 @@ def admin_update_exe():
         id = db.get_id(mail)
         db.set_update_flag(id)
         
-        return render_template("index.html")
+        return redirect(url_for("mypage"))
     else:
         error = "パスワードが一致しません。"
         return render_template("admin_update.html", error=error)
@@ -269,14 +269,23 @@ def admin_edit():
 @app.route('/admin_edit_exe', methods=['POST'])
 def admin_edit_exe():
     name = request.form.get("name")
-   
-    if "user" in session:
-        mail = session["user"]
+    mail = session["user"]
+    password = request.form.get("password")
+    new_pass = request.form.get("newPassword")
+    check_pass = request.form.get("Checkpassword")
+    
+    if name:
+        id = db.get_id(mail)
+        db.admin_edit(name,id)
+        return render_template("admin_edit.html")
+    
+    if db.login(mail,password):
+        if new_pass == check_pass:
+            db.update_pass(new_pass,mail)
+            return redirect(url_for("admin_edit"))
     else:
-        ""
-    id = db.get_id(mail)
-    db.admin_edit(name,id)
-    return redirect(url_for("admin_edit"))
+        msg = "現在のパスワードと一致しません"
+        return render_template("admin_edit.html", msg=msg)
 
 @app.route("/admin_delete_exe", methods=['POST'])
 def admin_delete_exe():
@@ -317,10 +326,11 @@ def user_top():
     week_top_songs = db.get_top_songs_weekly()
     month_top_songs = db.get_top_songs_monthly()
     
+    recent_music_id = recent_music[0][0] if recent_music else None
 
-    return render_template('user_top.html', recent_music=recent_music, week_top_songs=week_top_songs, month_top_songs=month_top_songs)
-
-
+    average_rating = db.get_average_rating_for_music(recent_music_id) if recent_music_id else None
+    return render_template('user_top.html', recent_music=recent_music, week_top_songs=week_top_songs, month_top_songs=month_top_songs, average_rating=average_rating)
+  
 @app.route('/download/<int:music_id>', methods=['GET'])
 def download_music(music_id):
     
@@ -330,6 +340,7 @@ def download_music(music_id):
     music_url = db.get_music_url(music_id)
 
     return redirect(music_url)
+
 
 #----------------------------------------------------音源口コミモーダル-------------------------------------------------------------
 @app.route('/api/musicinfo', methods=['GET'])
@@ -363,6 +374,42 @@ def get_reviews_for_music(music_id):
         cursor.close()
         connection.close()
 #------------------------------------------------------------------------------------------------------------------------------------
+
+
+@app.route('/review/<int:music_id>')
+def review(music_id):
+    
+    music_info = db.get_music_by_id(music_id)
+    get_info = db.get_review_by_music_id(music_id)
+    return render_template('comment.html', music_info=music_info, music_id=music_id, get_info=get_info)
+        
+@app.route('/post_comment', methods=['GET', 'POST'])
+def post_comment():
+    if request.method == 'POST':
+        # フォームからのデータを取得
+        star_str = request.form.get('rating')
+        review = request.form.get('review')
+        music_id = request.form.get('music_id')
+
+        if star_str is not None and star_str.replace('.', '', 1).isdigit():
+            star = float(star_str)
+
+            # db モジュールの insert_comment メソッドを呼び出し
+            count = db.insert_comment(star, review, music_id)
+
+            if count == 1:
+                msg = '音源が登録されました'
+                get_info = db.get_review_by_music_id(music_id)
+                return redirect(url_for('review', music_id=music_id, get_info=get_info))
+            else:
+                error = '音源の登録に失敗しました。'
+                return render_template('comment.html', error=error)
+        else:
+            error = '評価が不正です。'
+            return render_template('comment.html', error=error)
+
+    return render_template('comment.html')
+
 
 
 if __name__ == "__main__":

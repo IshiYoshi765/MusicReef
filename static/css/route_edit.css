@@ -1,0 +1,47 @@
+.title{
+    position: absolute;
+    top: 18%;
+    left: 15%;
+}
+.nameInput{
+    position: absolute;
+    top: 30%;
+    left: 15%;
+    width: 300px;
+    height: 30px;
+}
+.nameSubmit{
+    position: absolute;
+    top: 30%;
+    left: 495px; 
+    width: 55px;
+    height: 36px;
+}
+.nowPass{
+    position: absolute;
+    top: 50%;
+    left: 15%;
+    width: 355px;
+    height: 30px;
+}
+.changePass{
+    position: absolute;
+    top: 60%;
+    left: 15%;
+    width: 355px;
+    height: 30px;
+}
+.checkPass{
+    position: absolute;
+    top: 70%;
+    left: 15%;
+    width: 355px;
+    height: 30px;
+}
+.passSubmit{
+    position: absolute;
+    top: 80%;
+    left: 26%; 
+    width: 50px;
+    height: 35px;
+}
