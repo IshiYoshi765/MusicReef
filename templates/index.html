@@ -149,8 +149,12 @@
                     <td style="border: none;">
                       <a href="{{url_for('music_edit',id=sound[0])}}">編集</a>
                     </td>
-                    <td style="border: none;"><button class="js-delete-modal-button" data-music="{{ sound[0] }}">削除</button></td>
-                    <td style="border: none; width:56px"><button class="js-review-modal-button" data-music="{{ sound[0] }}">口コミ</button></td>
+                    <td style="border: none;">
+                      <button class="js-delete-modal-button" data-music="{{ sound[0] }}">削除</button>
+                    </td>
+                    <td style="border: none; width:56px">
+                      <button class="js-review-modal-button" onclick="fetchAndOpenReviewModal('{{ sound[0] }}')">口コミ</button>
+                    </td>
                     </td>
                   </tr>
                 </table>
@@ -223,12 +227,12 @@
       </div>
     </div>
 
-    <!--口コミのモーダル-->
-    <div class="layer review-modal">
+    <div class="layer review-modal" id="reviewModal">
       <div class="modal-header">
-          <button class="msg-box msg-position js-review-close-button" >×</button>
-          <div class="modal-body">
-          </div>
+        <button class="msg-box msg-position js-review-close-button" onclick="closeReviewModal()">×</button>
+        <div class="modal-body2" id="reviewList" style="padding-top:65px">
+          <!-- 音源情報と口コミ一覧がここに表示されます --> 
+        </div>
       </div>
     </div>
 
