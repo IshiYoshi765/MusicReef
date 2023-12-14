@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for, session,flash
+from flask import Flask, render_template, request, redirect, url_for, session,flash, jsonify, request
 import db, random,string
 import tags
 from datetime import timedelta
+from db import get_connection
 
 app = Flask(__name__)
 app.secret_key = ''.join(random.choices(string.ascii_letters, k=256))
@@ -340,6 +341,41 @@ def download_music(music_id):
 
     return redirect(music_url)
 
+
+#----------------------------------------------------音源口コミモーダル-------------------------------------------------------------
+@app.route('/api/musicinfo', methods=['GET'])
+def get_music_info_and_reviews():
+    music_id = request.args.get('music_id')
+    music_info = get_music_and_check(music_id)
+    reviews = get_reviews_for_music(music_id)
+    return jsonify({"music": music_info, "reviews": reviews})
+
+def get_music_and_check(music_id):
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute("SELECT * FROM music WHERE music_id = %s;", (music_id,))
+        music_info = cursor.fetchone()
+        return music_info
+    finally:
+        cursor.close()
+        connection.close()
+
+def get_reviews_for_music(music_id):
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute("SELECT * FROM music_review WHERE music_id = %s;", (music_id,))
+        reviews = cursor.fetchall()
+        return reviews
+    finally:
+        cursor.close()
+        connection.close()
+#------------------------------------------------------------------------------------------------------------------------------------
+
+
 @app.route('/review/<int:music_id>')
 def review(music_id):
     
@@ -375,9 +411,6 @@ def post_comment():
     return render_template('comment.html')
 
 
-
-if __name__ == "__main__":
-    app.run(debug=True)
 
 if __name__ == "__main__":
     app.run(debug=True)
