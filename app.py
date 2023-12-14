@@ -325,12 +325,11 @@ def user_top():
     recent_music = db.get_recent_music()
     week_top_songs = db.get_top_songs_weekly()
     month_top_songs = db.get_top_songs_monthly()
-    
-    recent_music_id = recent_music[0][0] if recent_music else None
 
-    average_rating = db.get_average_rating_for_music(recent_music_id) if recent_music_id else None
-    return render_template('user_top.html', recent_music=recent_music, week_top_songs=week_top_songs, month_top_songs=month_top_songs, average_rating=average_rating)
-  
+    average_ratings = db.get_average_ratings()
+    
+    return render_template('user_top.html', recent_music=recent_music, week_top_songs=week_top_songs, month_top_songs=month_top_songs, average_ratings=average_ratings)
+
 @app.route('/download/<int:music_id>', methods=['GET'])
 def download_music(music_id):
     
