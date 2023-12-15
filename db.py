@@ -292,12 +292,31 @@ def search_music(name, genre):
 
     return rows
 
+def select_length_number(length_number):
+    connection = get_connection()
+    cursor = connection.cursor()
+    
+    sql = "SELECT * FROM music WHERE length_number = %s"
+    
+    cursor.execute(sql, (length_number,))
+    row = cursor.fetchall()
+
+    music = []
+    print(row)
+    for r in row:
+        music = [r[0],r[1],r[2],r[3],r[4],r[5],r[6],r[7],r[8],r[9],r[10],r[11]]
+    print(music)
+    
+    cursor.close()
+    connection.close()
+    return music
+    
 
 def get_music_and_check(id):
     connection = get_connection()
     cursor = connection.cursor()
     sql = "SELECT * FROM music WHERE music_id = %s"
-    cursor.execute(sql, (id,))
+    cursor.execute(sql,)
     row = cursor.fetchone()
     cursor.close()
     connection.close()
@@ -319,6 +338,91 @@ def get_music_and_check(id):
         return music
     else:
         return None
+
+def music_sort_asc():
+    connection = get_connection()
+    cursor = connection.cursor()
+    
+    sql = "SELECT * FROM music order by date_register ASC"
+    cursor.execute(sql,)
+    row = cursor.fetchone()
+    cursor.close()
+    connection.close()
+    if row:
+        music = {
+            "music_id": row[0],
+            "name": row[1],
+            "genre": row[2],
+            "detail": row[3],
+            "length": row[4],
+            "length_number": row[5],
+            "composer": row[6],
+            "source": row[7],
+            "URL": row[8],
+            "date_register": row[9],
+            "update_time": row[10],
+            "access": row[11]
+        }
+        return music
+    else:
+        return None
+    
+def music_sort_access():
+    connection = get_connection()
+    cursor = connection.cursor()
+    
+    sql = "SELECT * FROM music order by access DESC"
+    cursor.execute(sql,)
+    row = cursor.fetchone()
+    cursor.close()
+    connection.close()
+    if row:
+        music = {
+            "music_id": row[0],
+            "name": row[1],
+            "genre": row[2],
+            "detail": row[3],
+            "length": row[4],
+            "length_number": row[5],
+            "composer": row[6],
+            "source": row[7],
+            "URL": row[8],
+            "date_register": row[9],
+            "update_time": row[10],
+            "access": row[11]
+        }
+        return music
+    else:
+        return None
+
+
+def music_sort_desc():
+    connection = get_connection()
+    cursor = connection.cursor()
+    sql = "SELECT * FROM music order by date_register DESC"
+    cursor.execute(sql,)
+    row = cursor.fetchone()
+    cursor.close()
+    connection.close()
+    if row:
+        music = {
+            "music_id": row[0],
+            "name": row[1],
+            "genre": row[2],
+            "detail": row[3],
+            "length": row[4],
+            "length_number": row[5],
+            "composer": row[6],
+            "source": row[7],
+            "URL": row[8],
+            "date_register": row[9],
+            "update_time": row[10],
+            "access": row[11]
+        }
+        return music
+    else:
+        return None
+
 
 def music_list():
     connection = get_connection()

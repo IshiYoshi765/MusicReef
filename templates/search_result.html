@@ -105,33 +105,41 @@
       </div>
       <div class="example" style="padding: 5px; margin-left: 10px">
       </div>
-      <h3 class="title2">並び替え</h3>
-      <select class="sort" name=”item”>
-          <option value=”item1”>項目1</option>
-          <option value=”item2”>項目2</option>
-          <option value=”item3”>項目3</option>
-          <option value=”item4”>項目4</option>
-          <option value=”item5”>項目5</option>
-      </select>
-      <h3 class="title3">音源時間</h3>
-        <select class="music-length" name="length">
-          <option value="0">指定しない</option>
-          <option value="1">~0:59</option>
-          <option value="2">1:00~1:59</option>
-          <option value="3">2:00~2:59</option>
-          <option value="4">3:00~3:59</option>
-          <option value="5">4:00~4:59</option>
-          <option value="6">5:00~5:59</option>
-          <option value="7">6:00~</option>
+      <form action="{{url_for('search_result')}}" method="post">
+        <h3 class="title2">並び替え</h3>
+        <select class="sort" name="sort" onchange='location.href=value'>
+          <option value="{{url_for('search_result',sort='1')}}">新しい順</option>
+          <option value="{{url_for('search_result',sort='2')}}">古い順</option>
+          <option value="{{url_for('search_result',sort='3')}}">アクセス回数</option>
+          <option value="{{url_for('search_result',sort='4')}}">評価が高い</option>
         </select>
-      <h3 class="title4">サイト</h3>
-      <select class="site" name=”item”>
-          <option value=”item1”>項目1</option>
-          <option value=”item2”>項目2</option>
-          <option value=”item3”>項目3</option>
-          <option value=”item4”>項目4</option>
-          <option value=”item5”>項目5</option>
-      </select>
+      </form>
+      <form action="{{url_for('search_result')}}" method="post">
+        <h3 class="title3">音源時間</h3>
+        <select class="music-length" name="length" onchange='location.href=value'>
+          <option value="0">指定しない</option>
+          <option value="{{url_for('search_result',length_number='1')}}">~0:59</option>
+          <option value="{{url_for('search_result',length_number='2')}}">1:00~1:59</option>
+          <option value="{{url_for('search_result',length_number='3')}}">2:00~2:59</option>
+          <option value="{{url_for('search_result',length_number='4')}}">3:00~3:59</option>
+          <option value="{{url_for('search_result',length_number='5')}}">4:00~4:59</option>
+          <option value="{{url_for('search_result',length_number='6')}}">5:00~5:59</option>
+          <option value="{{url_for('search_result',length_number='7')}}">6:00~</option>
+        </select>
+      </form>
+      
+      <form action="{{url_for('search_result')}}" method="post">
+        <h3 class="title4">サイト</h3>
+        <select class="site" name="site">
+            <option value="none">指定しない</option>
+            <option value="">BGMer</option>
+            <option value="">DOVA</option>
+            <option value="">甘茶の音楽工房</option>
+            <option value="">MusMus</option>
+            <option value="">SHW</option>
+        </select>
+      </form>
+      
       <div class="example" style="padding: 5px;">
         <div class="page "style="display: none;">
           {% for sound in music %}

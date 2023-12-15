@@ -68,7 +68,8 @@ def login():
 @app.route("/mypage", methods=["GET"])
 def mypage():
     # session にキー：'user' があるか判定
-    if "user" in session:
+    if 1 == 1:
+    #if "user" in session:
         sound_list = db.music_list()
         
         return render_template("index.html",music=sound_list)  # session があれば index.html を表示
@@ -299,22 +300,40 @@ def list_of_review():
     review_all = db.list_of_review()
     return render_template('list_of_review.html', reviews=review_all)
     
-@app.route('/search_result', methods=["POST"])
+@app.route('/search_result', methods=["GET","POST"])
 def search_result():
-    name=request.form.get("name")
-    genre = request.form.get("genre")
-    #sort = request.args.get('sort')
-    #time = request.args.get('time')
-    #site = request.args.get('site')
-    
-    music_list=db.search_music(name,genre)
+   
+    name=request.form.get("name", None)
+    genre = request.form.get("genre", None)   
+    sort = request.args.get('sort', None)
+    length_number = request.args.get('length_number', None)
+    site = request.args.get('site', None)
+    print(name,genre,sort,length_number,site)
+    music_list = []
+    if name != None and genre != None:
+        music_list=db.search_music(name,genre)
+    elif sort != None:
+        if sort == 1:
+            music_list = db.music_sort_asc()
+        elif sort == 2: 
+            music_list = db.music_sort_desc()
+        elif sort == 3:
+            music_list = db.music_sort_access()
+        elif sort == 4:
+            music_list = db.music_list() 
+    elif length_number != None:
+        music_list = db.select_length_number(length_number)
+        print(music_list)
+    elif site != None:
+        music_list = db.music_list()
+    else:
+        music_list = db.music_list()
     
     
     # search_result.htmlに条件と結果を渡して表示
-    
     #return render_template('search_result.html', genre=genre, sort=sort, time=time, site=site)
     return render_template('search_result.html', music=music_list,genre=genre,name=name)
-    
+
 @app.route("/delete_review/<int:review_id>", methods=['GET'])
 def delete_review(review_id):
     db.delete_review(review_id)
