@@ -1,10 +1,9 @@
 import os, psycopg2, string, random, hashlib
 import smtplib 
-from datetime import datetime, timedelta
+import datetime
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-
-
+import os
 
 
 
@@ -86,17 +85,10 @@ def insert_user(mail):
 def delete_user(id):
     connection = get_connection()
     cursor = connection.cursor()
-    
-    check_sql = "select * from one_time_pass where admin_id = %s"
-    cursor.execute(check_sql,(id,))
-    result = cursor.fetchone()
 
-    if result:     
-        sql = "delete from one_time_pass where admin_id=%s"
-        cursor.execute(sql, (id,))
-    
-    sql_one_pass = "delete from admin where id=%s"
-    cursor.execute(sql_one_pass,(id,)) 
+    sql = "delete from admin where id=%s"
+
+    cursor.execute(sql, (id,))
     connection.commit()
         
     cursor.close()
@@ -163,7 +155,7 @@ def insert_music(name,genre,detail,length,composer,source,URL,tags_list):
         length = input("Please enter the length (format: HH:MM): ")
     length_number = cal_length_num(length)
     sql = "INSERT INTO music VALUES(default, %s, %s, %s,%s,%s,%s,%s,%s,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,default) RETURNING music_id"
-
+    
     connection = get_connection()
     cursor = connection.cursor()
 
@@ -275,6 +267,7 @@ def search_music(name, genre):
     GROUP BY music.music_id
     HAVING COUNT(DISTINCT tags.tag_id) >= {len(tag_names)};
     """
+        
     
     print(tag_name_placeholders)
 
@@ -292,31 +285,12 @@ def search_music(name, genre):
 
     return rows
 
-def select_length_number(length_number):
-    connection = get_connection()
-    cursor = connection.cursor()
-    
-    sql = "SELECT * FROM music WHERE length_number = %s"
-    
-    cursor.execute(sql, (length_number,))
-    row = cursor.fetchall()
-
-    music = []
-    print(row)
-    for r in row:
-        music = [r[0],r[1],r[2],r[3],r[4],r[5],r[6],r[7],r[8],r[9],r[10],r[11]]
-    print(music)
-    
-    cursor.close()
-    connection.close()
-    return music
-    
 
 def get_music_and_check(id):
     connection = get_connection()
     cursor = connection.cursor()
     sql = "SELECT * FROM music WHERE music_id = %s"
-    cursor.execute(sql,)
+    cursor.execute(sql, (id,))
     row = cursor.fetchone()
     cursor.close()
     connection.close()
@@ -338,91 +312,6 @@ def get_music_and_check(id):
         return music
     else:
         return None
-
-def music_sort_asc():
-    connection = get_connection()
-    cursor = connection.cursor()
-    
-    sql = "SELECT * FROM music order by date_register ASC"
-    cursor.execute(sql,)
-    row = cursor.fetchone()
-    cursor.close()
-    connection.close()
-    if row:
-        music = {
-            "music_id": row[0],
-            "name": row[1],
-            "genre": row[2],
-            "detail": row[3],
-            "length": row[4],
-            "length_number": row[5],
-            "composer": row[6],
-            "source": row[7],
-            "URL": row[8],
-            "date_register": row[9],
-            "update_time": row[10],
-            "access": row[11]
-        }
-        return music
-    else:
-        return None
-    
-def music_sort_access():
-    connection = get_connection()
-    cursor = connection.cursor()
-    
-    sql = "SELECT * FROM music order by access DESC"
-    cursor.execute(sql,)
-    row = cursor.fetchone()
-    cursor.close()
-    connection.close()
-    if row:
-        music = {
-            "music_id": row[0],
-            "name": row[1],
-            "genre": row[2],
-            "detail": row[3],
-            "length": row[4],
-            "length_number": row[5],
-            "composer": row[6],
-            "source": row[7],
-            "URL": row[8],
-            "date_register": row[9],
-            "update_time": row[10],
-            "access": row[11]
-        }
-        return music
-    else:
-        return None
-
-
-def music_sort_desc():
-    connection = get_connection()
-    cursor = connection.cursor()
-    sql = "SELECT * FROM music order by date_register DESC"
-    cursor.execute(sql,)
-    row = cursor.fetchone()
-    cursor.close()
-    connection.close()
-    if row:
-        music = {
-            "music_id": row[0],
-            "name": row[1],
-            "genre": row[2],
-            "detail": row[3],
-            "length": row[4],
-            "length_number": row[5],
-            "composer": row[6],
-            "source": row[7],
-            "URL": row[8],
-            "date_register": row[9],
-            "update_time": row[10],
-            "access": row[11]
-        }
-        return music
-    else:
-        return None
-
 
 def music_list():
     connection = get_connection()
@@ -615,7 +504,7 @@ def get_otp_pass():
     
     # charsetからランダムに30文字取り出して結合
     one_time = ''.join(random.choices(charset, k=6))
-    now = datetime.now()
+    now = datetime.datetime.now()
     # print(one_time)
     # print(now)
     # print(time)
@@ -634,18 +523,15 @@ def verify_otp(admin_id, entered_otp):
         if db_otp_result:
             db_otp, expiration_time, is_used = db_otp_result
             
-            current_time = datetime.now()
-            time = expiration_time + timedelta(seconds=30)
+            current_time = datetime.datetime.now()
+            time = expiration_time + datetime.timedelta(seconds=30)
             print(current_time)
-            print(time)
+            print(expiration_time)
             
             # ワンタイムパスワードが使用されていないかつ有効期限内であることを確認
             if not is_used and time >= current_time:
                 # 入力されたワンタイムパスワードとデータベースのワンタイムパスワードを比較
                 if entered_otp == db_otp:
-                    sql = "UPDATE one_time_pass SET is_used = true WHERE admin_id = (SELECT id FROM admin WHERE mail = %s) AND otp_code = %s"
-                    cursor.execute(sql,(admin_id,db_otp))
-                    connection.commit()
                     return True  # パスワードが一致する場合
                 else:
                     print(f"Entered OTP: {entered_otp}, DB OTP: {db_otp}")
@@ -673,325 +559,3 @@ def delete_review(review_id):
     connection.commit()
     cursor.close()
     connection.close()
-    
-def get_recent_music():
-    connection = get_connection()
-    cursor = connection.cursor()
-
-    sql = """
-        SELECT m.*, AVG(r.star) AS avg_rating
-        FROM music m
-        LEFT JOIN music_review r ON m.music_id = r.music_id
-        GROUP BY m.music_id
-        ORDER BY m.date_register DESC
-        LIMIT 5
-    """
-
-    cursor.execute(sql)
-
-    rows = cursor.fetchall()
-
-    cursor.close()
-    connection.close()
-
-    return rows
-
-
-def increment_access_count(music_id):
-    connection = get_connection()
-    cursor = connection.cursor()
-
-    try:
-        # アクセス数を1加算
-        sql = "UPDATE music SET access = access + 1 WHERE music_id = %s"
-        cursor.execute(sql, (music_id,))
-        connection.commit()
-    except psycopg2.DatabaseError as e:
-        print(f"アクセス数の更新エラー: {e}")
-        connection.rollback()
-    finally:
-        cursor.close()
-        connection.close()
-
-def get_music_url(music_id):
-    try:
-        connection = get_connection()
-        cursor = connection.cursor()
-
-        sql = "SELECT URL FROM music WHERE music_id = %s"
-        cursor.execute(sql, (music_id,))
-
-        result = cursor.fetchone()
-
-        if result:
-            return result[0]
-        else:
-            print(f"Error: No URL found for music_id {music_id}")
-            return None
-
-    except Exception as e:
-        print(f"Error in get_music_url: {e}")
-        return None
-
-    finally:
-        cursor.close()
-        connection.close()
-
-def get_top_songs_weekly():
-    today = datetime.utcnow()
-    monday = today - timedelta(days=today.weekday())
-
-    try:
-        connection = get_connection()
-        cursor = connection.cursor()
-        
-        sql = """
-            WITH WeeklyRank AS (
-                SELECT
-                    music_id,
-                    ROW_NUMBER() OVER (ORDER BY access DESC) AS ranking
-                FROM
-                    music
-                WHERE
-                    EXTRACT(DOW FROM date_register) BETWEEN 1 AND 6
-            )
-            UPDATE music m
-            SET access = 0
-            FROM WeeklyRank wr
-            WHERE m.music_id = wr.music_id;
-
-            SELECT
-                m.*
-            FROM
-                music m
-            WHERE
-                EXTRACT(DOW FROM m.date_register) BETWEEN 1 AND 6
-            ORDER BY
-                m.access DESC
-            LIMIT 3;
-        """
-
-        cursor.execute(sql)
-
-        week_top_songs = cursor.fetchall()
-
-    except psycopg2.DatabaseError as e:
-        print(f"Error in get_top_songs_weekly: {e}")
-        week_top_songs = []
-
-    finally:
-        cursor.close()
-        connection.close()
-
-    return week_top_songs
-
-def get_top_songs_monthly():
-    today = datetime.utcnow()
-    first_day_of_month = today.replace(day=1)
-    last_day_of_month = (
-        today.replace(day=28) + timedelta(days=4)
-    ).replace(day=1) - timedelta(days=1)
-
-    try:
-        connection = get_connection()
-        cursor = connection.cursor()
-        
-        sql = """
-            WITH MonthlyRank AS (
-                SELECT
-                    music_id,
-                    ROW_NUMBER() OVER (ORDER BY access DESC) AS ranking
-                FROM
-                    music
-                WHERE
-                    date_register BETWEEN %s AND %s
-            )
-            UPDATE music m
-            SET access = 0
-            FROM MonthlyRank mr
-            WHERE m.music_id = mr.music_id;
-
-            SELECT
-                m.*
-            FROM
-                music m
-            WHERE
-                date_register BETWEEN %s AND %s
-            ORDER BY
-                m.access DESC
-            LIMIT 3;
-        """
-
-        cursor.execute(sql, (first_day_of_month, last_day_of_month, first_day_of_month, last_day_of_month))
-
-        month_top_songs = cursor.fetchall()
-
-    except psycopg2.DatabaseError as e:
-        print(f"get_top_songs_monthly でエラーが発生しました: {e}")
-        month_top_songs = []
-
-    finally:
-        cursor.close()
-        connection.close()
-
-    return month_top_songs
-
-def get_music_by_id(music_id):
-    sql = 'SELECT * FROM music WHERE music_id = %s'
-
-    try:
-        connection = get_connection()
-        cursor = connection.cursor()
-        cursor.execute(sql, (music_id,))
-        music_info = cursor.fetchone()
-
-        # データが見つからない場合
-        if music_info is None:
-            # または、デフォルトの音楽情報をセットするなどの対処を行う
-            music_info = {
-                'id': 0,
-                'title': 'Unknown Title',
-                'composer': 'Unknown Composer',
-                'genre': 'Unknown Genre',
-                # 他の音楽情報も必要に応じてデフォルトの値をセット
-            }
-    except psycopg2.DatabaseError as e:
-        # エラーメッセージをログに出力するなどの対処を行う
-        print(f"Error fetching music info: {e}")
-        music_info = None
-    finally:
-        cursor.close()
-        connection.close()
-
-    return music_info
-
- 
-
-def calculate_average_rating(new_rating, music_id, review):
-    try:
-        connection = get_connection()
-        cursor = connection.cursor()
-
-        # music_id が空でない場合にのみ処理を行う
-        if music_id is not None:
-            # Insert the new rating into the music_review table
-            sql_insert = "INSERT INTO music_review (music_id, date_time, star, review) VALUES (%s, %s, %s, %s)"
-            cursor.execute(sql_insert, (music_id, datetime.now(), new_rating, review))
-            connection.commit()
-
-            # Recalculate the average rating for the specified music_id
-            average_rating = get_average_rating_for_music(music_id)
-
-            return average_rating
-
-    except Exception as e:
-        print(f"calculate_average_rating でエラーが発生しました: {e}")
-        return None
-
-    finally:
-        cursor.close()
-        connection.close()
-
-
-def get_total_ratings():
-    conn = get_connection()
-    cursor = conn.cursor()
-    
-    cursor.execute("SELECT SUM(star) FROM music_review")
-    total_ratings = cursor.fetchone()[0]
-    return total_ratings or 0
-
-# def get_review_count():
-#     conn = get_connection()
-#     cursor = conn.cursor()
-    
-#     cursor.execute("SELECT COUNT(*) FROM music_review")
-#     count = cursor.fetchone()[0]
-#     return count or 0
-
-# def get_average_rating():
-#     total_ratings = get_total_ratings()
-#     review_count = get_review_count()
-#     return total_ratings / review_count if review_count != 0 else 0
-
-
-def insert_comment(music_id, timestamp, rating, review):
-    sql = 'INSERT INTO music_review (music_id, timestamp, rating, review) VALUES (%s, %s, %s, %s)'
-
-    try:
-        connection = get_connection()
-        cursor = connection.cursor()
-        cursor.execute(sql, (music_id, timestamp, rating, review))
-        connection.commit()
-
-    except psycopg2.DatabaseError as e:
-        print(f"DatabaseError: {e}")
-
-    finally:
-        cursor.close()
-        connection.close()
-
-def get_average_rating_for_music(music_id):
-    try:
-        connection = get_connection()
-        cursor = connection.cursor()
-
-        # 指定された music_id に対するすべてのレビューの星の値を取得
-        sql = "SELECT star FROM music_review WHERE music_id = %s"
-        cursor.execute(sql, (music_id,))
-        ratings = cursor.fetchall()
-
-        if ratings:
-            # 星の値を合計して平均評価を計算
-            total_ratings = sum(rating[0] for rating in ratings)
-            average_rating = total_ratings / len(ratings)
-            return average_rating
-        else:
-            return None
-
-    except Exception as e:
-        print(f"get_average_rating_for_music でエラーが発生しました: {e}")
-        return None
-
-    finally:
-        cursor.close()
-        connection.close()
-        
-def insert_comment(star, review, music_id):
-    sql = 'INSERT INTO music_review (star, review, music_id, date_time) VALUES (%s, %s, %s, NOW())'
-
-    count = 0
-
-    try:
-        connection = get_connection()
-        cursor = connection.cursor()
-        cursor.execute(sql, (star, review, music_id))
-        connection.commit()
-        count = cursor.rowcount
-
-    except psycopg2.DatabaseError as e:
-        print(f"DatabaseError: {e}")
-    finally:
-        cursor.close()
-        connection.close()
-
-    return count
-
-def get_review_by_music_id(music_id, limit=5, offset=0):
-    try:
-        connection = get_connection()
-        cursor = connection.cursor()
-        cursor.execute("SELECT star, review, date_time FROM music_review WHERE music_id = %s ORDER BY date_time DESC LIMIT %s OFFSET %s", (music_id, limit, offset))
-        reviews = cursor.fetchall()
-        review_list = []
-        for review in reviews:
-            review_dict = {
-                'star': review[0],
-                'review': review[1],
-                'date_time': review[2].strftime('%Y/%m/%d %H:%M')
-            }
-            review_list.append(review_dict)
-        return review_list
-    finally:
-        cursor.close()
-        connection.close()
