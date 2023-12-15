@@ -68,7 +68,7 @@
         ></span
       >
       <span class="blockitem" style="height: 45px"
-        ><a href="#" style="color: rgb(60, 60, 60); font-size: 23px"
+        ><a href="{{url_for('admin_edit')}}" style="color: rgb(60, 60, 60); font-size: 23px"
           >アカウント編集</a
         ></span
       >
@@ -90,7 +90,7 @@
             </tr>
             <tr>
               <td style="border: none;"><button class="" >ログ</button></td>
-              <td style="border: none;"><button class="admin-freeze-button" data-freezAdmin="{{ admin[0] }}">凍結</button></td>
+              <td style="border: none;"><button class="admin-freeze-button" data-admin="{{admin[0]}}">凍結</button></td>
             </tr>
           </table>
         {% endfor%}
@@ -120,7 +120,9 @@
       <div class="modal-header">
         <button class="msg-box msg-position js-freeze-close-button">×</button>
         <div class="modal-body">
-          
+          <form action="{{url_for('freeze_exe')}}" method="post">
+            <input  class="cold-admin-id" type='hidden' name="id" value="">
+          <button>凍結</button>
         </div> 
       </div>
     </div>  

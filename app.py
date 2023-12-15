@@ -36,33 +36,40 @@ def password_changed(mail):
 def login():
     mail = request.form.get("mail")
     password = request.form.get("password")
+    id = db.get_id(mail)
     otp = db.get_otp_pass()
-    
+    flag = db.freeze_flag(mail)
+    print(id)
     print(otp)
-    if db.login(mail,password):
+    print(flag)
+    if db.freeze_flag(mail) == True:
+        if db.login(mail,password):
                 
-        if check_password(mail, password):
-            user = password_changed(mail)
-            bool = db.password_flag(mail)
-            print(bool)
-     # ログイン判定
-            if bool:
-                   session["user"] = mail
-                   return redirect(url_for("admin_update"))
+            if check_password(mail, password):
+                user = password_changed(mail)
+                bool = db.password_flag(mail)
+                print(bool)
+            # ログイン判定
+                if bool:
+                    session["user"] = mail
+                    return redirect(url_for("admin_update"))
+                else:
+                    session["user"] = mail  # session にキー：'user', バリュー:True を追加
+                    session.permanent = True  # session の有効期限を有効化
+                    app.permanent_session_lifetime = timedelta(minutes=5)  # session の有効期限を 5 分に設定
+                    return redirect(url_for("mypage"))
             else:
-                session["user"] = mail  # session にキー：'user', バリュー:True を追加
-                session.permanent = True  # session の有効期限を有効化
-                app.permanent_session_lifetime = timedelta(minutes=5)  # session の有効期限を 5 分に設定
+            
                 return redirect(url_for("mypage"))
         else:
-           
-            return redirect(url_for("mypage"))
-    else:
-        error = "メールアドレスまたはパスワードが違います。"
+            error = "メールアドレスまたはパスワードが違います。"
 
-        # dictで返すことでフォームの入力量が増えても可読性が下がらない。
-        input_data = {"mail": mail, "password": password}
-        return render_template("login.html", error=error, data=input_data)
+            # dictで返すことでフォームの入力量が増えても可読性が下がらない。
+            input_data = {"mail": mail, "password": password}
+            return render_template("login.html", error=error, data=input_data)
+    else:
+        error = "アカウントが凍結されています"
+        return render_template("login.html", error=error)
 
 
 @app.route("/mypage", methods=["GET"])
@@ -319,6 +326,13 @@ def search_result():
 def delete_review(review_id):
     db.delete_review(review_id)
     return redirect(url_for('list_of_review'))
+
+@app.route("/freeze_exe", methods=['POST'])
+def freeze_exe():
+    id = request.form.get("id")
+    print(id)
+    db.cold_flag(id)
+    return redirect(url_for("admin_list"))
 
 @app.route('/', methods=["GET"])
 def user_top():

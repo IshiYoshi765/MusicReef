@@ -395,6 +395,19 @@ def password_flag(mail):
     
     return result[5]
 
+def freeze_flag(mail):
+    connection = get_connection()
+    cursor = connection.cursor()
+    sql = "SELECT * FROM admin WHERE mail = %s"
+    
+    cursor.execute(sql,(mail,))
+    result = cursor.fetchone()
+    
+    cursor.close()
+    connection.close()
+    
+    return result[6]
+    
     
 def set_update_flag(id):
     
@@ -405,6 +418,17 @@ def set_update_flag(id):
     cursor.execute(sql, (id,))
     connection.commit()
 
+    cursor.close()
+    connection.close()
+    
+def cold_flag(id):
+    connection =get_connection()
+    cursor = connection.cursor()
+    
+    sql = "update admin set cold_flag = false where id = %s"
+    cursor.execute(sql,(id,))
+    connection.commit()
+    
     cursor.close()
     connection.close()
     
