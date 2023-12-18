@@ -386,6 +386,25 @@ def get_reviews_for_music(music_id):
     finally:
         cursor.close()
         connection.close()
+        
+
+@app.route("/delete_review1/<int:review_id>", methods=['GET'])
+def delete_review_endpoint(review_id):
+    result = delete_review(review_id)
+
+    return jsonify(result)
+
+def delete_review(review_id):
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute("DELETE FROM music_review WHERE id = %s;", (review_id,))
+        connection.commit()
+        return {"message": "口コミが削除されました"}
+    finally:
+        cursor.close()
+        connection.close()
 #------------------------------------------------------------------------------------------------------------------------------------
 
 
