@@ -22,10 +22,13 @@ adminDeleteModalClose.addEventListener("click", () => {
 const adminFreezeModal = document.querySelector('.admin-freeze-modal')
 const adminFreezeButton = document.querySelectorAll(".admin-freeze-button")
 
+const freezeAdminId = document.querySelector(".cold-admin-id")
+
 adminFreezeButton.forEach((elm,i) =>{
   elm.addEventListener("click",(e) =>{
-    let freezAdmin = e.target.dataset.freezAdmin;
+    let freezAdmin = e.target.dataset.admin;
     console.log(freezAdmin);
+    freezeAdminId.setAttribute("value", freezAdmin);
     adminFreezeModal.classList.add("is-open");
   });
 });
