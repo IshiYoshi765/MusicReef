@@ -440,7 +440,18 @@ def post_comment():
 
     return render_template('comment.html')
 
+@app.route('/terms_of_service')
+def terms_of_service():
+    return render_template('terms_of_service.html')
 
+@app.route('/about_the_site')
+def about_the_site():
+    return render_template('about_the_site.html')
+
+@app.route('/back_to_user_top', methods=["GET"])
+def back_to_user_top():
+    # セッションを使用せずに直接 '/' にリダイレクト
+    return redirect(url_for('user_top'))
 
 if __name__ == "__main__":
     app.run(debug=True)
