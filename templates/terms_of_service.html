@@ -79,7 +79,7 @@
   <body>
     <ul class="topnav">
       <li>
-        <a class="left" href="#"><h2>　MUSIC REEF</h2></a>
+        <a class="left" href="{{url_for('user_top')}}"><h2>　MUSIC REEF</h2></a>
       </li>
       <li class="right">
         <a
@@ -107,9 +107,9 @@
     <div class="footer04">
       <h1>MUSIC REEF</h1>
       <ul class="menu">
-        <li><a href="#">ホーム</a></li>
+        <li><a href="{{url_for('user_top')}}">ホーム</a></li>
         <li>
-          <a href="about_the_site.html"
+          <a href="{{url_for('about_the_site')}}"
             >MUSIC REEF(ミュージックリーフ)について</a
           >
         </li>
