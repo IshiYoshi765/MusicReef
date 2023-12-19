@@ -56,10 +56,8 @@ def login():
                 else:
                     session["user"] = mail  # session にキー：'user', バリュー:True を追加
                     session.permanent = True  # session の有効期限を有効化
-                    app.permanent_session_lifetime = timedelta(minutes=5)  # session の有効期限を 5 分に設定
-                    return redirect(url_for("mypage"))
-            else:
-            
+                    app.permanent_session_lifetime = timedelta(minutes=30)  # session の有効期限を 30 分に設定
+
                 return redirect(url_for("mypage"))
         else:
             error = "メールアドレスまたはパスワードが違います。"
