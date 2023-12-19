@@ -410,11 +410,10 @@ def delete_review(review_id):
 
 @app.route('/review/<int:music_id>')
 def review(music_id):
-    
     music_info = db.get_music_by_id(music_id)
     get_info = db.get_review_by_music_id(music_id)
     return render_template('comment.html', music_info=music_info, music_id=music_id, get_info=get_info)
-        
+
 @app.route('/post_comment', methods=['GET', 'POST'])
 def post_comment():
     if request.method == 'POST':
@@ -431,8 +430,7 @@ def post_comment():
 
             if count == 1:
                 msg = '音源が登録されました'
-                get_info = db.get_review_by_music_id(music_id)
-                return redirect(url_for('review', music_id=music_id, get_info=get_info))
+                return redirect(url_for('review', music_id=music_id))
             else:
                 error = '音源の登録に失敗しました。'
                 return render_template('comment.html', error=error)
