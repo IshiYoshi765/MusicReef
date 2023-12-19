@@ -476,13 +476,13 @@ def admin_edit(name,id):
 def list_of_review():
     connection = get_connection()
     cursor = connection.cursor()
-
-    sql = "SELECT * FROM music_review"
-
+    sql = """
+        SELECT music_review.id, music.name, music_review.date_time, music_review.star, music_review.review
+        FROM music_review
+        JOIN music ON music_review.music_id = music.music_id
+    """
     cursor.execute(sql)
-
     rows = cursor.fetchall()
-
     cursor.close()
     connection.close()
     return rows
