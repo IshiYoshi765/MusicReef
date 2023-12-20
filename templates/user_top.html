@@ -1,766 +1,678 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
-      rel="stylesheet"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+    rel="stylesheet"
+  />
+ 
+  <title>利用者トップ</title>
+  <style>
+    .search-box select {
+      position: absolute;
+      left: 270px;
+      top: 130px;
+      width: 100px;
+      height: 50px;
+    }
 
-    <title>利用者トップ</title>
-    <style>
-      .search-box select {
-        position: absolute;
-        left: 270px;
-        top: 130px;
-        width: 100px;
-        height: 50px;
-      }
+    .search-box input {
+      position: absolute;
+      top: 130px;
+      left: 370px;
+      width: 400px;
+      height: 50px;
+      margin-bottom: 5px;
+      padding: 5px 15px;
+      box-sizing: border-box;
+      font-size: 1em;
+    }
 
-      .search-box input {
-        position: absolute;
-        top: 130px;
-        left: 370px;
-        width: 400px;
-        height: 50px;
-        margin-bottom: 5px;
-        padding: 5px 15px;
-        box-sizing: border-box;
-        font-size: 1em;
-      }
+    .search-box button {
+      position: absolute;
+      top: 130px;
+      left: 770px;
+      width: 80px;
+      height: 50px;
+      background-color: rgb(94, 94, 94);
+    }
 
-      .search-box button {
-        position: absolute;
-        top: 130px;
-        left: 770px;
-        width: 80px;
-        height: 50px;
-        background-color: rgb(94, 94, 94);
-      }
+    .search-box button i {
+      color: rgb(255, 255, 255);
+      font-size: 2rem;
+      top: 20px;
+      left: 600px;
+    }
 
-      .search-box button i {
-        color: rgb(255, 255, 255);
-        font-size: 2rem;
-        top: 20px;
-        left: 600px;
-      }
+    .title1 {
+      position: absolute;
+      top: 80px;
+      left: 270px;
+    }
 
-      .title1 {
-        position: absolute;
-        top: 80px;
-        left: 270px;
-      }
+    a {
+      text-decoration: none;
+      color: #747474;
+    }
 
-      a {
-        text-decoration: none;
-        color: #747474;
-      }
+    ul.topnav {
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+      background-color: #044f88;
+    }
 
-      ul.topnav {
-        overflow: hidden;
-        margin: 0;
-        padding: 0;
-        list-style-type: none;
-        background-color: #044f88;
-      }
+    ul.topnav li {
+      float: left;
+    }
 
-      ul.topnav li {
-        float: left;
-      }
+    ul.topnav li a {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      color: white;
+    }
 
-      ul.topnav li a {
-        display: block;
-        text-align: center;
-        text-decoration: none;
-        color: white;
-      }
+    ul.topnav li a.left {
+      background-color: #044f88;
+    }
 
-      ul.topnav li a.left {
-        background-color: #044f88;
-      }
+    ul.topnav li.right {
+      float: right;
+    }
 
-      ul.topnav li.right {
-        float: right;
-      }
+    .footer04 {
+      color: white;
+      background: #548eba;
+      text-align: center;
+      padding: 15px;
+    }
 
-      .footer04 {
-        color: white;
-        background: #548eba;
-        text-align: center;
-        padding: 15px;
-      }
+    .footer04 a {
+      color: white;
+      text-decoration: none;
+    }
 
-      .footer04 a {
-        color: white;
-        text-decoration: none;
-      }
+    .footer04 a:hover {
+      text-decoration: underline;
+    }
 
-      .footer04 a:hover {
-        text-decoration: underline;
-      }
+    .footer04 .menu {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
 
+    .footer04 .menu li {
+      margin: 0;
+      padding: 0 20px;
+      border-right: 1px white solid;
+    }
+
+    .footer04 .menu li:last-child {
+      border: none;
+    }
+
+    .p2 {
+      left: 3%;
+      font-size: 35px;
+    }
+
+    .p3 {
+      left: 3%;
+      font-size: 30px;
+    }
+
+    .p4 {
+      left: 3%;
+      font-size: 30px;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    .flex-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 30px;
+    }
+
+    .flex-item {
+      padding: 20px;
+      border: 1px solid #ccc;
+    }
+
+    .detail {
+      position: relative;
+      padding: 0px;
+      width: 600px;
+    }
+
+    .music-details-container .p7 {
+      font-size: 30px;
+      bottom: -25px;
+      left: -3%;
+      position: absolute;
+    }
+
+    .music-details-container .p8,
+    .music-details-container .p9,
+    .music-details-container .p10,
+    .music-details-container .p11 {
+      font-size: 15px;
+      position: absolute;
+      bottom: 0;
+    }
+
+    .music-details-container .p8 {
+      bottom: -45px;
+      left: -3%;
+      position: absolute;
+    }
+
+    .music-details-container .p9 {
+      bottom: -45px;
+      left: 25%;
+      position: absolute;
+    }
+
+    .music-details-container .p10 {
+      bottom: -45px;
+      left: 45%;
+      position: absolute;
+    }
+
+    .music-details-container .p11 {
+      bottom: -45px;
+      left: 70%;
+      position: absolute;
+    }
+
+    .music-details-container .detail-cursor {
+      bottom: -25px;
+      left: 85%;
+      position: relative;
+      border: 1px solid #ccc;
+      width: 90px;
+    }
+
+    .music-details-container .close-details {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .music-details-container .music-details {
+      display: none;
+      position: relative;
+      width: 600px;
+      margin-top: 20px;
+    }
+
+    .music-details-container .details-box {
+      background: white;
+      padding: 20px;
+      max-width: 100%;
+      max-height: 100%;
+      overflow: auto;
+      border-radius: 10px;
+      position: fixed;
+      z-index: 9999;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: none;
+      border: 1px solid black;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .music-details-container .tooltip {
+      display: none;
+      position: absolute;
+      background: #f9f9f9;
+      border: 1px solid black;
+      padding: 10px;
+      border-radius: 5px;
+      z-index: 100;
+      max-width: 100px;
+    }
+
+    .music-entry {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      position: relative;
+      width: 93%;
+    }
+
+    .music-entry .logo-container {
+      margin-right: 20px;
+    }
+
+    .music-entry .logo-img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .music-entry .no-image {
+      width: 100px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      background-color: #eee;
+      color: #888;
+      font-size: 14px;
+    }
+
+    .music-entry .music-title {
+      font-size: 25px;
+      font-weight: bold;
+      margin-top: -30px;
+    }
+
+    .music-entry .music-info {
+      font-size: 15px;
+      font-weight: bold;
+      margin-top: 80px;
+      margin-right: 80px; /* 間隔を設定 */
+      position: relative;
+    }
+
+    .music-entry .music-info-container {
+      display: flex;
+      justify-content: flex-start; /* 左端から配置 */
+      align-items: center; /* 垂直方向の中央揃え */
+      width: 100%;
+    }
+
+    .music-entry .music-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .music-entry .review {
+      text-decoration: none;
+      background-color: #007bff;
+      color: #fff;
+      padding: 8px 15px;
+      border-radius: 5px;
+      margin-bottom: 5px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .music-entry .review span {
+      font-size: 14px;
+      margin-left: 5px;
+    }
+
+    .music-entry .download-action span,
+    .music-entry .download-link {
+      font-size: 14px;
+      color: #007bff;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    
+    @media only screen and (max-width: 599px) {
       .footer04 .menu {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+        justify-content: flex-start;
       }
-
       .footer04 .menu li {
-        margin: 0;
-        padding: 0 20px;
-        border-right: 1px white solid;
-      }
-
-      .footer04 .menu li:last-child {
+        width: 50%;
+        box-sizing: border-box;
         border: none;
       }
-
-      .p2 {
-        left: 3%;
-        font-size: 35px;
+      .footer04 .menu li:nth-child(odd) {
+        border-right: 1px white solid;
       }
+    }
+    
+  </style>
+</head>
+<body>
+  <ul class="topnav">
+    <li>
+      <a class="left" href="#"><h2>　MUSIC REEF</h2></a>
+    </li>
+    <li class="right">
+      <a
+        href="terms_of_service.html"
+        style="
+          border-left: 2px solid white;
+          padding: 2px 8px;
+        "
+      ><h2>利用規約</h2></a>
+    </li>
+  </ul>
+  <div style="background-color: #ececec; margin: 0; height: 120px">
+    <h3 class="title1">フリー音源の検索</h3>
+    <div class="search-box">
+      <form action="{{ url_for('search_music_result')}}" method="post">
+        <select name="genre">
+            <option value="">指定しない</option>
+            <option value="2">ポップ</option>
+            <option value="3">EDM</option>
+            <option value="4">ロック</option>
+            <option value="5">クラシック</option>
+            <option value="6">和風</option>
+            <option value="7">ピアノ</option>
+            <option value="8">アンビエント</option>
+            <option value="9">エレクトロ</option>
+            <option value="10">アコースティック</option>
+            <option value="11">Chill Hop</option>
+        </select>      
+        
+          <input type="text" class="tagInput" placeholder="検索ワード" name="name">
+          
+              <button type="submit">
+                <i class="fas fa-search fa-fw"></i>
+              </button>      
+        </form>
+    </div>
+  </div>
 
-      .p3 {
-        left: 3%;
-        font-size: 30px;
-      }
-
-      .p4 {
-        left: 3%;
-        font-size: 30px;
-      }
-
-      ul {
-        list-style: none;
-      }
-
-      .flex-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 30px;
-      }
-
-      .flex-item {
-        padding: 20px;
-        border: 1px solid #ccc;
-      }
-
-      .detail {
-        position: relative;
-        padding: 0px;
-        width: 600px;
-      }
-
-      .music-details-container .p7 {
-        font-size: 30px;
-        bottom: -25px;
-        left: -3%;
-        position: absolute;
-      }
-
-      .music-details-container .p8,
-      .music-details-container .p9,
-      .music-details-container .p10,
-      .music-details-container .p11 {
-        font-size: 15px;
-        position: absolute;
-        bottom: 0;
-      }
-
-      .music-details-container .p8 {
-        bottom: -45px;
-        left: -3%;
-        position: absolute;
-      }
-
-      .music-details-container .p9 {
-        bottom: -45px;
-        left: 25%;
-        position: absolute;
-      }
-
-      .music-details-container .p10 {
-        bottom: -45px;
-        left: 45%;
-        position: absolute;
-      }
-
-      .music-details-container .p11 {
-        bottom: -45px;
-        left: 70%;
-        position: absolute;
-      }
-
-      .music-details-container .detail-cursor {
-        bottom: -25px;
-        left: 85%;
-        position: relative;
-        border: 1px solid #ccc;
-        width: 90px;
-      }
-
-      .music-details-container .close-details {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        cursor: pointer;
-        font-size: 20px;
-      }
-
-      .music-details-container .music-details {
-        display: none;
-        position: relative;
-        width: 600px;
-        margin-top: 20px;
-      }
-
-      .music-details-container .details-box {
-        background: white;
-        padding: 20px;
-        max-width: 100%;
-        max-height: 100%;
-        overflow: auto;
-        border-radius: 10px;
-        position: fixed;
-        z-index: 9999;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        display: none;
-        border: 1px solid black;
-        animation: fadeIn 0.5s ease-in-out;
-      }
-
-      .music-details-container .tooltip {
-        display: none;
-        position: absolute;
-        background: #f9f9f9;
-        border: 1px solid black;
-        padding: 10px;
-        border-radius: 5px;
-        z-index: 100;
-        max-width: 100px;
-      }
-
-      .music-entry {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border: 1px solid #ccc;
-        margin-bottom: 20px;
-        padding: 15px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        position: relative;
-        width: 93%;
-      }
-
-      .music-entry .logo-container {
-        margin-right: 20px;
-      }
-
-      .music-entry .logo-img {
-        width: 100px;
-        height: 100px;
-        object-fit: cover;
-        border-radius: 8px;
-      }
-
-      .music-entry .no-image {
-        width: 100px;
-        height: 100px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 8px;
-        background-color: #eee;
-        color: #888;
-        font-size: 14px;
-      }
-
-      .music-entry .music-title {
-        font-size: 25px;
-        font-weight: bold;
-        margin-top: -30px;
-      }
-
-      .music-entry .music-info {
-        font-size: 15px;
-        font-weight: bold;
-        margin-top: 80px;
-        margin-right: 80px; /* 間隔を設定 */
-        position: relative;
-      }
-
-      .music-entry .music-info-container {
-        display: flex;
-        justify-content: flex-start; /* 左端から配置 */
-        align-items: center; /* 垂直方向の中央揃え */
-        width: 100%;
-      }
-
-      .music-entry .music-actions {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-      }
-
-      .music-entry .review {
-        text-decoration: none;
-        background-color: #007bff;
-        color: #fff;
-        padding: 8px 15px;
-        border-radius: 5px;
-        margin-bottom: 5px;
-        text-align: center;
-        cursor: pointer;
-      }
-
-      .music-entry .review span {
-        font-size: 14px;
-        margin-left: 5px;
-      }
-
-      .music-entry .download-action span,
-      .music-entry .download-link {
-        font-size: 14px;
-        color: #007bff;
-        text-decoration: none;
-        cursor: pointer;
-      }
-
-      @media only screen and (max-width: 599px) {
-        .footer04 .menu {
-          justify-content: flex-start;
-        }
-        .footer04 .menu li {
-          width: 50%;
-          box-sizing: border-box;
-          border: none;
-        }
-        .footer04 .menu li:nth-child(odd) {
-          border-right: 1px white solid;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <ul class="topnav">
-      <li>
-        <a class="left" href="#"><h2>　MUSIC REEF</h2></a>
-      </li>
-      <li class="right">
-        <a
-          href="{{url_for('terms_of_service')}}"
-          style="border-left: 2px solid white; padding: 2px 8px"
-          ><h2>利用規約</h2></a
-        >
-      </li>
+  <div class="expression">
+    <p class="p1">music search</p>
+    <p class="p2">新着</p>
+    <br><br><br>
+    <ul>
+      {% if recent_music %}
+        {% for music in recent_music %}
+          <li class="music-entry">
+            <div class="logo-container">
+              {% set logo_keyword = music[8]|lower %}
+              {% if 'bgmer' in logo_keyword %}
+                <img class="logo-img" src="{{ url_for('static', filename='img/BGMer.jpg') }}" alt="BGMer ロゴ">
+              {% elif 'amachamusic' in logo_keyword %}
+                <img class="logo-img" src="{{ url_for('static', filename='img/amatya.jpg') }}" alt="Amatya ロゴ">
+              {% elif 'dova-s.jp' in logo_keyword %}
+                <img class="logo-img" src="{{ url_for('static', filename='img/dova.jpg') }}" alt="Dova ロゴ">
+              {% elif 'musmus.main.jp' in logo_keyword %}
+                <img class="logo-img" src="{{ url_for('static', filename='img/MusMus.jpg') }}" alt="MusMus ロゴ">
+              {% elif 'shw.in' in logo_keyword %}
+                <img class="logo-img" src="{{ url_for('static', filename='img/SHW.jpg') }}" alt="SHW ロゴ">
+              {% else %}
+                <div class="no-image">画像なし</div>
+              {% endif %}
+            </div>
+            <div class="music-info-container">
+              <p class="music_title">{{ music[1] }}</p>
+              <p class="music-info">作曲: {{ music[6] }}</p>
+              <p class="music-info">♬ {{ music[4] }}</p>
+              <p class="music-info">
+                {% set genre_options = {
+                  '1': '指定しない',
+                  '2': 'ポップ',
+                  '3': 'EDM',
+                  '4': 'ロック',
+                  '5': 'クラシック',
+                  '6': '和風',
+                  '7': 'ピアノ',
+                  '8': 'アンビエント',
+                  '9': 'エレクトロ',
+                  '10': 'アコースティック',
+                  '11': 'Chill Hop',
+                } %}
+                {{ genre_options[music[2]] }}
+              </p>
+              <p class="music-info">👁 {{ music[11] }}回</p>
+              <div class="detail-cursor" data-music-id="{{ music[0] }}">詳細な情報</div>
+              <div class="music-details-container" id="music-details-{{ music[0] }}">
+                <div class="details-box">
+                  <div class="tooltip"></div>
+                  <p>
+                    {% for tag in music[1] %}{{ tag }}{% if not loop.last %}, {%endif %}{% endfor %}
+                  </p>
+                  <br />
+                  <p>{{ music[3] }}</p>
+                  <br>
+              </div>
+              </div>
+            </div>
+            <div class="music-actions">
+              <a href="{{ url_for('review', music_id=music[0]) }}" class="review">
+                評価
+                {% if average_ratings and music[0] in average_ratings %}
+                  <span>{{ average_ratings[music[0]] | round(1) }}/5</span>
+                {% else %}
+                  <span>N/A</span>
+                {% endif %}
+              </a>
+              <div class="download-action">
+                {% if music[8] %}
+                  <a href="{{ url_for('download_music', music_id=music[0]) }}" class="download-link">ダウンロード</a>
+                {% else %}
+                  <span>N/A</span>
+                {% endif %}
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+      {% endif %}
     </ul>
-    <div style="background-color: #ececec; margin: 0; height: 120px">
-      <h3 class="title1">フリー音源の検索</h3>
-      <div class="search-box">
-        <select name="item">
-          <option value="指定しない">指定しない</option>
-          <option value="ポップ">ポップ</option>
-          <option value="EDM">EDM</option>
-          <option value="ロック">ロック</option>
-          <option value="クラシック">クラシック</option>
-          <option value="和風">和風</option>
-          <option value="ピアノ">ピアノ</option>
-          <option value="アンビエント">アンビエント</option>
-          <option value="エレクトロ">エレクトロ</option>
-          <option value="R&B・JAZZ">R&B・JAZZ</option>
-          <option value="アコースティック">アコースティック</option>
-          <option value="Chill Hop">Chill Hop</option>
-        </select>
-        <input type="text" placeholder="検索キーワードを入力" />
-        <button type="submit">
-          <i class="fas fa-search fa-fw"></i>
-        </button>
-      </div>
-    </div>
-
-    <div class="expression">
-      <p class="p1">music search</p>
-      <p class="p2" style="margin: 0; padding-top: 15px; padding-left: 20px">
-        新着
-      </p>
-      <ul>
-        {% if recent_music %} {% for music in recent_music %}
-        <li class="music-entry" style="margin-left: 40px">
-          <div class="logo-container">
-            {% set logo_keyword = music[8]|lower %} {% if 'bgmer' in
-            logo_keyword %}
-            <img
-              class="logo-img"
-              src="{{ url_for('static', filename='img/BGMer.jpg') }}"
-              alt="BGMer ロゴ"
-            />
-            {% elif 'amachamusic' in logo_keyword %}
-            <img
-              class="logo-img"
-              src="{{ url_for('static', filename='img/amatya.jpg') }}"
-              alt="Amatya ロゴ"
-            />
-            {% elif 'dova-s.jp' in logo_keyword %}
-            <img
-              class="logo-img"
-              src="{{ url_for('static', filename='img/dova.jpg') }}"
-              alt="Dova ロゴ"
-            />
-            {% elif 'musmus.main.jp' in logo_keyword %}
-            <img
-              class="logo-img"
-              src="{{ url_for('static', filename='img/MusMus.jpg') }}"
-              alt="MusMus ロゴ"
-            />
-            {% elif 'shw.in' in logo_keyword %}
-            <img
-              class="logo-img"
-              src="{{ url_for('static', filename='img/SHW.jpg') }}"
-              alt="SHW ロゴ"
-            />
-            {% else %}
-            <div class="no-image">画像なし</div>
-            {% endif %}
-          </div>
-          <div class="music-info-container">
-            <p class="music-title">{{ music[1] }}</p>
-            <p class="music-info">作曲: {{ music[6] }}</p>
-            <p class="music-info">♬ {{ music[4] }}</p>
-            <p class="music-info">
-              {% set genre_options = { '1': '指定しない', '2': 'ポップ', '3':
-              'EDM', '4': 'ロック', '5': 'クラシック', '6': '和風', '7':
-              'ピアノ', '8': 'アンビエント', '9': 'エレクトロ', '10':
-              'アコースティック', '11': 'Chill Hop', } %} {{
-              genre_options[music[2]] }}
-            </p>
-            <p class="music-info">👁 {{ music[11] }}回</p>
-            <div class="detail-cursor" data-music-id="{{ music[0] }}">
-              詳細な情報
-            </div>
-            <div
-              class="music-details-container"
-              id="music-details-{{ music[0] }}"
-            >
-              <div class="details-box">
-                <div class="tooltip"></div>
-                <p>
-                  {% for tag in music[1] %}{{ tag }}{% if not loop.last %}, {%
-                  endif %}{% endfor %}
-                </p>
-                <br />
-                <p>詳細な情報: {{ music[3] }}</p>
-                <br />
-              </div>
-            </div>
-          </div>
-          <div class="music-actions">
-            <a href="{{ url_for('review', music_id=music[0]) }}" class="review">
-              評価 {% if average_ratings and music[0] in average_ratings %}
-              <span>{{ average_ratings[music[0]] | round(1) }}/5</span>
-              {% else %}
-              <span>N/A</span>
-              {% endif %}
-            </a>
-            <div class="download-action">
-              {% if music[8] %}
-              <a
-                href="{{ url_for('download_music', music_id=music[0]) }}"
-                class="download-link"
-                >ダウンロード</a
-              >
-              {% else %}
-              <span>N/A</span>
-              {% endif %}
-            </div>
-          </div>
-        </li>
-        {% endfor %} {% endif %}
-      </ul>
-
-      <p class="p3" style="margin: 0; padding-top: 15px; padding-left: 20px">
-        アクセス数ランキング(週間)
-      </p>
-      <ul>
-        {% if week_top_songs %} {% for music in week_top_songs %}
-        <div class="ranking" style="display: flex">
-          <p
-            style="
-            font-size: 30px;
-            text-align: center;
-            padding-top: 20px;
-            color: {% if loop.index == 1 %}yellow{% elif loop.index == 2 %}gray{% elif loop.index == 3 %}brown{% else %}black{% endif %};
-            padding-right:20px
-          "
-          >
-            {{ loop.index }}
-          </p>
+    <br><br><br>
+    <p class="p3">アクセス数ランキング(週間)</p>
+    <ul>
+      {% if week_top_songs %}
+          {% for music in week_top_songs %}
           <li class="music-entry">
             <div class="logo-container">
-              {% set logo_keyword = music[8]|lower %} {% if 'bgmer' in
-              logo_keyword %}
-              <img
-                class="logo-img"
-                src="{{ url_for('static', filename='img/BGMer.jpg') }}"
-                alt="BGMer ロゴ"
-              />
+              {% set logo_keyword = music[8]|lower %}
+              {% if 'bgmer' in logo_keyword %}
+                <img class="logo-img" src="{{ url_for('static', filename='img/BGMer.jpg') }}" alt="BGMer ロゴ">
               {% elif 'amachamusic' in logo_keyword %}
-              <img
-                class="logo-img"
-                src="{{ url_for('static', filename='img/amatya.jpg') }}"
-                alt="Amatya ロゴ"
-              />
+                <img class="logo-img" src="{{ url_for('static', filename='img/amatya.jpg') }}" alt="Amatya ロゴ">
               {% elif 'dova-s.jp' in logo_keyword %}
-              <img
-                class="logo-img"
-                src="{{ url_for('static', filename='img/dova.jpg') }}"
-                alt="Dova ロゴ"
-              />
+                <img class="logo-img" src="{{ url_for('static', filename='img/dova.jpg') }}" alt="Dova ロゴ">
               {% elif 'musmus.main.jp' in logo_keyword %}
-              <img
-                class="logo-img"
-                src="{{ url_for('static', filename='img/MusMus.jpg') }}"
-                alt="MusMus ロゴ"
-              />
+                <img class="logo-img" src="{{ url_for('static', filename='img/MusMus.jpg') }}" alt="MusMus ロゴ">
               {% elif 'shw.in' in logo_keyword %}
-              <img
-                class="logo-img"
-                src="{{ url_for('static', filename='img/SHW.jpg') }}"
-                alt="SHW ロゴ"
-              />
+                <img class="logo-img" src="{{ url_for('static', filename='img/SHW.jpg') }}" alt="SHW ロゴ">
               {% else %}
-              <div class="no-image">画像なし</div>
+                <div class="no-image">画像なし</div>
               {% endif %}
             </div>
             <div class="music-info-container">
-              <p class="music-title">{{ music[1] }}</p>
+              <p class="music_title">{{ music[1] }}</p>
               <p class="music-info">作曲: {{ music[6] }}</p>
               <p class="music-info">♬ {{ music[4] }}</p>
               <p class="music-info">
-                {% set genre_options = { '1': '指定しない', '2': 'ポップ', '3':
-                'EDM', '4': 'ロック', '5': 'クラシック', '6': '和風', '7':
-                'ピアノ', '8': 'アンビエント', '9': 'エレクトロ', '10':
-                'アコースティック', '11': 'Chill Hop', } %} {{
-                genre_options[music[2]] }}
+                {% set genre_options = {
+                  '1': '指定しない',
+                  '2': 'ポップ',
+                  '3': 'EDM',
+                  '4': 'ロック',
+                  '5': 'クラシック',
+                  '6': '和風',
+                  '7': 'ピアノ',
+                  '8': 'アンビエント',
+                  '9': 'エレクトロ',
+                  '10': 'アコースティック',
+                  '11': 'Chill Hop',
+                } %}
+                {{ genre_options[music[2]] }}
               </p>
               <p class="music-info">👁 {{ music[11] }}回</p>
-              <div class="detail-cursor" data-music-id="{{ music[0] }}">
-                詳細な情報
-              </div>
-              <div
-                class="music-details-container"
-                id="music-details-{{ music[0] }}"
-              >
+              <div class="detail-cursor" data-music-id="{{ music[0] }}">詳細な情報</div>
+              <div class="music-details-container" id="music-details-{{ music[0] }}">
                 <div class="details-box">
                   <div class="tooltip"></div>
                   <p>
-                    {% for tag in music[1] %}{{ tag }}{% if not loop.last %}, {%
-                    endif %}{% endfor %}
+                    {% for tag in music[1] %}{{ tag }}{% if not loop.last %}, {% endif %}{% endfor %}
                   </p>
-                  <br />
+                  <br>
                   <p>詳細な情報: {{ music[3] }}</p>
-                  <br />
+                  <br>
+                  </div>
                 </div>
               </div>
             </div>
             <div class="music-actions">
-              <a
-                href="{{ url_for('review', music_id=music[0]) }}"
-                class="review"
-              >
-                評価 {% if average_ratings and music[0] in average_ratings %}
-                <span>{{ average_ratings[music[0]] | round(1) }}/5</span>
+              <a href="{{ url_for('review', music_id=music[0]) }}" class="review">
+                評価
+                {% if average_ratings and music[0] in average_ratings %}
+                  <span>{{ average_ratings[music[0]] | round(1) }}/5</span>
                 {% else %}
-                <span>N/A</span>
+                  <span>N/A</span>
                 {% endif %}
               </a>
               <div class="download-action">
                 {% if music[8] %}
-                <a
-                  href="{{ url_for('download_music', music_id=music[0]) }}"
-                  class="download-link"
-                  >ダウンロード</a
-                >
+                  <a href="{{ url_for('download_music', music_id=music[0]) }}" class="download-link">ダウンロード</a>
                 {% else %}
-                <span>N/A</span>
+                  <span>N/A</span>
                 {% endif %}
               </div>
             </div>
           </li>
-        </div>
-        {% endfor %} {% endif %}
-      </ul>
-
-      <p class="p4" style="margin: 0; padding-top: 15px; padding-left: 20px">
-        アクセス数ランキング(月間)
-      </p>
-      <ul>
-        {% if month_top_songs %} {% for music in month_top_songs %}
-        <div class="ranking" style="display: flex">
-          <p
-            style="
-            font-size: 30px;
-            text-align: center;
-            padding-top: 20px;
-            color: {% if loop.index == 1 %}yellow{% elif loop.index == 2 %}gray{% elif loop.index == 3 %}brown{% else %}black{% endif %};
-            padding-right:20px
-          "
-          >
-            {{ loop.index }}
-          </p>
+          {% endfor %}
+      {% endif %}
+  </ul>
+  <br><br><br>
+    <p class="p4">アクセス数ランキング(月間)</p>
+    <ul>
+      {% if month_top_songs %}
+          {% for music in month_top_songs %}
           <li class="music-entry">
             <div class="logo-container">
-              {% set logo_keyword = music[8]|lower %} {% if 'bgmer' in
-              logo_keyword %}
-              <img
-                class="logo-img"
-                src="{{ url_for('static', filename='img/BGMer.jpg') }}"
-                alt="BGMer ロゴ"
-              />
+              {% set logo_keyword = music[8]|lower %}
+              {% if 'bgmer' in logo_keyword %}
+                <img class="logo-img" src="{{ url_for('static', filename='img/BGMer.jpg') }}" alt="BGMer ロゴ">
               {% elif 'amachamusic' in logo_keyword %}
-              <img
-                class="logo-img"
-                src="{{ url_for('static', filename='img/amatya.jpg') }}"
-                alt="Amatya ロゴ"
-              />
+                <img class="logo-img" src="{{ url_for('static', filename='img/amatya.jpg') }}" alt="Amatya ロゴ">
               {% elif 'dova-s.jp' in logo_keyword %}
-              <img
-                class="logo-img"
-                src="{{ url_for('static', filename='img/dova.jpg') }}"
-                alt="Dova ロゴ"
-              />
+                <img class="logo-img" src="{{ url_for('static', filename='img/dova.jpg') }}" alt="Dova ロゴ">
               {% elif 'musmus.main.jp' in logo_keyword %}
-              <img
-                class="logo-img"
-                src="{{ url_for('static', filename='img/MusMus.jpg') }}"
-                alt="MusMus ロゴ"
-              />
+                <img class="logo-img" src="{{ url_for('static', filename='img/MusMus.jpg') }}" alt="MusMus ロゴ">
               {% elif 'shw.in' in logo_keyword %}
-              <img
-                class="logo-img"
-                src="{{ url_for('static', filename='img/SHW.jpg') }}"
-                alt="SHW ロゴ"
-              />
+                <img class="logo-img" src="{{ url_for('static', filename='img/SHW.jpg') }}" alt="SHW ロゴ">
               {% else %}
-              <div class="no-image">画像なし</div>
+                <div class="no-image">画像なし</div>
               {% endif %}
             </div>
             <div class="music-info-container">
-              <p class="music-title">{{ music[1] }}</p>
+              <p class="music_title">{{ music[1] }}</p>
               <p class="music-info">作曲: {{ music[6] }}</p>
               <p class="music-info">♬ {{ music[4] }}</p>
               <p class="music-info">
-                {% set genre_options = { '1': '指定しない', '2': 'ポップ', '3':
-                'EDM', '4': 'ロック', '5': 'クラシック', '6': '和風', '7':
-                'ピアノ', '8': 'アンビエント', '9': 'エレクトロ', '10':
-                'アコースティック', '11': 'Chill Hop', } %} {{
-                genre_options[music[2]] }}
+                {% set genre_options = {
+                  '1': '指定しない',
+                  '2': 'ポップ',
+                  '3': 'EDM',
+                  '4': 'ロック',
+                  '5': 'クラシック',
+                  '6': '和風',
+                  '7': 'ピアノ',
+                  '8': 'アンビエント',
+                  '9': 'エレクトロ',
+                  '10': 'アコースティック',
+                  '11': 'Chill Hop',
+                } %}
+                {{ genre_options[music[2]] }}
               </p>
               <p class="music-info">👁 {{ music[11] }}回</p>
-              <div class="detail-cursor" data-music-id="{{ music[0] }}">
-                詳細な情報
-              </div>
-              <div
-                class="music-details-container"
-                id="music-details-{{ music[0] }}"
-              >
+              <div class="detail-cursor" data-music-id="{{ music[0] }}">詳細な情報</div>
+              <div class="music-details-container" id="music-details-{{ music[0] }}">
                 <div class="details-box">
                   <div class="tooltip"></div>
                   <p>
-                    {% for tag in music[1] %}{{ tag }}{% if not loop.last %}, {%
-                    endif %}{% endfor %}
+                    {% for tag in music[1] %}{{ tag }}{% if not loop.last %}, {% endif %}{% endfor %}
                   </p>
-                  <br />
+                  <br>
                   <p>詳細な情報: {{ music[3] }}</p>
-                  <br />
+                  <br>
                 </div>
               </div>
             </div>
             <div class="music-actions">
-              <a
-                href="{{ url_for('review', music_id=music[0]) }}"
-                class="review"
-              >
-                評価 {% if average_ratings and music[0] in average_ratings %}
-                <span>{{ average_ratings[music[0]] | round(1) }}/5</span>
+              <a href="{{ url_for('review', music_id=music[0]) }}" class="review">
+                評価
+                {% if average_ratings and music[0] in average_ratings %}
+                  <span>{{ average_ratings[music[0]] | round(1) }}/5</span>
                 {% else %}
-                <span>N/A</span>
+                  <span>N/A</span>
                 {% endif %}
               </a>
               <div class="download-action">
                 {% if music[8] %}
-                <a
-                  href="{{ url_for('download_music', music_id=music[0]) }}"
-                  class="download-link"
-                  >ダウンロード</a
-                >
+                  <a href="{{ url_for('download_music', music_id=music[0]) }}" class="download-link">ダウンロード</a>
                 {% else %}
-                <span>N/A</span>
+                  <span>N.N/A</span>
                 {% endif %}
               </div>
             </div>
           </li>
-        </div>
-        {% endfor %} {% endif %}
-      </ul>
-    </div>
-    <br /><br />
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        var detailCursors = document.querySelectorAll(".detail-cursor");
+          {% endfor %}
+      {% endif %}
+  </ul>
 
-        detailCursors.forEach(function (cursor) {
-          cursor.addEventListener("mouseover", function () {
-            var musicId = this.getAttribute("data-music-id");
-            var musicDetails = document.getElementById(
-              "music-details-" + musicId
-            );
-            var tooltip = musicDetails.querySelector(".tooltip");
-            var detailsBox = musicDetails.querySelector(".details-box");
-
-            if (musicDetails) {
-              var rect = this.getBoundingClientRect();
-              musicDetails.style.display = "block";
-
-              detailsBox.style.display = "block";
-            }
-          });
-
-          cursor.addEventListener("mouseout", function () {
-            var musicId = this.getAttribute("data-music-id");
-            var musicDetails = document.getElementById(
-              "music-details-" + musicId
-            );
-            var tooltip = musicDetails.querySelector(".tooltip");
-            var detailsBox = musicDetails.querySelector(".details-box");
-
-            if (musicDetails) {
-              musicDetails.style.display = "none";
-              tooltip.style.display = "none";
-              detailsBox.style.display = "none";
-            }
-          });
+  </div>
+  <br><br>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var detailCursors = document.querySelectorAll('.detail-cursor');
+  
+      detailCursors.forEach(function (cursor) {
+        cursor.addEventListener('mouseover', function () {
+          var musicId = this.getAttribute('data-music-id');
+          var musicDetails = document.getElementById('music-details-' + musicId);
+          var tooltip = musicDetails.querySelector('.tooltip'); 
+          var detailsBox = musicDetails.querySelector('.details-box'); 
+  
+          if (musicDetails) {
+            var rect = this.getBoundingClientRect();
+            musicDetails.style.display = 'block';
+            
+            detailsBox.style.display = 'block';
+          }
+        });
+  
+        cursor.addEventListener('mouseout', function () {
+          var musicId = this.getAttribute('data-music-id');
+          var musicDetails = document.getElementById('music-details-' + musicId);
+          var tooltip = musicDetails.querySelector('.tooltip');
+          var detailsBox = musicDetails.querySelector('.details-box');
+  
+          if (musicDetails) {
+            musicDetails.style.display = 'none';
+            tooltip.style.display = 'none';
+            detailsBox.style.display = 'none';
+          }
         });
       });
-    </script>
+    });
+  </script>
+  
 
-    <div class="footer04">
-      <h1>MUSIC REEF</h1>
-      <ul class="menu">
-        <li><a href="#">ホーム</a></li>
-        <li>
-          <a href="{{url_for('about_the_site')}}"
-            >MUSIC REEF(ミュージックリーフ)について</a
-          >
-        </li>
-      </ul>
-    </div>
-  </body>
+  <div class="footer04">
+    <h1>MUSIC REEF</h1>
+    <ul class="menu">
+      <li><a href="#">ホーム</a></li>
+      <li>
+        <a href="about_the_site.html">MUSIC REEF(ミュージックリーフ)について</a>
+      </li>
+    </ul>
+  </div>
+</body>
 </html>
