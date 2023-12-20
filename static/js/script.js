@@ -43,7 +43,7 @@ function openModal(
       <p>ジャンル: ${genre}</p>
       <p>詳細: ${detail}</p>
       <p>長さ: ${length}</p>
-      <p>作曲家: ${composer}</p>
+      <p>作曲者: ${composer}</p>
       <p>参照元: ${source}</p>
       ${urlLink}
       <p>登録日時: ${formattedDateRegister}</p>
