@@ -194,7 +194,10 @@ def admin_update_exe():
 
 @app.route('/tag')
 def tag():
-    return render_template('tag.html')
+    if "user" in session:
+        return render_template('tag.html')
+    else:
+        return redirect(url_for("index"))
 
 @app.route('/insert_tag',methods=['POST'])
 def insert_tag():
@@ -207,8 +210,11 @@ def insert_tag():
 
 @app.route("/music_register")
 def music_register():
-    tag = tags.select_tag()
-    return render_template('music_register.html',music=tag)
+    if "user" in session:
+        tag = tags.select_tag()
+        return render_template('music_register.html',music=tag)
+    else:
+        return redirect(url_for("index"))
 
 @app.route("/music_regi_exe", methods=["POST"])
 def music_regi_exe():
@@ -261,9 +267,12 @@ def delete_exe():
 
 @app.route("/admin_list", methods=['GET'])
 def admin_list():
-    admin_all = db.admin_select_all()
-    return render_template('route_admin_list.html',admins = admin_all)
-
+    if "user" in session:
+        admin_all = db.admin_select_all()
+        return render_template('route_admin_list.html',admins = admin_all)
+    else:
+        return redirect(url_for("index"))
+    
 @app.route('/admin_edit')
 def admin_edit():
     if "user" in session:
@@ -301,8 +310,11 @@ def admin_delete_exe():
 
 @app.route("/list_of_review", methods=['GET'])
 def list_of_review():
-    review_all = db.list_of_review()
-    return render_template('list_of_review.html', reviews=review_all)
+    if "user" in session:
+        review_all = db.list_of_review()
+        return render_template('list_of_review.html', reviews=review_all)
+    else:
+        return redirect(url_for("index"))
     
 @app.route('/search_result', methods=["POST"])
 def search_result():

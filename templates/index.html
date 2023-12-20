@@ -160,7 +160,9 @@
                       </button>
                   </td>
                     <td style="border: none;">
-                      <a href="{{url_for('music_edit',id=sound[0])}}">編集</a>
+                      <form action="{{url_for('music_edit',id=sound[0])}}">
+                      <button type="submit">編集</button>
+                      </form>
                     </td>
                     <td style="border: none;">
                       <button class="js-delete-modal-button" data-music="{{ sound[0] }}">削除</button>
