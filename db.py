@@ -441,7 +441,7 @@ def admin_edit(name,id):
     connection = get_connection()
     cursor = connection.cursor()
     sql = "UPDATE admin SET name = %s WHERE id= %s"
-
+    
     cursor.execute(sql, (name,id))
     connection.commit()
 
