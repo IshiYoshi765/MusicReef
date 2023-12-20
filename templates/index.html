@@ -137,7 +137,20 @@
                     <td colspan="4" style="border: none">作曲者：{{ sound[5] }}</td>
                   </tr>
                   <tr>
-                    <td colspan="4" style="border: none">参照元：{{ sound[6] }}</td>
+                    <td colspan="4" style="border: none">
+                      {% set music_source = sound[6]|lower %}
+                      {% if music_source == '1' %}
+                        参照元：DOVA
+                      {% elif music_source == '2' %}
+                        参照元：BGMer
+                      {% elif music_source == '3' %}
+                        参照元：甘茶の音楽工房
+                      {% elif music_source == '4'%}
+                        参照元：MusMus
+                      {% else %}
+                        参照元：SHW
+                      {% endif %}
+                    </td>
                   </tr>
                   <tr>
 

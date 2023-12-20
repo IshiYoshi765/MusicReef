@@ -32,7 +32,41 @@ function openModal(
   // date_registerとupdate_timeをtoLocaleString()メソッドで適切な形式に変換
   const formattedDateRegister = new Date(date_register).toLocaleString();
   const formattedUpdateDate = new Date(update_time).toLocaleString();
+  if(genre == 1){
+    genre_name = '指定しない'
+  }else if(genre == 2){
+    genre_name = 'ポップ'
+  }else if(genre == 3){
+    genre_name = 'EDM'
+  }else if(genre == 4){
+    genre_name = 'ロック'
+  }else if(genre == 5){
+    genre_name = 'クラシック'
+  }else if(genre == 6){
+    genre_name = '和風'
+  }else if(genre == 7){
+    genre_name = 'ピアノ'
+  }else if(genre == 8){
+    genre_name = 'アンビエント'
+  }else if(genre == 9){
+    genre_name = 'エレクトロ'
+  }else if(genre == 10){
+    genre_name = 'アコースティック'
+  }else{
+    genre_name = 'Chill Hop'
+  }
 
+  if(source == 1){
+    source_name = 'DOVA'
+  }else if(source == 2){
+    source_name = 'BGmer'
+  }else if(source == 3){
+    source_name = '甘茶の音楽工房'
+  }else if(source == 4){
+    source_name = 'MusMus'
+  }else{
+    source_name = 'SHW'
+  }
   // URLをリンクとして表示する
   const urlLink = URL
     ? `<p>URL: <a href="${URL}" target="_blank">${URL}</a></p>`
@@ -40,11 +74,11 @@ function openModal(
 
   document.getElementById("modal-body1").innerHTML = `
       <p>曲名: ${name}</p>
-      <p>ジャンル: ${genre}</p>
+      <p>ジャンル: ${genre_name}</p>
       <p>詳細: ${detail}</p>
       <p>長さ: ${length}</p>
       <p>作曲者: ${composer}</p>
-      <p>参照元: ${source}</p>
+      <p>参照元: ${source_name}</p>
       ${urlLink}
       <p>登録日時: ${formattedDateRegister}</p>
       <p>更新日時: ${formattedUpdateDate}</p>
