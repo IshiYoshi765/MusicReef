@@ -36,33 +36,38 @@ def password_changed(mail):
 def login():
     mail = request.form.get("mail")
     password = request.form.get("password")
+    id = db.get_id(mail)
     otp = db.get_otp_pass()
-    
+    flag = db.freeze_flag(mail)
+    print(id)
     print(otp)
-    if db.login(mail,password):
+    print(flag)
+    if db.freeze_flag(mail) == True:
+        if db.login(mail,password):
                 
-        if check_password(mail, password):
-            user = password_changed(mail)
-            bool = db.password_flag(mail)
-            print(bool)
-     # ログイン判定
-            if bool:
-                   session["user"] = mail
-                   return redirect(url_for("admin_update"))
-            else:
-                session["user"] = mail  # session にキー：'user', バリュー:True を追加
-                session.permanent = True  # session の有効期限を有効化
-                app.permanent_session_lifetime = timedelta(minutes=30)  # session の有効期限を 5 分に設定
+            if check_password(mail, password):
+                user = password_changed(mail)
+                bool = db.password_flag(mail)
+                print(bool)
+            # ログイン判定
+                if bool:
+                    session["user"] = mail
+                    return redirect(url_for("admin_update"))
+                else:
+                    session["user"] = mail  # session にキー：'user', バリュー:True を追加
+                    session.permanent = True  # session の有効期限を有効化
+                    app.permanent_session_lifetime = timedelta(minutes=30)  # session の有効期限を 30 分に設定
+
                 return redirect(url_for("mypage"))
         else:
-           
-            return redirect(url_for("mypage"))
-    else:
-        error = "メールアドレスまたはパスワードが違います。"
+            error = "メールアドレスまたはパスワードが違います。"
 
-        # dictで返すことでフォームの入力量が増えても可読性が下がらない。
-        input_data = {"mail": mail, "password": password}
-        return render_template("login.html", error=error, data=input_data)
+            # dictで返すことでフォームの入力量が増えても可読性が下がらない。
+            input_data = {"mail": mail, "password": password}
+            return render_template("login.html", error=error, data=input_data)
+    else:
+        error = "アカウントが凍結されています"
+        return render_template("login.html", error=error)
 
 
 @app.route("/mypage", methods=["GET"])
@@ -320,17 +325,23 @@ def delete_review(review_id):
     db.delete_review(review_id)
     return redirect(url_for('list_of_review'))
 
+@app.route("/freeze_exe", methods=['POST'])
+def freeze_exe():
+    id = request.form.get("id")
+    print(id)
+    db.cold_flag(id)
+    return redirect(url_for("admin_list"))
+
 @app.route('/', methods=["GET"])
 def user_top():
     recent_music = db.get_recent_music()
     week_top_songs = db.get_top_songs_weekly()
     month_top_songs = db.get_top_songs_monthly()
-    
-    recent_music_id = recent_music[0][0] if recent_music else None
 
-    average_rating = db.get_average_rating_for_music(recent_music_id) if recent_music_id else None
-    return render_template('user_top.html', recent_music=recent_music, week_top_songs=week_top_songs, month_top_songs=month_top_songs, average_rating=average_rating)
-  
+    average_ratings = db.get_average_ratings()
+    
+    return render_template('user_top.html', recent_music=recent_music, week_top_songs=week_top_songs, month_top_songs=month_top_songs, average_ratings=average_ratings)
+
 @app.route('/download/<int:music_id>', methods=['GET'])
 def download_music(music_id):
     
@@ -373,16 +384,34 @@ def get_reviews_for_music(music_id):
     finally:
         cursor.close()
         connection.close()
+        
+
+@app.route("/delete_review1/<int:review_id>", methods=['GET'])
+def delete_review_endpoint(review_id):
+    result = delete_review(review_id)
+
+    return jsonify(result)
+
+def delete_review(review_id):
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute("DELETE FROM music_review WHERE id = %s;", (review_id,))
+        connection.commit()
+        return {"message": "口コミが削除されました"}
+    finally:
+        cursor.close()
+        connection.close()
 #------------------------------------------------------------------------------------------------------------------------------------
 
 
 @app.route('/review/<int:music_id>')
 def review(music_id):
-    
     music_info = db.get_music_by_id(music_id)
     get_info = db.get_review_by_music_id(music_id)
     return render_template('comment.html', music_info=music_info, music_id=music_id, get_info=get_info)
-        
+
 @app.route('/post_comment', methods=['GET', 'POST'])
 def post_comment():
     if request.method == 'POST':
@@ -399,8 +428,7 @@ def post_comment():
 
             if count == 1:
                 msg = '音源が登録されました'
-                get_info = db.get_review_by_music_id(music_id)
-                return redirect(url_for('review', music_id=music_id, get_info=get_info))
+                return redirect(url_for('review', music_id=music_id))
             else:
                 error = '音源の登録に失敗しました。'
                 return render_template('comment.html', error=error)
@@ -410,7 +438,18 @@ def post_comment():
 
     return render_template('comment.html')
 
+@app.route('/terms_of_service')
+def terms_of_service():
+    return render_template('terms_of_service.html')
 
+@app.route('/about_the_site')
+def about_the_site():
+    return render_template('about_the_site.html')
+
+@app.route('/back_to_user_top', methods=["GET"])
+def back_to_user_top():
+    # セッションを使用せずに直接 '/' にリダイレクト
+    return redirect(url_for('user_top'))
 
 if __name__ == "__main__":
     app.run(debug=True)

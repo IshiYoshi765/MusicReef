@@ -77,7 +77,7 @@ function openModal(
       <p>ジャンル: ${genre_name}</p>
       <p>詳細: ${detail}</p>
       <p>長さ: ${length}</p>
-      <p>作曲家: ${composer}</p>
+      <p>作曲者: ${composer}</p>
       <p>参照元: ${source_name}</p>
       ${urlLink}
       <p>登録日時: ${formattedDateRegister}</p>
@@ -108,7 +108,7 @@ function fetchAndOpenReviewModal(musicId) {
       // 取得したデータを表示
       displayMusicInfoAndReviews(data);
       // モーダルを表示
-      openReviewModal();
+      //openReviewModal();
     })
     .catch((error) => console.error("Error fetching data:", error));
 }
@@ -116,18 +116,53 @@ function fetchAndOpenReviewModal(musicId) {
 // 取得したデータを表示する関数
 function displayMusicInfoAndReviews(data) {
   let modalBody = document.getElementById("reviewList");
-  modalBody.innerHTML = "";
+  modalBody.innerHTML = `<div style="display: flex; flex-direction: column; margin-left: 10px;">
+    <div style="display: flex; margin-right: 10px; padding: 5px; text-align: center;">
+      <div style="margin: 3px 0; display: flex;font-size: 18px;">評価</div>
+      <div style="margin: 3px 0; display: flex;font-size: 18px;margin-left:15px">口コミ</div>
+    </div>
+  </div>`;
 
-  // 口コミ一覧を表示
+  const reviewContainer = document.createElement("div");
+  reviewContainer.style.overflowY = "auto";
+  reviewContainer.style.maxHeight = "250px"; // 適切な高さに調整してください
+
   data.reviews.forEach(function (review) {
     let reviewItem = document.createElement("div");
-    reviewItem.innerHTML = `<div style="display: flex;">
-    <p style="margin-left: 10px;">★: ${review[3]}</p>
-    <p style="margin-left: 40px;">口コミ: ${review[4]}</p>
-  </div>`;
-    modalBody.appendChild(reviewItem);
+    reviewItem.innerHTML = `<div style="display: flex; margin-left: 10px;">
+      <p style="margin-top:10px; margin-bottom:10px; margin:3px 0; width:50px; text-align:center; border:1px solid;">${review[3]}</p>
+      <p style="font-size: 10px; overflow-y: scroll; margin:3px 0; width: 550px; height: 30px; border:1px solid;">　${review[4]}</p>
+      <button style="background-color: red; color:white; margin:3px 0; border:1px solid; height:30px; weight:30px;" class="delete-button" data-review-id="${review[0]}">削除</button>
+    </div>`;
+    reviewContainer.appendChild(reviewItem);
   });
+
+  modalBody.appendChild(reviewContainer);
+
+  // 削除ボタンがクリックされたときの処理を設定
+  document.querySelectorAll(".delete-button").forEach((button) => {
+    button.addEventListener("click", function () {
+      const reviewId = this.getAttribute("data-review-id");
+      // モーダル内の対象口コミを即座に削除
+      document.querySelector(`[data-review-id="${reviewId}"]`).remove();
+      // サーバー側の削除処理を行う
+      deleteReview(reviewId);
+    });
+  });
+
   document.querySelector(".layer.review-modal").classList.add("is-open");
+}
+
+function deleteReview(reviewId) {
+  fetch(`/delete_review1/${reviewId}`, { method: "GET" })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      // 削除成功時の処理（UIから該当の口コミを削除するなど）
+      console.log("Review deleted successfully");
+      // 以下に必要なUI更新などの処理を追加
+    })
+    .catch((error) => console.error("Error deleting review:", error));
 }
 
 function closeReviewModal() {

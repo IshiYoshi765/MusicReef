@@ -395,6 +395,19 @@ def password_flag(mail):
     
     return result[5]
 
+def freeze_flag(mail):
+    connection = get_connection()
+    cursor = connection.cursor()
+    sql = "SELECT * FROM admin WHERE mail = %s"
+    
+    cursor.execute(sql,(mail,))
+    result = cursor.fetchone()
+    
+    cursor.close()
+    connection.close()
+    
+    return result[6]
+    
     
 def set_update_flag(id):
     
@@ -405,6 +418,17 @@ def set_update_flag(id):
     cursor.execute(sql, (id,))
     connection.commit()
 
+    cursor.close()
+    connection.close()
+    
+def cold_flag(id):
+    connection =get_connection()
+    cursor = connection.cursor()
+    
+    sql = "update admin set cold_flag = false where id = %s"
+    cursor.execute(sql,(id,))
+    connection.commit()
+    
     cursor.close()
     connection.close()
     
@@ -452,13 +476,13 @@ def admin_edit(name,id):
 def list_of_review():
     connection = get_connection()
     cursor = connection.cursor()
-
-    sql = "SELECT * FROM music_review"
-
+    sql = """
+        SELECT music_review.id, music.name, music_review.date_time, music_review.star, music_review.review
+        FROM music_review
+        JOIN music ON music_review.music_id = music.music_id
+    """
     cursor.execute(sql)
-
     rows = cursor.fetchall()
-
     cursor.close()
     connection.close()
     return rows
@@ -761,97 +785,33 @@ def get_music_by_id(music_id):
 
     return music_info
 
- 
 
-def calculate_average_rating(new_rating, music_id, review):
+
+def get_average_ratings():
     try:
         connection = get_connection()
         cursor = connection.cursor()
 
-        # music_id が空でない場合にのみ処理を行う
-        if music_id is not None:
-            # Insert the new rating into the music_review table
-            sql_insert = "INSERT INTO music_review (music_id, date_time, star, review) VALUES (%s, %s, %s, %s)"
-            cursor.execute(sql_insert, (music_id, datetime.now(), new_rating, review))
-            connection.commit()
+        # 各 music_id ごとの平均評価を計算するクエリ
+        sql = """
+            SELECT music_id, AVG(star) AS average_rating
+            FROM music_review
+            GROUP BY music_id
+        """
+        cursor.execute(sql)
+        ratings = {row[0]: row[1] for row in cursor.fetchall()}
 
-            # Recalculate the average rating for the specified music_id
-            average_rating = get_average_rating_for_music(music_id)
-
-            return average_rating
+        return ratings
 
     except Exception as e:
-        print(f"calculate_average_rating でエラーが発生しました: {e}")
-        return None
+        print(f"get_average_ratings でエラーが発生しました: {e}")
+        return {}
 
     finally:
         cursor.close()
         connection.close()
 
 
-def get_total_ratings():
-    conn = get_connection()
-    cursor = conn.cursor()
-    
-    cursor.execute("SELECT SUM(star) FROM music_review")
-    total_ratings = cursor.fetchone()[0]
-    return total_ratings or 0
-
-# def get_review_count():
-#     conn = get_connection()
-#     cursor = conn.cursor()
-    
-#     cursor.execute("SELECT COUNT(*) FROM music_review")
-#     count = cursor.fetchone()[0]
-#     return count or 0
-
-# def get_average_rating():
-#     total_ratings = get_total_ratings()
-#     review_count = get_review_count()
-#     return total_ratings / review_count if review_count != 0 else 0
-
-
-def insert_comment(music_id, timestamp, rating, review):
-    sql = 'INSERT INTO music_review (music_id, timestamp, rating, review) VALUES (%s, %s, %s, %s)'
-
-    try:
-        connection = get_connection()
-        cursor = connection.cursor()
-        cursor.execute(sql, (music_id, timestamp, rating, review))
-        connection.commit()
-
-    except psycopg2.DatabaseError as e:
-        print(f"DatabaseError: {e}")
-
-    finally:
-        cursor.close()
-        connection.close()
-
-def get_average_rating_for_music(music_id):
-    try:
-        connection = get_connection()
-        cursor = connection.cursor()
-
-        # 指定された music_id に対するすべてのレビューの星の値を取得
-        sql = "SELECT star FROM music_review WHERE music_id = %s"
-        cursor.execute(sql, (music_id,))
-        ratings = cursor.fetchall()
-
-        if ratings:
-            # 星の値を合計して平均評価を計算
-            total_ratings = sum(rating[0] for rating in ratings)
-            average_rating = total_ratings / len(ratings)
-            return average_rating
-        else:
-            return None
-
-    except Exception as e:
-        print(f"get_average_rating_for_music でエラーが発生しました: {e}")
-        return None
-
-    finally:
-        cursor.close()
-        connection.close()
         
 def insert_comment(star, review, music_id):
     sql = 'INSERT INTO music_review (star, review, music_id, date_time) VALUES (%s, %s, %s, NOW())'
