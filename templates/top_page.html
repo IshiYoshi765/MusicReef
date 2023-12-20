@@ -1,611 +1,104 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link
-    href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
-    rel="stylesheet"
-  />
- 
-  <title>利用者トップ</title>
-  <style>
-    .search-box select {
-      position: absolute;
-      left: 270px;
-      top: 130px;
-      width: 100px;
-      height: 50px;
-    }
-    
-    .search-box input {
-      position: absolute;
-      top: 130px;
-      left: 370px;
-      width: 400px;
-      height: 50px;
-      margin-bottom: 5px;
-      padding: 5px 15px;
-      box-sizing: border-box;
-      font-size: 1em;
-    }
-    
-    .search-box button {
-      position: absolute;
-      top: 130px;
-      left: 770px;
-      width: 80px;
-      height: 50px;
-      background-color: rgb(94, 94, 94);
-    }
-    
-    .search-box button i {
-      color: rgb(255, 255, 255);
-      font-size: 2rem;
-      top: 20px;
-      left: 600px;
-    }
-    
-    .title1 {
-      position: absolute;
-      top: 80px;
-      left: 270px;
-    }
-
-    .p1{
-      position: absolute;
-      top: 90px;
-      left: 440px;
-      font-size: 15px
-    }
-    
-    a {
-      text-decoration: none;
-      color: #747474;
-    }
-    
-    ul.topnav {
-      overflow: hidden;
-      margin: 0;
-      padding: 0;
-      list-style-type: none;
-      background-color: #044f88;
-    }
-    
-    ul.topnav li {
-      float: left;
-    }
-    
-    ul.topnav li a {
-      display: block;
-      text-align: center;
-      text-decoration: none;
-      color: white;
-    }
-    
-    ul.topnav li a.left {
-      background-color: #044f88;
-    }
-    
-    ul.topnav li.right {
-      float: right;
-    }
-    
-    .footer04 {
-      color: white;
-      background: #548eba;
-      text-align: center;
-      padding: 15px;
-    }
-    
-    .footer04 a {
-      color: white;
-      text-decoration: none;
-    }
-    
-    .footer04 a:hover {
-      text-decoration: underline;
-    }
-    
-    .footer04 .menu {
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    
-    .footer04 .menu li {
-      margin: 0;
-      padding: 0 20px;
-      border-right: 1px white solid;
-    }
-    
-    .footer04 .menu li:last-child {
-      border: none;
-    }
-    
-    .p2 {
-      text-align: center;
-      font-size: 40px
-    }
-    
-    .p3 {
-      top: 1110px;
-      position: absolute;
-      left: 3%;
-      font-size: 30px;
-    }
-    
-    .p4 {
-      top: 1690px;
-      position: absolute;
-      left: 3%;
-      font-size: 30px;
-    }
-    
-    ul {
-      list-style: none;
-    }
-    
-    .flex-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 30px;
-    }
-    
-    .flex-item {
-      padding: 20px;
-      border: 1px solid #ccc;
-      
-    }
-    
-    .detail-cursor {
-      margin-top: 60px;
-      border: 1px solid black;
-      padding: 5px; /* 余白を追加 */
-      position: relative;
-      left: -30px;
-    }
-    
-    
-    .music-details-container .close-details {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      cursor: pointer;
-      font-size: 20px;
-    }
-    
-    .music-details-container .music-details {
-      display: none;
-      position: relative;
-      width: 600px;
-      margin-top: 20px;
-    }
-    
-    .music-details-container .details-box {
-      background: white;
-      padding: 110px;
-      max-width: 100%;
-      max-height: 100%;
-      overflow: auto;
-      border-radius: 10px;
-      position: fixed;
-      z-index: 9999;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      display: none;
-      border: 1px solid black;
-      animation: fadeIn 0.5s ease-in-out;
-    }
-    
-    .music-details-container .tooltip {
-      display: none;
-      position: absolute;
-      background: #f9f9f9;
-      border: 1px solid black;
-      padding: 10px;
-      border-radius: 5px;
-      z-index: 100;
-      max-width: 100px;
-    }
-    
-    .music-entry {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border: 1px solid #ccc;
-      margin-bottom: 15px;
-      padding: 10px;
-      border-radius: 4px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      position: relative;
-    }
-    
-    .music-entry .logo-container {
-      margin-right: 20px;
-    }
-    
-    .music-entry .logo-img {
-      width: 100px;
-      height: 100px;
-      object-fit: cover;
-      border-radius: 8px;
-    }
-    
-    .music-entry .no-image {
-      width: 100px;
-      height: 100px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 8px;
-      background-color: #eee;
-      color: #888;
-      font-size: 14px;
-    }
-    
-    .music_title {
-      position: absolute;
-      font-size: 25px;
-       font-weight: bold;
-       margin-top: -30px; 
-     }
-     .music-entry .music-info {
-      font-size: 13px;
-      font-weight: bold;
-      position: relative;
-      top: 100%; /* music-entryからの相対的な位置 */
-      left: 40px;
-      margin-top: 80px;
-      margin-right: 50px;
-      width: 120px; /* 幅を100%にして親要素に合わせる */
-      text-align: left; /* テキストを左寄せにする */
-    }
-   
-    .music-entry .music-info-container {
-      display: flex;
-      justify-content: flex-start; /* 左端から配置 */
-      align-items: center; /* 垂直方向の中央揃え */
-      width: 100%;
-    }
-    
-    .music-actions {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      margin-left: -200px;
-      position: relative;
-      left: -200px;
-      top: 20px;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
-    
-    .review {
-      text-decoration: none;
-      background-color: #007bff;
-      color: #fff;
-      padding: 20px 40px;
-      border-radius: 10px;
-      margin-bottom: 10px;
-      text-align: center;
-      cursor: pointer;
-    }
-    
-    .review span {
-      font-size: 20px;
-      margin-left: 0px;
-      font-weight: bold;
-    }
-    
-    .download-action span,
-    .download-link {
-      font-size: 15px;
-      position: relative;
-      top: -70px; 
-      left: 160px;
-      color: #007bff;
-      text-decoration: none;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    
-    .pagination {
-      margin-top: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    
-    .pagination a,
-    .pagination span {
-      display: inline-block;
-      padding: 8px;
-      margin: 0 5px;
-      text-decoration: none;
-      border: 1px solid #007bff;
-      border-radius: 5px;
-      color: #007bff;
-      cursor: pointer;
-      transition: background-color 0.3s, color 0.3s;
-    }
-    
-    .pagination a:hover {
-      background-color: #f0f0f0;
-    }
-    
-    .pagination a:active {
-      transform: translateY(2px);
-    }
-    
-    .pagination .current {
-      display: inline-block;
-      padding: 8px;
-      margin: 0 5px;
-      text-decoration: none;
-      border: 1px solid #007bff;
-      border-radius: 5px;
-      color: #007bff;
-      cursor: pointer;
-      transition: background-color 0.3s, color 0.3s
-    }
-    
-    .prev-next-btn {
-      display: flex;
-      align-items: center;
-      margin: 0 10px;
-      padding: 5px 10px;
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s, color 0.3s;
-      background-color: #007bff;
-      color: #fff;
-    }
-    
-    .prev-next-btn:hover {
-      background-color: #0056b3;
-    }
-    
-    .prev-next-btn:active {
-      transform: translateY(2px);
-    }
-
-    
-    
-        
-    
-    @media only screen and (max-width: 599px) {
-      .footer04 .menu {
-        justify-content: flex-start;
-      }
-      .footer04 .menu li {
-        width: 50%;
-        box-sizing: border-box;
-        border: none;
-      }
-      .footer04 .menu li:nth-child(odd) {
-        border-right: 1px white solid;
-      }
-    }
-  </style>
-</head>
-<body>
-  <ul class="topnav">
-    <li>
-      <a class="left" href="#"><h2>　MUSIC REEF</h2></a>
-    </li>
-    <li class="right">
-      <a
-        href="terms_of_service.html"
-        style="
-          border-left: 2px solid white;
-          padding: 2px 8px;
-        "
-      ><h2>利用規約</h2></a>
-    </li>
-  </ul>
-  <div style="background-color: #ececec; margin: 0; height: 120px">
-    <h3 class="title1">フリー音源の検索</h3>
-    <div class="search-box">
-      <form action="{{url_for('search_music_result')}}" method="post">
-        <select name="genre">
-            <option value="">指定しない</option>
-            <option value="2">ポップ</option>
-            <option value="3">EDM</option>
-            <option value="4">ロック</option>
-            <option value="5">クラシック</option>
-            <option value="6">和風</option>
-            <option value="7">ピアノ</option>
-            <option value="8">アンビエント</option>
-            <option value="9">エレクトロ</option>
-            <option value="10">アコースティック</option>
-            <option value="11">Chill Hop</option>
-        </select>      
-        
-          <input type="text" class="tagInput" placeholder="検索ワード" name="name">
-          <input type="hidden" name="page" value="{{ page }}"> 
-              <button type="submit">
-                <i class="fas fa-search fa-fw"></i>
-              </button>      
-        </form>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="static/css/top_page.css" />
+    <title>MusicReefについて</title>
+  </head>
+  <body>
+    <header>
+      <h1>MUSICREEF | <a href="terms_of_service.html">※利用規約</a></h1>
+    </header>
+    <div class="expression">
+      <p class="p1">フリー音源の検索</p>
+      <p class="p2">music search</p>
+      <p class="p3">新着</p>
+      <p class="p4">アクセス数ランキング(週間)</p>
+      <p class="p5">アクセス数ランキング(月間)</p>
     </div>
-  </div>
 
-  <div class="expression">
-    <p class="p1">music search</p>
-    <p class="p2">検索結果</p>
-    
-    <ul>
-      {% if music_list %}
-        {% for music in music_list %}
-          <li class="music-entry">
-            <div class="logo-container">
-              {% set logo_keyword = music[8]|lower %}
-              {% if 'bgmer' in logo_keyword %}
-                <img class="logo-img" src="{{ url_for('static', filename='img/BGMer.jpg') }}" alt="BGMer ロゴ">
-              {% elif 'amachamusic' in logo_keyword %}
-                <img class="logo-img" src="{{ url_for('static', filename='img/amatya.jpg') }}" alt="Amatya ロゴ">
-              {% elif 'dova-s.jp' in logo_keyword %}
-                <img class="logo-img" src="{{ url_for('static', filename='img/dova.jpg') }}" alt="Dova ロゴ">
-              {% elif 'musmus.main.jp' in logo_keyword %}
-                <img class="logo-img" src="{{ url_for('static', filename='img/MusMus.jpg') }}" alt="MusMus ロゴ">
-              {% elif 'shw.in' in logo_keyword %}
-                <img class="logo-img" src="{{ url_for('static', filename='img/SHW.jpg') }}" alt="SHW ロゴ">
-              {% else %}
-                <div class="no-image">画像なし</div>
-              {% endif %}
-            </div>
-            <div class="music-info-container">
-              <p class="music_title">{{ music[1] }}</p>
-              <p class="music-info">作曲: {{ music[6] }}</p>
-              <p class="music-info">♬ {{ music[4] }}</p>
-              <p class="music-info">
-                {% set genre_options = {
-                  '1': '指定しない',
-                  '2': 'ポップ',
-                  '3': 'EDM',
-                  '4': 'ロック',
-                  '5': 'クラシック',
-                  '6': '和風',
-                  '7': 'ピアノ',
-                  '8': 'アンビエント',
-                  '9': 'エレクトロ',
-                  '10': 'アコースティック',
-                  '11': 'Chill Hop',
-                } %}
-                {{ genre_options[music[2]] }}
-              </p>
-              <p class="music-info">👁 {{ music[11] }}回</p>
-              <div class="detail-cursor" data-music-id="{{ music[0] }}">詳細な情報</div>
-              <div class="music-details-container" id="music-details-{{ music[0] }}">
-                <div class="details-box">
-                  <div class="tooltip"></div>
-                  {% if music_tag %}
-                    <p>{{ music_tag }}</p>
-                  {% else %}
-                    <p>利用可能なタグはありません。</p>
-                  {% endif %}
-                  <br>
-                  <p>{{ music[3] }}</p>
-                  <br>
-                </div>
-              </div>
-            </div>
-            <div class="music-actions">
-              <a href="{{ url_for('review', music_id=music[0]) }}" class="review">
-                評価
-                {% if average_ratings and music[0] in average_ratings %}
-                  <span>{{ average_ratings[music[0]] | round(1) }}/5</span>
-                {% else %}
-                  <span>N/A</span>
-                {% endif %}
-              </a>
-              <div class="download-action">
-                {% if music[8] %}
-                  <a href="{{ url_for('download_music', music_id=music[0]) }}" class="download-link">ダウンロード</a>
-                {% else %}
-                  <span>N/A</span>
-                {% endif %}
-              </div>
-            </div>
-          </li>
-        {% endfor %}
-      {% endif %}
-    </ul>
-    
-    <div class="pagination">
-      
+    <div class="search-container">
+      <div class="custom-select">
+        <div
+          id="selectedGenre"
+          class="select-selected"
+          onclick="toggleDropdown()"
+        >
+          ジャンル
+        </div>
+        <div class="genre-menu-content" id="genreMenu">
+          <div onclick="onGenreSelected('指定しない')">指定しない</div>
+          <div onclick="onGenreSelected('ポップ')">ポップ</div>
+          <div onclick="onGenreSelected('EDM')">EDM</div>
+          <div onclick="onGenreSelected('ロック')">ロック</div>
+          <div onclick="onGenreSelected('クラシック')">クラシック</div>
+          <div onclick="onGenreSelected('和風')">和風</div>
+          <div onclick="onGenreSelected('ピアノ')">ピアノ</div>
+          <div onclick="onGenreSelected('アンビエント')">アンビエント</div>
+          <div onclick="onGenreSelected('エレクトロ')">エレクトロ</div>
+          <div onclick="onGenreSelected('R&B・JAZZ')">R&B・JAZZ</div>
+          <div onclick="onGenreSelected('アコースティック')">
+            アコースティック
+          </div>
+          <div onclick="onGenreSelected('Chill Hop')">Chill Hop</div>
+        </div>
+      </div>
+      <input
+        type="text"
+        class="search-input custom-select-input"
+        id="searchInput"
+        placeholder="検索キーワードを入力"
+      />
+      <button class="search-button" onclick="performSearch()">
+        <img src="static/image/search.png" alt="検索" />
+      </button>
     </div>
-    
+
+    <footer>
+      <h3>MUSICREEF</h3>
+      <p>
+        <a href="user_top.html">ホーム</a> |
+        <a href="about_the_site.html"
+          >MUSICREEF（ミュージックリーフ）について</a
+        >
+      </p>
+    </footer>
+
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        var items = document.querySelectorAll('.music-entry');
-        var itemsPerPage = 30;
-        var totalPages = {{ totalPages }};
-        var currentPage = {{ page }};
-        
-        function showPage(page) {
-          for (var i = 0; i < items.length; i++) {
-            items[i].style.display = (Math.floor(i / itemsPerPage) + 1) === page ? 'flex' : 'none';
-          }
-        }
-    
-        var paginationContainer = document.querySelector('.pagination');
-    
-        if (totalPages > 1) {
-          var prevPageLink = document.createElement('a');
-          prevPageLink.href = '{{ url_for('search_music_result', genre=genre, name=name) }}' + '?page=' + (currentPage - 1);
-          prevPageLink.textContent = '＜＜ 前のページ';
-          prevPageLink.addEventListener('click', function (event) {
-            event.preventDefault();
-            var newPage = currentPage - 1;
-            if (newPage < 1) {
-              newPage = 1;
-            }
-            showPage(newPage);
-          });
-          paginationContainer.appendChild(prevPageLink);
-          
-    
-          for (var pageNum = 1; pageNum <= totalPages; pageNum++) {
-            var pageLink = document.createElement('a');
-            pageLink.href = '{{ url_for('search_music_result', genre=genre, name=name) }}' + '?page=' + pageNum;
-            pageLink.textContent = pageNum;
-    
-            pageLink.addEventListener('click', function (event) {
-              event.preventDefault();
-              var clickedPage = parseInt(this.textContent, 10);
-              showPage(clickedPage);
-            });
-    
-            if (pageNum === currentPage) {
-              pageLink.classList.add('current');
-            }
-    
-            paginationContainer.appendChild(pageLink);
-          }
-    
-          if (currentPage < totalPages) {
-            var nextPageLink = document.createElement('a');
-            nextPageLink.href = '{{ url_for('search_music_result', genre=genre, name=name) }}' + '?page=' + (currentPage + 1);
-            nextPageLink.textContent = ' 次のページ ＞＞';
-            nextPageLink.addEventListener('click', function (event) {
-              event.preventDefault();
-              showPage(currentPage + 1);
-            });
-            paginationContainer.appendChild(nextPageLink);
-          }
-    
-          showPage(currentPage);
+      var dropdownVisible = false;
+      var genreMenu = document.getElementById("genreMenu");
+
+      // ドロップダウン内の要素にmouseoutイベントのイベントリスナーを追加
+      genreMenu.addEventListener("mouseout", function (e) {
+        if (!genreMenu.contains(e.relatedTarget)) {
+          genreMenu.style.display = "none";
+          dropdownVisible = false;
         }
       });
-    </script>
-    
-<br>     
 
-  <div class="footer04">
-    <h1>MUSIC REEF</h1>
-    <ul class="menu">
-      <li><a href="#">ホーム</a></li>
-      <li>
-        <a href="about_the_site.html">MUSIC REEF(ミュージックリーフ)について</a>
-      </li>
-    </ul>
-  </div>
-</body>
+      function toggleDropdown() {
+        dropdownVisible = !dropdownVisible;
+        if (dropdownVisible) {
+          genreMenu.style.display = "block";
+        } else {
+          genreMenu.style.display = "none";
+        }
+      }
+
+      function onGenreSelected(selectedValue) {
+        var selectedGenre = document.getElementById("selectedGenre");
+        selectedGenre.textContent = selectedValue;
+        genreMenu.style.display = "none";
+        dropdownVisible = false;
+      }
+
+      function performSearch() {
+        // ここで検索処理を実行
+        // リダイレクト先のURLを設定
+        var searchUrl = "/search_result?genre=" + selectedGenre;
+        window.location.href = searchUrl;
+      }
+    </script>
+  </body>
 </html>
