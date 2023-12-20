@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session,flash, jsonify, request
 import db, random,string
-import tags,math
+import tags
 from datetime import timedelta
 from db import get_connection
 
@@ -334,18 +334,13 @@ def freeze_exe():
 
 @app.route('/', methods=["GET"])
 def user_top():
-    music_id = request.args.get('music_id', default=None, type=int)
-    
     recent_music = db.get_recent_music()
     week_top_songs = db.get_top_songs_weekly()
     month_top_songs = db.get_top_songs_monthly()
+
     average_ratings = db.get_average_ratings()
     
-    music_tag = db.get_tags_for_music(music_id)
-
-    return render_template('user_top.html', recent_music=recent_music, week_top_songs=week_top_songs,
-                           month_top_songs=month_top_songs, music_tag=music_tag, average_ratings=average_ratings, music_id=music_id)
-
+    return render_template('user_top.html', recent_music=recent_music, week_top_songs=week_top_songs, month_top_songs=month_top_songs, average_ratings=average_ratings)
 
 @app.route('/download/<int:music_id>', methods=['GET'])
 def download_music(music_id):
@@ -356,60 +351,6 @@ def download_music(music_id):
     music_url = db.get_music_url(music_id)
 
     return redirect(music_url)
-
-@app.route('/review/<int:music_id>')
-def review(music_id):
-    
-    music_info = db.get_music_by_id(music_id)
-    get_info = db.get_review_by_music_id(music_id)
-    return render_template('comment.html', music_info=music_info, music_id=music_id, get_info=get_info)
-        
-@app.route('/post_comment', methods=['GET', 'POST'])
-def post_comment():
-    if request.method == 'POST':
-        # フォームからのデータを取得
-        star_str = request.form.get('rating')
-        review = request.form.get('review')
-        music_id = request.form.get('music_id')
-
-        if star_str is not None and star_str.replace('.', '', 1).isdigit():
-            star = float(star_str)
-
-            # db モジュールの insert_comment メソッドを呼び出し
-            count = db.insert_comment(star, review, music_id)
-
-            if count == 1:
-                msg = '音源が登録されました'
-                get_info = db.get_review_by_music_id(music_id)
-                return redirect(url_for('review', music_id=music_id, get_info=get_info))
-            else:
-                error = '音源の登録に失敗しました。'
-                return render_template('comment.html', error=error)
-        else:
-            error = '評価が不正です。'
-            return render_template('comment.html', error=error)
-
-    return render_template('comment.html')
-
-from flask import render_template
-
-@app.route('/search_music_result', methods=['GET', 'POST'])
-def search_music_result():
-    name = request.form.get("name")
-    genre = request.form.get("genre")
-    page = request.args.get('page', 1, type=int)
-
-    music_list = db.search_music_result(name, genre)
-
-    recent_music = db.get_recent_music()
-    average_ratings = db.get_average_ratings()
-
-    # Calculate totalPages
-    itemsPerPage = 30
-    totalPages = int(math.ceil(len(music_list) / itemsPerPage))
-
-    return render_template('top_page.html', music_list=music_list, genre=genre, name=name, recent_music=recent_music, average_ratings=average_ratings, page=page, totalPages=totalPages)
-
 
 
 #----------------------------------------------------音源口コミモーダル-------------------------------------------------------------
@@ -464,6 +405,38 @@ def delete_review(review_id):
         connection.close()
 #------------------------------------------------------------------------------------------------------------------------------------
 
+
+@app.route('/review/<int:music_id>')
+def review(music_id):
+    music_info = db.get_music_by_id(music_id)
+    get_info = db.get_review_by_music_id(music_id)
+    return render_template('comment.html', music_info=music_info, music_id=music_id, get_info=get_info)
+
+@app.route('/post_comment', methods=['GET', 'POST'])
+def post_comment():
+    if request.method == 'POST':
+        # フォームからのデータを取得
+        star_str = request.form.get('rating')
+        review = request.form.get('review')
+        music_id = request.form.get('music_id')
+
+        if star_str is not None and star_str.replace('.', '', 1).isdigit():
+            star = float(star_str)
+
+            # db モジュールの insert_comment メソッドを呼び出し
+            count = db.insert_comment(star, review, music_id)
+
+            if count == 1:
+                msg = '音源が登録されました'
+                return redirect(url_for('review', music_id=music_id))
+            else:
+                error = '音源の登録に失敗しました。'
+                return render_template('comment.html', error=error)
+        else:
+            error = '評価が不正です。'
+            return render_template('comment.html', error=error)
+
+    return render_template('comment.html')
 
 @app.route('/terms_of_service')
 def terms_of_service():
