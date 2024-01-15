@@ -851,3 +851,119 @@ def get_review_by_music_id(music_id, limit=5, offset=0):
     finally:
         cursor.close()
         connection.close()
+
+def get_tags_for_music(music_id):
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    # music_id に対応するタグ名を取得
+    sql = """
+    SELECT m.music_id, m.name AS music_name, t.tag_name
+FROM music m
+JOIN music_tags mt ON m.music_id = mt.music_id
+JOIN tags t ON mt.tag_id = t.tag_id
+WHERE m.music_id = %s;
+    """
+
+    cursor.execute(sql, (music_id,))
+    rows = cursor.fetchall()
+
+    cursor.close()
+    connection.close()
+
+    if rows:
+        # カンマで区切られた文字列に変換して返す
+        tags = [row[2] for row in rows]
+        result = ', '.join(tags)
+        print(result)
+    else:
+        result = None
+        print(result)
+
+def search_music_result(name, genre):
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    tag_names = name.split()
+
+    tag_name_placeholders = ','.join(['%s'] * len(tag_names))
+    
+    # タグ名がない場合の条件分岐
+    tag_condition = ""
+    if tag_names:
+        tag_condition = "OR (tags.tag_name IN ({tag_name_placeholders}))"
+    
+    sql = f"""
+    SELECT DISTINCT music.*
+    FROM music
+    LEFT JOIN music_tags ON music.music_id = music_tags.music_id
+    LEFT JOIN tags ON music_tags.tag_id = tags.tag_id
+    WHERE (music.name LIKE %s {tag_condition})
+    AND music.genre LIKE %s
+    GROUP BY music.music_id
+    HAVING COUNT(DISTINCT tags.tag_id) >= {len(tag_names)};
+    """
+    
+    print(tag_name_placeholders)
+
+    name2 = "%" + name + "%"
+    genre2 = "%" + genre + "%"
+
+    if tag_names:
+        cursor.execute(sql.format(tag_name_placeholders=tag_name_placeholders), ([name2] + tag_names + [genre2]))
+    else:
+        cursor.execute(sql, ([name2, genre2]))
+    rows = cursor.fetchall()
+
+    cursor.close()
+    connection.close()
+
+    return rows
+
+def get_filtered_music(selected_item):
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    if selected_item == 'item2':  # BGMerが選択された場合
+        sql = """
+        SELECT *
+        FROM music
+        WHERE LOWER(url) LIKE '%bgmer%';
+        """
+    elif selected_item == 'item3':  # DOVA-SYNDROMEが選択された場合
+        sql = """
+        SELECT *
+        FROM music
+        WHERE LOWER(url) LIKE '%dova%';
+        """
+    elif selected_item == 'item4':  # 甘茶の音楽工房が選択された場合
+        sql = """
+        SELECT *
+        FROM music
+        WHERE LOWER(url) LIKE '%amachamusic%';
+        """
+    elif selected_item == 'item5':  # MusMusが選択された場合
+        sql = """
+        SELECT *
+        FROM music
+        WHERE LOWER(url) LIKE '%musmus.main.jp%';
+        """
+    elif selected_item == 'item6':  # SHWが選択された場合
+        sql = """
+        SELECT *
+        FROM music
+        WHERE LOWER(url) LIKE '%shw.in%';
+        """
+    else:
+        sql = """
+        SELECT *
+        FROM music;
+        """
+
+    cursor.execute(sql,)
+    rows = cursor.fetchall()
+
+    cursor.close()
+    connection.close()
+
+    return rows
