@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session,flash, jsonify, request
 import db, random,string
-import tags
+import tags,math
 from datetime import timedelta
 from db import get_connection
 
@@ -449,6 +449,29 @@ def post_comment():
             return render_template('comment.html', error=error)
 
     return render_template('comment.html')
+
+@app.route('/search_music_result', methods=['GET', 'POST'])
+def search_music_result():
+    name = request.form.get("name")
+    genre = request.form.get("genre")
+    page = request.args.get('page', 1, type=int)
+
+    music_list = db.search_music_result(name, genre)
+
+    recent_music = db.get_recent_music()
+    average_ratings = db.get_average_ratings()
+
+    # Calculate totalPages
+    itemsPerPage = 30
+    totalPages = int(math.ceil(len(music_list) / itemsPerPage))
+
+    return render_template('top_page.html', music_list=music_list, genre=genre, name=name, recent_music=recent_music, average_ratings=average_ratings, page=page, totalPages=totalPages)
+
+@app.route('/music', methods=['GET'])
+def get_music():
+    selected_item = request.args.get('item', 'item1')  # リクエストから選択されたアイテムを取得
+    filtered_music = db.get_filtered_music(selected_item)
+    return render_template('top_page.html', music_list=filtered_music, selected_item=selected_item)
 
 @app.route('/terms_of_service')
 def terms_of_service():

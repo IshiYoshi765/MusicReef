@@ -150,58 +150,13 @@
         border: 1px solid #ccc;
       }
 
-      .detail {
+
+      .detail-cursor {
+        margin-top: 60px;
+        border: 1px solid black;
+        padding: 5px; /* 余白を追加 */
         position: relative;
-        padding: 0px;
-        width: 600px;
-      }
-
-      .music-details-container .p7 {
-        font-size: 30px;
-        bottom: -25px;
-        left: -3%;
-        position: absolute;
-      }
-
-      .music-details-container .p8,
-      .music-details-container .p9,
-      .music-details-container .p10,
-      .music-details-container .p11 {
-        font-size: 15px;
-        position: absolute;
-        bottom: 0;
-      }
-
-      .music-details-container .p8 {
-        bottom: -45px;
-        left: -3%;
-        position: absolute;
-      }
-
-      .music-details-container .p9 {
-        bottom: -45px;
-        left: 25%;
-        position: absolute;
-      }
-
-      .music-details-container .p10 {
-        bottom: -45px;
-        left: 45%;
-        position: absolute;
-      }
-
-      .music-details-container .p11 {
-        bottom: -45px;
-        left: 70%;
-        position: absolute;
-      }
-
-      .music-details-container .detail-cursor {
-        bottom: -25px;
-        left: 85%;
-        position: relative;
-        border: 1px solid #ccc;
-        width: 90px;
+        left: -30px;
       }
 
       .music-details-container .close-details {
@@ -219,9 +174,10 @@
         margin-top: 20px;
       }
 
+      
       .music-details-container .details-box {
         background: white;
-        padding: 20px;
+        padding: 110px;
         max-width: 100%;
         max-height: 100%;
         overflow: auto;
@@ -235,6 +191,7 @@
         border: 1px solid black;
         animation: fadeIn 0.5s ease-in-out;
       }
+      
 
       .music-details-container .tooltip {
         display: none;
@@ -252,12 +209,11 @@
         justify-content: space-between;
         align-items: center;
         border: 1px solid #ccc;
-        margin-bottom: 20px;
-        padding: 15px;
-        border-radius: 8px;
+        margin-bottom: 15px;
+        padding: 10px;
+        border-radius: 4px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         position: relative;
-        width: 93%;
       }
 
       .music-entry .logo-container {
@@ -283,18 +239,23 @@
         font-size: 14px;
       }
 
-      .music-entry .music-title {
+      .music-title {
+        position: absolute;
         font-size: 25px;
         font-weight: bold;
         margin-top: -30px;
       }
 
       .music-entry .music-info {
-        font-size: 15px;
+        font-size: 13px;
         font-weight: bold;
-        margin-top: 80px;
-        margin-right: 80px; /* 間隔を設定 */
         position: relative;
+        top: 100%; /* music-entryからの相対的な位置 */
+        left: 40px;
+        margin-top: 80px;
+        margin-right: 40px;
+        width: 120px; /* 幅を100%にして親要素に合わせる */
+        text-align: left; /* テキストを左寄せにする */
       }
 
       .music-entry .music-info-container {
@@ -303,36 +264,58 @@
         align-items: center; /* 垂直方向の中央揃え */
         width: 100%;
       }
-
-      .music-entry .music-actions {
+  
+      .music-actions {
         display: flex;
         flex-direction: column;
         align-items: flex-end;
+        margin-left: -200px;
+        position: relative;
+        left: -200px;
+        top: 20px;
+        
       }
 
-      .music-entry .review {
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+  
+      
+      .review {
         text-decoration: none;
         background-color: #007bff;
         color: #fff;
-        padding: 8px 15px;
-        border-radius: 5px;
-        margin-bottom: 5px;
+        padding: 20px 30px;
+        border-radius: 10px;
+        margin-bottom: 10px;
         text-align: center;
         cursor: pointer;
       }
-
-      .music-entry .review span {
-        font-size: 14px;
-        margin-left: 5px;
+      
+      .review span {
+        font-size: 20px;
+        margin-right: 0px;
+        font-weight: bold;
       }
-
-      .music-entry .download-action span,
-      .music-entry .download-link {
-        font-size: 14px;
+      
+      .download-action span,
+      .download-link {
+        font-size: 15px;
+        position: relative;
+        top: -70px; 
+        left: 140px;
         color: #007bff;
         text-decoration: none;
         cursor: pointer;
+        font-weight: bold;
+        
       }
+      
 
       @media only screen and (max-width: 599px) {
         .footer04 .menu {
@@ -365,27 +348,29 @@
     <div style="background-color: #ececec; margin: 0; height: 120px">
       <h3 class="title1">フリー音源の検索</h3>
       <div class="search-box">
-        <select name="item">
-          <option value="指定しない">指定しない</option>
-          <option value="ポップ">ポップ</option>
-          <option value="EDM">EDM</option>
-          <option value="ロック">ロック</option>
-          <option value="クラシック">クラシック</option>
-          <option value="和風">和風</option>
-          <option value="ピアノ">ピアノ</option>
-          <option value="アンビエント">アンビエント</option>
-          <option value="エレクトロ">エレクトロ</option>
-          <option value="R&B・JAZZ">R&B・JAZZ</option>
-          <option value="アコースティック">アコースティック</option>
-          <option value="Chill Hop">Chill Hop</option>
-        </select>
-        <input type="text" placeholder="検索キーワードを入力" />
-        <button type="submit">
-          <i class="fas fa-search fa-fw"></i>
-        </button>
+        <form action="{{url_for('search_music_result')}}" method="post">
+          <select name="genre">
+              <option value="">指定しない</option>
+              <option value="2">ポップ</option>
+              <option value="3">EDM</option>
+              <option value="4">ロック</option>
+              <option value="5">クラシック</option>
+              <option value="6">和風</option>
+              <option value="7">ピアノ</option>
+              <option value="8">アンビエント</option>
+              <option value="9">エレクトロ</option>
+              <option value="10">アコースティック</option>
+              <option value="11">Chill Hop</option>
+          </select>      
+  
+            <input type="text" class="tagInput" placeholder="検索ワード" name="name">
+            <input type="hidden" name="page" value="{{ page }}"> 
+                <button type="submit">
+                  <i class="fas fa-search fa-fw"></i>
+                </button>      
+          </form>
       </div>
     </div>
-
     <div class="expression">
       <p class="p1">music search</p>
       <p class="p2" style="margin: 0; padding-top: 15px; padding-left: 20px">
@@ -427,7 +412,7 @@
               alt="SHW ロゴ"
             />
             {% else %}
-            <div class="no-image">画像なし</div>
+            <div class="no-image">No image</div>
             {% endif %}
           </div>
           <div class="music-info-container">
@@ -488,21 +473,25 @@
       <p class="p3" style="margin: 0; padding-top: 15px; padding-left: 20px">
         アクセス数ランキング(週間)
       </p>
+      <br/>
       <ul>
         {% if week_top_songs %} {% for music in week_top_songs %}
-        <div class="ranking" style="display: flex">
-          <p
+        <p
             style="
             font-size: 30px;
-            text-align: center;
-            padding-top: 20px;
+            text-align: left;
+            padding-top: 40px;
+            
+            margin-left: -10px; 
+            margin-bottom: -100px;
             color: {% if loop.index == 1 %}yellow{% elif loop.index == 2 %}gray{% elif loop.index == 3 %}brown{% else %}black{% endif %};
-            padding-right:20px
+            
           "
           >
             {{ loop.index }}
           </p>
-          <li class="music-entry">
+          <li class="music-entry" style="margin-left: 40px">
+           
             <div class="logo-container">
               {% set logo_keyword = music[8]|lower %} {% if 'bgmer' in
               logo_keyword %}
@@ -536,10 +525,124 @@
                 alt="SHW ロゴ"
               />
               {% else %}
-              <div class="no-image">画像なし</div>
+              <div class="no-image">No image</div>
               {% endif %}
             </div>
             <div class="music-info-container">
+              <p class="music-title">{{ music[1] }}</p>
+              <p class="music-info">作曲: {{ music[6] }}</p>
+              <p class="music-info">♬ {{ music[4] }}</p>
+              <p class="music-info">
+                {% set genre_options = { '1': '指定しない', '2': 'ポップ', '3':
+                'EDM', '4': 'ロック', '5': 'クラシック', '6': '和風', '7':
+                'ピアノ', '8': 'アンビエント', '9': 'エレクトロ', '10':
+                'アコースティック', '11': 'Chill Hop', } %} {{
+                genre_options[music[2]] }}
+              </p>
+              <p class="music-info">👁 {{ music[11] }}回</p>
+              <div class="detail-cursor" data-music-id="{{ music[0] }}">
+                詳細な情報
+              </div>
+              <div
+                class="music-details-container"
+                id="music-details-{{ music[0] }}"
+              >
+                <div class="details-box">
+                  <div class="tooltip"></div>
+                  <p>
+                    {% for tag in music[1] %}{{ tag }}{% if not loop.last %}, {%
+                    endif %}{% endfor %}
+                  </p>
+                  <br />
+                  <p>詳細な情報: {{ music[3] }}</p>
+                  <br />
+                </div>
+              </div>
+            </div>
+            <div class="music-actions">
+              <a
+                href="{{ url_for('review', music_id=music[0]) }}"
+                class="review"
+              >
+                評価 {% if average_ratings and music[0] in average_ratings %}
+                <span>{{ average_ratings[music[0]] | round(1) }}/5</span>
+                {% else %}
+                <span>N/A</span>
+                {% endif %}
+              </a>
+              <div class="download-action">
+                {% if music[8] %}
+                <a
+                  href="{{ url_for('download_music', music_id=music[0]) }}"
+                  class="download-link"
+                  >ダウンロード</a
+                >
+                {% else %}
+                <span>N/A</span>
+                {% endif %}
+              </div>
+            </div>
+          </li>
+        {% endfor %} {% endif %}
+      </ul>
+
+      <p class="p4" style="margin: 0; padding-top: 15px; padding-left: 20px">
+        アクセス数ランキング(月間)
+      </p>
+      <ul>
+        {% if month_top_songs %} {% for music in month_top_songs %}
+          <p
+            style="
+            font-size: 30px;
+            text-align: left;
+            padding-top: 40px;
+            
+            margin-left: -10px; 
+            margin-bottom: -100px;
+            color: {% if loop.index == 1 %}yellow{% elif loop.index == 2 %}gray{% elif loop.index == 3 %}brown{% else %}black{% endif %};
+            
+          "
+          >
+            {{ loop.index }}
+          </p>
+          <li class="music-entry" style="margin-left: 40px">
+            <div class="logo-container">
+              {% set logo_keyword = music[8]|lower %} {% if 'bgmer' in
+              logo_keyword %}
+              <img
+                class="logo-img"
+                src="{{ url_for('static', filename='img/BGMer.jpg') }}"
+                alt="BGMer ロゴ"
+              />
+              {% elif 'amachamusic' in logo_keyword %}
+              <img
+                class="logo-img"
+                src="{{ url_for('static', filename='img/amatya.jpg') }}"
+                alt="Amatya ロゴ"
+              />
+              {% elif 'dova-s.jp' in logo_keyword %}
+              <img
+                class="logo-img"
+                src="{{ url_for('static', filename='img/dova.jpg') }}"
+                alt="Dova ロゴ"
+              />
+              {% elif 'musmus.main.jp' in logo_keyword %}
+              <img
+                class="logo-img"
+                src="{{ url_for('static', filename='img/MusMus.jpg') }}"
+                alt="MusMus ロゴ"
+              />
+              {% elif 'shw.in' in logo_keyword %}
+              <img
+                class="logo-img"
+                src="{{ url_for('static', filename='img/SHW.jpg') }}"
+                alt="SHW ロゴ"
+              />
+              {% else %}
+              <div class="no-image">No image</div>
+              {% endif %}
+            </div>
+            <div class="music-info-container2">
               <p class="music-title">{{ music[1] }}</p>
               <p class="music-info">作曲: {{ music[6] }}</p>
               <p class="music-info">♬ {{ music[4] }}</p>
@@ -598,120 +701,7 @@
         {% endfor %} {% endif %}
       </ul>
 
-      <p class="p4" style="margin: 0; padding-top: 15px; padding-left: 20px">
-        アクセス数ランキング(月間)
-      </p>
-      <ul>
-        {% if month_top_songs %} {% for music in month_top_songs %}
-        <div class="ranking" style="display: flex">
-          <p
-            style="
-            font-size: 30px;
-            text-align: center;
-            padding-top: 20px;
-            color: {% if loop.index == 1 %}yellow{% elif loop.index == 2 %}gray{% elif loop.index == 3 %}brown{% else %}black{% endif %};
-            padding-right:20px
-          "
-          >
-            {{ loop.index }}
-          </p>
-          <li class="music-entry">
-            <div class="logo-container">
-              {% set logo_keyword = music[8]|lower %} {% if 'bgmer' in
-              logo_keyword %}
-              <img
-                class="logo-img"
-                src="{{ url_for('static', filename='img/BGMer.jpg') }}"
-                alt="BGMer ロゴ"
-              />
-              {% elif 'amachamusic' in logo_keyword %}
-              <img
-                class="logo-img"
-                src="{{ url_for('static', filename='img/amatya.jpg') }}"
-                alt="Amatya ロゴ"
-              />
-              {% elif 'dova-s.jp' in logo_keyword %}
-              <img
-                class="logo-img"
-                src="{{ url_for('static', filename='img/dova.jpg') }}"
-                alt="Dova ロゴ"
-              />
-              {% elif 'musmus.main.jp' in logo_keyword %}
-              <img
-                class="logo-img"
-                src="{{ url_for('static', filename='img/MusMus.jpg') }}"
-                alt="MusMus ロゴ"
-              />
-              {% elif 'shw.in' in logo_keyword %}
-              <img
-                class="logo-img"
-                src="{{ url_for('static', filename='img/SHW.jpg') }}"
-                alt="SHW ロゴ"
-              />
-              {% else %}
-              <div class="no-image">画像なし</div>
-              {% endif %}
-            </div>
-            <div class="music-info-container">
-              <p class="music-title">{{ music[1] }}</p>
-              <p class="music-info">作曲: {{ music[6] }}</p>
-              <p class="music-info">♬ {{ music[4] }}</p>
-              <p class="music-info">
-                {% set genre_options = { '1': '指定しない', '2': 'ポップ', '3':
-                'EDM', '4': 'ロック', '5': 'クラシック', '6': '和風', '7':
-                'ピアノ', '8': 'アンビエント', '9': 'エレクトロ', '10':
-                'アコースティック', '11': 'Chill Hop', } %} {{
-                genre_options[music[2]] }}
-              </p>
-              <p class="music-info">👁 {{ music[11] }}回</p>
-              <div class="detail-cursor" data-music-id="{{ music[0] }}">
-                詳細な情報
-              </div>
-              <div
-                class="music-details-container"
-                id="music-details-{{ music[0] }}"
-              >
-                <div class="details-box">
-                  <div class="tooltip"></div>
-                  <p>
-                    {% for tag in music[1] %}{{ tag }}{% if not loop.last %}, {%
-                    endif %}{% endfor %}
-                  </p>
-                  <br />
-                  <p>詳細な情報: {{ music[3] }}</p>
-                  <br />
-                </div>
-              </div>
-            </div>
-            <div class="music-actions">
-              <a
-                href="{{ url_for('review', music_id=music[0]) }}"
-                class="review"
-              >
-                評価 {% if average_ratings and music[0] in average_ratings %}
-                <span>{{ average_ratings[music[0]] | round(1) }}/5</span>
-                {% else %}
-                <span>N/A</span>
-                {% endif %}
-              </a>
-              <div class="download-action">
-                {% if music[8] %}
-                <a
-                  href="{{ url_for('download_music', music_id=music[0]) }}"
-                  class="download-link"
-                  >ダウンロード</a
-                >
-                {% else %}
-                <span>N/A</span>
-                {% endif %}
-              </div>
-            </div>
-          </li>
-        </div>
-        {% endfor %} {% endif %}
-      </ul>
-    </div>
-    <br /><br />
+    <br/><br/>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         var detailCursors = document.querySelectorAll(".detail-cursor");
