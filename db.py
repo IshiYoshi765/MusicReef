@@ -658,37 +658,12 @@ def get_music_url(music_id):
         connection.close()
 
 def get_top_songs_weekly():
-    today = datetime.utcnow()
-    monday = today - timedelta(days=today.weekday())
-
     try:
         connection = get_connection()
         cursor = connection.cursor()
         
         sql = """
-            WITH WeeklyRank AS (
-                SELECT
-                    music_id,
-                    ROW_NUMBER() OVER (ORDER BY access DESC) AS ranking
-                FROM
-                    music
-                WHERE
-                    EXTRACT(DOW FROM date_register) BETWEEN 1 AND 6
-            )
-            UPDATE music m
-            SET access = 0
-            FROM WeeklyRank wr
-            WHERE m.music_id = wr.music_id;
-
-            SELECT
-                m.*
-            FROM
-                music m
-            WHERE
-                EXTRACT(DOW FROM m.date_register) BETWEEN 1 AND 6
-            ORDER BY
-                m.access DESC
-            LIMIT 3;
+            SELECT * FROM music ORDER BY access DESC LIMIT 5;
         """
 
         cursor.execute(sql)
