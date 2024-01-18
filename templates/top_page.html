@@ -496,32 +496,33 @@
       </select>
       <h3 class="title3">音源時間</h3>
         <select class="music-length" name="length">
-          <option value="0">指定しない</option>
-          <option value="1">~0:59</option>
-          <option value="2">1:00~1:59</option>
-          <option value="3">2:00~2:59</option>
-          <option value="4">3:00~3:59</option>
-          <option value="5">4:00~4:59</option>
-          <option value="6">5:00~5:59</option>
-          <option value="7">6:00~</option>
+          <option value="">指定しない</option>
+          <option value="0">~0:59</option>
+          <option value="1">1:00~1:59</option>
+          <option value="2">2:00~2:59</option>
+          <option value="3">3:00~3:59</option>
+          <option value="4">4:00~4:59</option>
+          <option value="5">5:00~5:59</option>
+          <option value="6">6:00~</option>
         </select>
       <h3 class="title4">サイト</h3>
-      <form action="/music" method="get">
-        <select class="site" name="item" id="item" onchange="this.form.submit()">
-            <option value="item1" {% if selected_item == 'item1' %}selected{% endif %}>指定しない</option>
-            <option value="item2" {% if selected_item == 'item2' %}selected{% endif %}>BGMer</option>
-            <option value="item3" {% if selected_item == 'item3' %}selected{% endif %}>DOVA-SYNDROME</option>
-            <option value="item4" {% if selected_item == 'item4' %}selected{% endif %}>甘茶の音楽工房</option>
-            <option value="item5" {% if selected_item == 'item5' %}selected{% endif %}>MusMus</option>
-            <option value="item6" {% if selected_item == 'item6' %}selected{% endif %}>SHW</option>
+        <select class="site" name="item">
+            <option value="" >指定しない</option>
+            <option value="0" >BGMer</option>
+            <option value="1" >DOVA-SYNDROME</option>
+            <option value="2" >甘茶の音楽工房</option>
+            <option value="3" >MusMus</option>
+            <option value="4" >SHW</option>
         </select>
-    </form>
+        
     
     <p class="p2">検索結果</p>
 
     <ul>
       {% if music_list %}
         {% for music in music_list %}
+        <div id="music-length-data" data-length ="{{music[5]}}" >
+        <div id="music-site-data" data-site = "{{ music[7] }}">
           <li class="music-entry">
             <div class="logo-container">
               {% set logo_keyword = music[8]|lower %}
@@ -593,6 +594,8 @@
               </div>
             </div>
           </li>
+        </div>
+        </div>
         {% endfor %}
       {% endif %}
     </ul>
@@ -714,5 +717,6 @@
       </li>
     </ul>
   </div>
+  <script type="text/javascript" src="{{ url_for('static', filename='/js/narrow.js') }}"></script>
 </body>
 </html>
