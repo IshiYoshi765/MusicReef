@@ -895,50 +895,50 @@ def search_music_result(name, genre):
 
     return rows
 
-def get_filtered_music(selected_item):
-    connection = get_connection()
-    cursor = connection.cursor()
+# def get_filtered_music(selected_item):
+#     connection = get_connection()
+#     cursor = connection.cursor()
 
-    if selected_item == 'item2':  # BGMerが選択された場合
-        sql = """
-        SELECT *
-        FROM music
-        WHERE LOWER(url) LIKE '%bgmer%';
-        """
-    elif selected_item == 'item3':  # DOVA-SYNDROMEが選択された場合
-        sql = """
-        SELECT *
-        FROM music
-        WHERE LOWER(url) LIKE '%dova%';
-        """
-    elif selected_item == 'item4':  # 甘茶の音楽工房が選択された場合
-        sql = """
-        SELECT *
-        FROM music
-        WHERE LOWER(url) LIKE '%amachamusic%';
-        """
-    elif selected_item == 'item5':  # MusMusが選択された場合
-        sql = """
-        SELECT *
-        FROM music
-        WHERE LOWER(url) LIKE '%musmus.main.jp%';
-        """
-    elif selected_item == 'item6':  # SHWが選択された場合
-        sql = """
-        SELECT *
-        FROM music
-        WHERE LOWER(url) LIKE '%shw.in%';
-        """
-    else:
-        sql = """
-        SELECT *
-        FROM music;
-        """
+#     if selected_item == 'item2':  # BGMerが選択された場合
+#         sql = """
+#         SELECT *
+#         FROM music
+#         WHERE LOWER(url) LIKE '%bgmer%';
+#         """
+#     elif selected_item == 'item3':  # DOVA-SYNDROMEが選択された場合
+#         sql = """
+#         SELECT *
+#         FROM music
+#         WHERE LOWER(url) LIKE '%dova%';
+#         """
+#     elif selected_item == 'item4':  # 甘茶の音楽工房が選択された場合
+#         sql = """
+#         SELECT *
+#         FROM music
+#         WHERE LOWER(url) LIKE '%amachamusic%';
+#         """
+#     elif selected_item == 'item5':  # MusMusが選択された場合
+#         sql = """
+#         SELECT *
+#         FROM music
+#         WHERE LOWER(url) LIKE '%musmus.main.jp%';
+#         """
+#     elif selected_item == 'item6':  # SHWが選択された場合
+#         sql = """
+#         SELECT *
+#         FROM music
+#         WHERE LOWER(url) LIKE '%shw.in%';
+#         """
+#     else:
+#         sql = """
+#         SELECT *
+#         FROM music;
+#         """
 
-    cursor.execute(sql,)
-    rows = cursor.fetchall()
+#     cursor.execute(sql,)
+#     rows = cursor.fetchall()
 
-    cursor.close()
-    connection.close()
+#     cursor.close()
+#     connection.close()
 
-    return rows
+#     return rows
