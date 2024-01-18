@@ -1,11 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for, session,flash, jsonify, request
-import db, random,string
+import db, random,string,os
 import tags,math
 from datetime import timedelta
 from db import get_connection
 
 app = Flask(__name__)
 app.secret_key = ''.join(random.choices(string.ascii_letters, k=256))
+app.secret_key = os.environ['FLASK_SECRET']
 
 # @app.route("/admin", methods=["GET"])
 # def index():
