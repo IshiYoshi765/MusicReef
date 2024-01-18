@@ -3,78 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{url_for('static', filename='/css/aboutSite.css')}}"/>
     <title>MusicReefについて</title>
-    <style>
-      a {
-        text-decoration: none;
-        color: #747474;
-      }
-      ul.topnav {
-        overflow: hidden;
-        margin: 0;
-        padding: 0;
-        list-style-type: none;
-        background-color: #044f88;
-      }
-      ul.topnav li {
-        float: left;
-      }
-      ul.topnav li a {
-        display: block;
-        text-align: center;
-        text-decoration: none;
-        color: white;
-      }
-      ul.topnav li a.left {
-        background-color: #044f88;
-      }
-      ul.topnav li.right {
-        float: right;
-      }
-      .footer04 {
-        color: white;
-        background: #548eba;
-        text-align: center;
-        padding: 15px;
-      }
-      .footer04 a {
-        color: white;
-        text-decoration: none;
-      }
-      .footer04 a:hover {
-        text-decoration: underline;
-      }
-      .footer04 .menu {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-      .footer04 .menu li {
-        margin: 0;
-        padding: 0 20px;
-        border-right: 1px white solid;
-      }
-      .footer04 .menu li:last-child {
-        border: none;
-      }
-
-      @media only screen and (max-width: 599px) {
-        .footer04 .menu {
-          justify-content: flex-start;
-        }
-        .footer04 .menu li {
-          width: 50%;
-          box-sizing: border-box;
-          border: none;
-        }
-        .footer04 .menu li:nth-child(odd) {
-          border-right: 1px white solid;
-        }
-      }
-    </style>
   </head>
   <body>
     <ul class="topnav">
@@ -92,17 +22,27 @@
         >
       </li>
     </ul>
-    <h1
-      style="
-        background-color: #ececec;
-        margin: 0;
-        padding-top: 10px;
-        padding-bottom: 10px;
-      "
-    >
-      　　MusicReefについて
-    </h1>
-    <h2>　　各サイトの指示にしたがって使用してください</h2>
+    <h1 class="MusicReefText">　　MusicReefについて</h1>
+    <div class="text1">
+      <p>MusicReefは学生4人で卒業研究にあたって作成したWebアプリケーションとなります。
+      本サイトはフリー音源配布サイトの音源をまとめた”フリー音源まとめサイト”となります。利用規約
+      にあたっては各サイトの規約に従ってください。</p><br>
+    </div>
+    <h1 class="MusicReefText">　　使い方について</h1>
+    <div class="text2">
+      <p>検索フォームに探したい楽曲のジャンル・楽曲名・雰囲気・楽器名・用途、等を入力
+        （複数入力する場合はスペースを空ける）し、楽曲を検索後ダウンロードというリンクをクリック
+        していただくと各サイトのダウンロードページに遷移します。また、コメントの投稿や評価を行う
+        ことも可能となっています、ただし悪質なコメント等を発見した場合は削除を行います。
+      </p><br>
+    </div>
+    <h1 class="MusicReefText">　　お問い合わせについて</h1>
+    <div class="text2">
+      <p>お問い合わせに関しましてはこちらのメールアドレスにお願いします。【musicreef820@gmail.com】
+      </p><br>
+    </div>
+    
+
     <br /><br /><br /><br /><br /><br /><br /><br /><br />
     <div class="footer04">
       <h1>MUSIC REEF</h1>
