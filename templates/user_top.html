@@ -7,7 +7,10 @@
       href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
       rel="stylesheet"
     />
-
+    <link
+      rel="icon"
+      href="{{url_for('static', filename='favicon/mrロゴ.ico')}}"
+    />
     <title>利用者トップ</title>
     <style>
       .search-box select {
@@ -50,6 +53,13 @@
         position: absolute;
         top: 80px;
         left: 270px;
+      }
+
+      .p1{
+        position: absolute;
+        top: 90px;
+        left: 440px;
+        font-size: 15px
       }
 
       a {
@@ -436,13 +446,12 @@
             >
               <div class="details-box">
                 <div class="tooltip"></div>
-                <p>
-                  {% for tag in music[1] %}{{ tag }}{% if not loop.last %}, {%
-                    endif %}{% endfor %}
-                  </p>
-                  <br />
-                  <p>詳細な情報: {{ music[3] }}</p>
-                <br />
+                {% if music_tag %}
+                <p>{{ music_tag }}</p>
+              {% else %}
+                <p>利用可能なタグはありません。</p>
+              {% endif %}
+              <br>
                 <p>{{ music[3] }}</p>
                 <br />
               </div>
