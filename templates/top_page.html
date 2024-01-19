@@ -200,6 +200,7 @@
     }
 
     .detail-cursor {
+      display: block;
       margin-top: 60px;
       border: 1px solid black;
       padding: 5px; /* 余白を追加 */
@@ -216,11 +217,9 @@
       font-size: 20px;
     }
 
-    .music-details-container .music-details {
-      display: none;
-      position: relative;
-      width: 600px;
-      margin-top: 20px;
+    .music-details-container:hover .music-details {
+      
+      display: block;
     }
 
     .music-details-container .details-box {
@@ -331,14 +330,19 @@
     }
 
     .review {
+      display: inline-block;
       text-decoration: none;
       background-color: #007bff;
       color: #fff;
-      padding: 20px 40px;
+      padding: 20px 30px;
       border-radius: 10px;
-      margin-bottom: 10px;
+      margin-bottom: -20px;
       text-align: center;
       cursor: pointer;
+      position: relative;
+      box-sizing: border-box;
+      width: 150px; 
+      left: 60px;
     }
 
     .review span {
@@ -351,8 +355,8 @@
     .download-link {
       font-size: 15px;
       position: relative;
-      top: -70px; 
-      left: 160px;
+      margin-bottom: -20px; 
+      left: 105px;
       color: #007bff;
       text-decoration: none;
       cursor: pointer;
@@ -575,23 +579,22 @@
                   <br>
                 </div>
               </div>
-            </div>
-            <div class="music-actions">
+            
               <a href="{{ url_for('review', music_id=music[0]) }}" class="review">
-                評価
+                評価<br>
                 {% if average_ratings and music[0] in average_ratings %}
                   <span>{{ average_ratings[music[0]] | round(1) }}/5</span>
                 {% else %}
                   <span>N/A</span>
                 {% endif %}
               </a>
-              <div class="download-action">
+              <a class="download-action">
                 {% if music[8] %}
                   <a href="{{ url_for('download_music', music_id=music[0]) }}" class="download-link">ダウンロード</a>
                 {% else %}
                   <span>N/A</span>
                 {% endif %}
-              </div>
+              </a>
             </div>
           </li>
         </div>
@@ -643,7 +646,7 @@
       });
 
       
-      document.addEventListener("DOMContentLoaded", function () {
+    /*  document.addEventListener("DOMContentLoaded", function () {
         var items = document.querySelectorAll('.music-entry');
         var itemsPerPage = 30;
         var currentPage = {{ page }};
@@ -738,7 +741,7 @@
         updatePagination(items.length);
         showPage(currentPage);
       });
-      
+      */
     </script>
 
 <br>     
