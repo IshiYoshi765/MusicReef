@@ -646,64 +646,99 @@
       document.addEventListener("DOMContentLoaded", function () {
         var items = document.querySelectorAll('.music-entry');
         var itemsPerPage = 30;
-        var totalPages = {{ totalPages }};
         var currentPage = {{ page }};
-
+      
         function showPage(page) {
+          var startIndex = (page - 1) * itemsPerPage;
+          var endIndex = startIndex + itemsPerPage;
+      
           for (var i = 0; i < items.length; i++) {
-            items[i].style.display = (Math.floor(i / itemsPerPage) + 1) === page ? 'flex' : 'none';
+            items[i].style.display = (i >= startIndex && i < endIndex) ? 'flex' : 'none';
           }
         }
-
-        var paginationContainer = document.querySelector('.pagination');
-
-        if (totalPages > 1) {
-          var prevPageLink = document.createElement('a');
-          prevPageLink.href = '{{ url_for('search_music_result', genre=genre, name=name) }}' + '?page=' + (currentPage - 1);
-          prevPageLink.textContent = '＜＜ 前のページ';
-          prevPageLink.addEventListener('click', function (event) {
-            event.preventDefault();
-            var newPage = currentPage - 1;
-            if (newPage < 1) {
-              newPage = 1;
-            }
-            showPage(newPage);
-          });
-          paginationContainer.appendChild(prevPageLink);
-
-
-          for (var pageNum = 1; pageNum <= totalPages; pageNum++) {
-            var pageLink = document.createElement('a');
-            pageLink.href = '{{ url_for('search_music_result', genre=genre, name=name) }}' + '?page=' + pageNum;
-            pageLink.textContent = pageNum;
-
-            pageLink.addEventListener('click', function (event) {
+      
+        function updatePagination(totalItems) {
+          var totalPages = Math.ceil(totalItems / itemsPerPage);
+          var paginationContainer = document.querySelector('.pagination');
+          paginationContainer.innerHTML = '';
+      
+          if (totalPages > 1) {
+            var prevPageLink = document.createElement('a');
+            prevPageLink.href = '{{ url_for('search_music_result', genre=genre, name=name) }}' + '?page=' + (currentPage - 1);
+            prevPageLink.textContent = '＜＜ 前のページ';
+            prevPageLink.addEventListener('click', function (event) {
               event.preventDefault();
-              var clickedPage = parseInt(this.textContent, 10);
-              showPage(clickedPage);
+              var newPage = currentPage - 1;
+              if (newPage < 1) {
+                newPage = 1;
+              }
+              showPage(newPage);
             });
-
-            if (pageNum === currentPage) {
-              pageLink.classList.add('current');
+            paginationContainer.appendChild(prevPageLink);
+      
+            for (var pageNum = 1; pageNum <= totalPages; pageNum++) {
+              var pageLink = document.createElement('a');
+              pageLink.href = '{{ url_for('search_music_result', genre=genre, name=name) }}' + '?page=' + pageNum;
+              pageLink.textContent = pageNum;
+      
+              pageLink.addEventListener('click', function (event) {
+                event.preventDefault();
+                var clickedPage = parseInt(this.textContent, 10);
+                showPage(clickedPage);
+              });
+      
+              if (pageNum === currentPage) {
+                pageLink.classList.add('current');
+              }
+      
+              paginationContainer.appendChild(pageLink);
             }
-
-            paginationContainer.appendChild(pageLink);
+      
+            if (currentPage < totalPages) {
+              var nextPageLink = document.createElement('a');
+              nextPageLink.href = '{{ url_for('search_music_result', genre=genre, name=name) }}' + '?page=' + (currentPage + 1);
+              nextPageLink.textContent = ' 次のページ ＞＞';
+              nextPageLink.addEventListener('click', function (event) {
+                event.preventDefault();
+                showPage(currentPage + 1);
+              });
+              paginationContainer.appendChild(nextPageLink);
+            }
           }
-
-          if (currentPage < totalPages) {
-            var nextPageLink = document.createElement('a');
-            nextPageLink.href = '{{ url_for('search_music_result', genre=genre, name=name) }}' + '?page=' + (currentPage + 1);
-            nextPageLink.textContent = ' 次のページ ＞＞';
-            nextPageLink.addEventListener('click', function (event) {
-              event.preventDefault();
-              showPage(currentPage + 1);
-            });
-            paginationContainer.appendChild(nextPageLink);
-          }
-
-          showPage(currentPage);
         }
+      
+        function filterAndSortMusic() {
+          var musicLength = document.querySelector('.music-length').value;
+          var selectedSite = document.querySelector('.site').value;
+          var filteredItems = [];
+      
+          for (var i = 0; i < items.length; i++) {
+            var musicLengthData = document.querySelectorAll('#music-length-data');
+            var musicLengthNumber = musicLengthData[i].dataset.length;
+      
+            var musicSiteData = document.querySelectorAll('#music-site-data');
+            var musicDataNumber = musicSiteData[i].dataset.site;
+      
+            var siteMatch = (selectedSite === '' || selectedSite === musicDataNumber);
+            var lengthMatch = (musicLength === '' || musicLength === musicLengthNumber);
+      
+            if (siteMatch && lengthMatch) {
+              filteredItems.push(items[i]);
+            }
+          }
+      
+          updatePagination(filteredItems.length);
+          showPage(1); // フィルタリング後に最初のページを表示
+        }
+      
+        document.querySelector('.music-length').addEventListener('change', filterAndSortMusic);
+        document.querySelector('.site').addEventListener('change', filterAndSortMusic);
+      
+        // 初期セットアップ
+        updatePagination(items.length);
+        showPage(currentPage);
       });
+      
     </script>
 
 <br>     
