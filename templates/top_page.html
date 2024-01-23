@@ -7,7 +7,10 @@
     href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
     rel="stylesheet"
   />
-
+  <link
+  rel="icon"
+  href="{{url_for('static', filename='favicon/mrロゴ.ico')}}"
+/>
   <title>利用者トップ</title>
   <style>
     .search-box select {
@@ -200,6 +203,7 @@
     }
 
     .detail-cursor {
+      display: block;
       margin-top: 60px;
       border: 1px solid black;
       padding: 5px; /* 余白を追加 */
@@ -216,11 +220,9 @@
       font-size: 20px;
     }
 
-    .music-details-container .music-details {
-      display: none;
-      position: relative;
-      width: 600px;
-      margin-top: 20px;
+    .music-details-container:hover .music-details {
+      
+      display: block;
     }
 
     .music-details-container .details-box {
@@ -331,14 +333,19 @@
     }
 
     .review {
+      display: inline-block;
       text-decoration: none;
       background-color: #007bff;
       color: #fff;
-      padding: 20px 40px;
+      padding: 20px 30px;
       border-radius: 10px;
-      margin-bottom: 10px;
+      margin-bottom: -20px;
       text-align: center;
       cursor: pointer;
+      position: relative;
+      box-sizing: border-box;
+      width: 150px; 
+      left: 60px;
     }
 
     .review span {
@@ -351,8 +358,8 @@
     .download-link {
       font-size: 15px;
       position: relative;
-      top: -70px; 
-      left: 160px;
+      margin-bottom: -20px; 
+      left: 105px;
       color: #007bff;
       text-decoration: none;
       cursor: pointer;
@@ -575,23 +582,22 @@
                   <br>
                 </div>
               </div>
-            </div>
-            <div class="music-actions">
+            
               <a href="{{ url_for('review', music_id=music[0]) }}" class="review">
-                評価
+                評価<br>
                 {% if average_ratings and music[0] in average_ratings %}
                   <span>{{ average_ratings[music[0]] | round(1) }}/5</span>
                 {% else %}
                   <span>N/A</span>
                 {% endif %}
               </a>
-              <div class="download-action">
+              <a class="download-action">
                 {% if music[8] %}
                   <a href="{{ url_for('download_music', music_id=music[0]) }}" class="download-link">ダウンロード</a>
                 {% else %}
                   <span>N/A</span>
                 {% endif %}
-              </div>
+              </a>
             </div>
           </li>
         </div>
@@ -643,67 +649,102 @@
       });
 
       
-      document.addEventListener("DOMContentLoaded", function () {
+    /*  document.addEventListener("DOMContentLoaded", function () {
         var items = document.querySelectorAll('.music-entry');
         var itemsPerPage = 30;
-        var totalPages = {{ totalPages }};
         var currentPage = {{ page }};
-
+      
         function showPage(page) {
+          var startIndex = (page - 1) * itemsPerPage;
+          var endIndex = startIndex + itemsPerPage;
+      
           for (var i = 0; i < items.length; i++) {
-            items[i].style.display = (Math.floor(i / itemsPerPage) + 1) === page ? 'flex' : 'none';
+            items[i].style.display = (i >= startIndex && i < endIndex) ? 'flex' : 'none';
           }
         }
-
-        var paginationContainer = document.querySelector('.pagination');
-
-        if (totalPages > 1) {
-          var prevPageLink = document.createElement('a');
-          prevPageLink.href = '{{ url_for('search_music_result', genre=genre, name=name) }}' + '?page=' + (currentPage - 1);
-          prevPageLink.textContent = '＜＜ 前のページ';
-          prevPageLink.addEventListener('click', function (event) {
-            event.preventDefault();
-            var newPage = currentPage - 1;
-            if (newPage < 1) {
-              newPage = 1;
-            }
-            showPage(newPage);
-          });
-          paginationContainer.appendChild(prevPageLink);
-
-
-          for (var pageNum = 1; pageNum <= totalPages; pageNum++) {
-            var pageLink = document.createElement('a');
-            pageLink.href = '{{ url_for('search_music_result', genre=genre, name=name) }}' + '?page=' + pageNum;
-            pageLink.textContent = pageNum;
-
-            pageLink.addEventListener('click', function (event) {
+      
+        function updatePagination(totalItems) {
+          var totalPages = Math.ceil(totalItems / itemsPerPage);
+          var paginationContainer = document.querySelector('.pagination');
+          paginationContainer.innerHTML = '';
+      
+          if (totalPages > 1) {
+            var prevPageLink = document.createElement('a');
+            prevPageLink.href = '{{ url_for('search_music_result', genre=genre, name=name) }}' + '?page=' + (currentPage - 1);
+            prevPageLink.textContent = '＜＜ 前のページ';
+            prevPageLink.addEventListener('click', function (event) {
               event.preventDefault();
-              var clickedPage = parseInt(this.textContent, 10);
-              showPage(clickedPage);
+              var newPage = currentPage - 1;
+              if (newPage < 1) {
+                newPage = 1;
+              }
+              showPage(newPage);
             });
-
-            if (pageNum === currentPage) {
-              pageLink.classList.add('current');
+            paginationContainer.appendChild(prevPageLink);
+      
+            for (var pageNum = 1; pageNum <= totalPages; pageNum++) {
+              var pageLink = document.createElement('a');
+              pageLink.href = '{{ url_for('search_music_result', genre=genre, name=name) }}' + '?page=' + pageNum;
+              pageLink.textContent = pageNum;
+      
+              pageLink.addEventListener('click', function (event) {
+                event.preventDefault();
+                var clickedPage = parseInt(this.textContent, 10);
+                showPage(clickedPage);
+              });
+      
+              if (pageNum === currentPage) {
+                pageLink.classList.add('current');
+              }
+      
+              paginationContainer.appendChild(pageLink);
             }
-
-            paginationContainer.appendChild(pageLink);
+      
+            if (currentPage < totalPages) {
+              var nextPageLink = document.createElement('a');
+              nextPageLink.href = '{{ url_for('search_music_result', genre=genre, name=name) }}' + '?page=' + (currentPage + 1);
+              nextPageLink.textContent = ' 次のページ ＞＞';
+              nextPageLink.addEventListener('click', function (event) {
+                event.preventDefault();
+                showPage(currentPage + 1);
+              });
+              paginationContainer.appendChild(nextPageLink);
+            }
           }
-
-          if (currentPage < totalPages) {
-            var nextPageLink = document.createElement('a');
-            nextPageLink.href = '{{ url_for('search_music_result', genre=genre, name=name) }}' + '?page=' + (currentPage + 1);
-            nextPageLink.textContent = ' 次のページ ＞＞';
-            nextPageLink.addEventListener('click', function (event) {
-              event.preventDefault();
-              showPage(currentPage + 1);
-            });
-            paginationContainer.appendChild(nextPageLink);
-          }
-
-          showPage(currentPage);
         }
+      
+        function filterAndSortMusic() {
+          var musicLength = document.querySelector('.music-length').value;
+          var selectedSite = document.querySelector('.site').value;
+          var filteredItems = [];
+      
+          for (var i = 0; i < items.length; i++) {
+            var musicLengthData = document.querySelectorAll('#music-length-data');
+            var musicLengthNumber = musicLengthData[i].dataset.length;
+      
+            var musicSiteData = document.querySelectorAll('#music-site-data');
+            var musicDataNumber = musicSiteData[i].dataset.site;
+      
+            var siteMatch = (selectedSite === '' || selectedSite === musicDataNumber);
+            var lengthMatch = (musicLength === '' || musicLength === musicLengthNumber);
+      
+            if (siteMatch && lengthMatch) {
+              filteredItems.push(items[i]);
+            }
+          }
+      
+          updatePagination(filteredItems.length);
+          showPage(1); // フィルタリング後に最初のページを表示
+        }
+      
+        document.querySelector('.music-length').addEventListener('change', filterAndSortMusic);
+        document.querySelector('.site').addEventListener('change', filterAndSortMusic);
+      
+        // 初期セットアップ
+        updatePagination(items.length);
+        showPage(currentPage);
       });
+      */
     </script>
 
 <br>     
