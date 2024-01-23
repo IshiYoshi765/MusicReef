@@ -565,8 +565,8 @@
               <div class="music-details-container" id="music-details-{{ music[0] }}">
                 <div class="details-box">
                   <div class="tooltip"></div>
-                  {% if music_tag %}
-                    <p>{{ music_tag }}</p>
+                  {% if music[12] != None %}
+                    <p>{{ music[12] }}</p>
                   {% else %}
                     <p>利用可能なタグはありません。</p>
                   {% endif %}

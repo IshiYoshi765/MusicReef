@@ -437,13 +437,16 @@
               <div class="details-box">
                 <div class="tooltip"></div>
                 <p>
-                  {% for tag in music[1] %}{{ tag }}{% if not loop.last %}, {%
-                    endif %}{% endfor %}
+                  {% if music[13] != None%}
+                    <p>{{music[13]}}</p>
+                  {% else %}
+                    <p>利用可能なタグはありません。</p>
+                  {% endif %}
                   </p>
                   <br />
-                  <p>詳細な情報: {{ music[3] }}</p>
+                  <p>{{ music[3] }}</p>
                 <br />
-                <p>{{ music[3] }}</p>
+                
                 <br />
               </div>
             </div>
@@ -552,8 +555,8 @@
                 <div class="details-box">
                   <div class="tooltip"></div>
                   <p>
-                  {% if music_tag %}
-                    <p>{{ music_tag }}</p>
+                  {% if music[12] != None %}
+                    <p>{{music[12]}}</p>
                   {% else %}
                     <p>利用可能なタグはありません。</p>
                   {% endif %}
