@@ -599,9 +599,11 @@ def get_recent_music():
     cursor = connection.cursor()
 
     sql = """
-        SELECT m.*, AVG(r.star) AS avg_rating
+        SELECT m.*, AVG(r.star) AS avg_rating, STRING_AGG(t.tag_name,',') AS tags
         FROM music m
         LEFT JOIN music_review r ON m.music_id = r.music_id
+        LEFT JOIN music_tags mt ON m.music_id = mt.music_id
+        LEFT JOIN tags t ON mt.tag_id = t.tag_id
         GROUP BY m.music_id
         ORDER BY m.date_register DESC
         LIMIT 5
@@ -663,7 +665,13 @@ def get_top_songs_weekly():
         cursor = connection.cursor()
         
         sql = """
-            SELECT * FROM music ORDER BY access DESC LIMIT 5;
+            SELECT m.*, STRING_AGG(t.tag_name,',') AS tags
+            FROM music m
+            LEFT JOIN music_tags mt ON m.music_id = mt.music_id
+            LEFT JOIN tags t ON mt.tag_id = t.tag_id
+            GROUP BY m.music_id
+            ORDER BY access DESC
+            LIMIT 5;
         """
 
         cursor.execute(sql)
@@ -869,7 +877,7 @@ def search_music_result(name, genre):
         tag_condition = "OR (tags.tag_name IN ({tag_name_placeholders}))"
     
     sql = f"""
-    SELECT DISTINCT music.*
+    SELECT DISTINCT music.*, STRING_AGG(tags.tag_name,',') AS tags
     FROM music
     LEFT JOIN music_tags ON music.music_id = music_tags.music_id
     LEFT JOIN tags ON music_tags.tag_id = tags.tag_id

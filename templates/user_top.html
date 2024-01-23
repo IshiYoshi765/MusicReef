@@ -446,13 +446,16 @@
             >
               <div class="details-box">
                 <div class="tooltip"></div>
-                {% if music_tag %}
-                <p>{{ music_tag }}</p>
-              {% else %}
-                <p>利用可能なタグはありません。</p>
-              {% endif %}
-              <br>
-                <p>{{ music[3] }}</p>
+                <p>
+                  {% if music[13] != None%}
+                    <p>{{music[13]}}</p>
+                  {% else %}
+                    <p>利用可能なタグはありません。</p>
+                  {% endif %}
+                  </p>
+                  <br />
+                  <p>{{ music[3] }}</p>
+                <br />
                 <br />
               </div>
             </div>
@@ -561,8 +564,8 @@
                 <div class="details-box">
                   <div class="tooltip"></div>
                   <p>
-                  {% if music_tag %}
-                    <p>{{ music_tag }}</p>
+                  {% if music[12] != None %}
+                    <p>{{music[12]}}</p>
                   {% else %}
                     <p>利用可能なタグはありません。</p>
                   {% endif %}
