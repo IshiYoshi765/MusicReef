@@ -220,7 +220,7 @@
     position: fixed;
     z-index: 9999;
     top: 50%;
-    left: 30%;
+    left: 31%;
     transform: translate(-50%, -50%);
     display: none;
     border: 1px solid black;
