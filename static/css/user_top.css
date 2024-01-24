@@ -1,0 +1,327 @@
+.search-box select {
+    position: absolute;
+    left: 270px;
+    top: 130px;
+    width: 100px;
+    height: 50px;
+  }
+
+  .search-box input {
+    position: absolute;
+    top: 130px;
+    left: 370px;
+    width: 400px;
+    height: 50px;
+    margin-bottom: 5px;
+    padding: 5px 15px;
+    box-sizing: border-box;
+    font-size: 1em;
+  }
+
+  .search-box button {
+    position: absolute;
+    top: 130px;
+    left: 770px;
+    width: 80px;
+    height: 50px;
+    background-color: rgb(94, 94, 94);
+  }
+
+  .search-box button i {
+    color: rgb(255, 255, 255);
+    font-size: 2rem;
+    top: 20px;
+    left: 600px;
+  }
+
+  .title1 {
+    position: absolute;
+    top: 80px;
+    left: 270px;
+  }
+
+  .p1{
+    position: absolute;
+    top: 90px;
+    left: 440px;
+    font-size: 15px
+  }
+
+  a {
+    text-decoration: none;
+    color: #747474;
+  }
+
+  ul.topnav {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    background-color: #044f88;
+  }
+
+  ul.topnav li {
+    float: left;
+  }
+
+  ul.topnav li a {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+  }
+
+  ul.topnav li a.left {
+    background-color: #044f88;
+  }
+
+  ul.topnav li.right {
+    float: right;
+  }
+
+  .footer04 {
+    color: white;
+    background: #548eba;
+    text-align: center;
+    padding: 15px;
+  }
+
+  .footer04 a {
+    color: white;
+    text-decoration: none;
+  }
+
+  .footer04 a:hover {
+    text-decoration: underline;
+  }
+
+  .footer04 .menu {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .footer04 .menu li {
+    margin: 0;
+    padding: 0 20px;
+    border-right: 1px white solid;
+  }
+
+  .footer04 .menu li:last-child {
+    border: none;
+  }
+
+  .p2 {
+    left: 3%;
+    font-size: 35px;
+  }
+
+  .p3 {
+    left: 3%;
+    font-size: 30px;
+  }
+
+  .p4 {
+    left: 3%;
+    font-size: 30px;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  .flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+  }
+
+  .flex-item {
+    padding: 20px;
+    border: 1px solid #ccc;
+  }
+
+
+  .detail-cursor {
+    margin-top: 60px;
+    border: 1px solid black;
+    padding: 5px; /* 余白を追加 */
+    position: relative;
+    left: -30px;
+  }
+
+  .music-details-container .close-details {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+  }
+
+  .music-details-container .music-details {
+    display: none;
+    position: relative;
+    width: 600px;
+    margin-top: 20px;
+  }
+
+  
+  .music-details-container .details-box {
+    background: white;
+    padding: 110px;
+    max-width: 100%;
+    max-height: 100%;
+    overflow: auto;
+    border-radius: 10px;
+    position: fixed;
+    z-index: 9999;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    border: 1px solid black;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+
+  .music-details-container .tooltip {
+    display: none;
+    position: absolute;
+    background: #f9f9f9;
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 100;
+    max-width: 100px;
+  }
+
+  .music-entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+
+  .music-entry .logo-container {
+    margin-right: 20px;
+  }
+
+  .music-entry .logo-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .music-entry .no-image {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background-color: #eee;
+    color: #888;
+    font-size: 14px;
+  }
+
+  .music-title {
+    position: absolute;
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: -30px;
+  }
+
+  .music-entry .music-info {
+    font-size: 13px;
+    font-weight: bold;
+    position: relative;
+    top: 100%; /* music-entryからの相対的な位置 */
+    left: 40px;
+    margin-top: 80px;
+    margin-right: 40px;
+    width: 120px; /* 幅を100%にして親要素に合わせる */
+    text-align: left; /* テキストを左寄せにする */
+  }
+
+  .music-entry .music-info-container {
+    display: flex;
+    justify-content: flex-start; /* 左端から配置 */
+    align-items: center; /* 垂直方向の中央揃え */
+    width: 100%;
+  }
+
+  .music-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-left: -200px;
+    position: relative;
+    left: -200px;
+    top: 20px;
+    
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  
+  .review {
+    text-decoration: none;
+    background-color: #007bff;
+    color: #fff;
+    padding: 20px 30px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .review span {
+    font-size: 20px;
+    margin-right: 0px;
+    font-weight: bold;
+  }
+  
+  .download-action span,
+  .download-link {
+    font-size: 15px;
+    position: relative;
+    top: -70px; 
+    left: 140px;
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: bold;
+    
+  }
+  
+
+  @media only screen and (max-width: 599px) {
+    .footer04 .menu {
+      justify-content: flex-start;
+    }
+    .footer04 .menu li {
+      width: 50%;
+      box-sizing: border-box;
+      border: none;
+    }
+    .footer04 .menu li:nth-child(odd) {
+      border-right: 1px white solid;
+    }
+  }
