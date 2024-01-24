@@ -26,186 +26,48 @@
       <div class="search-box">
         <form action="{{url_for('search_music_result')}}" method="post">
           <select name="genre">
-              <option value="">指定しない</option>
-              <option value="2">ポップ</option>
-              <option value="3">EDM</option>
-              <option value="4">ロック</option>
-              <option value="5">クラシック</option>
-              <option value="6">和風</option>
-              <option value="7">ピアノ</option>
-              <option value="8">アンビエント</option>
-              <option value="9">エレクトロ</option>
-              <option value="10">アコースティック</option>
-              <option value="11">Chill Hop</option>
+            <option value="">指定しない</option>
+            <option value="2">ポップ</option>
+            <option value="3">EDM</option>
+            <option value="4">ロック</option>
+            <option value="5">クラシック</option>
+            <option value="6">和風</option>
+            <option value="7">ピアノ</option>
+            <option value="8">アンビエント</option>
+            <option value="9">エレクトロ</option>
+            <option value="10">アコースティック</option>
+            <option value="11">Chill Hop</option>
           </select>      
   
-            <input type="text" class="tagInput" placeholder="検索ワード" name="name">
+          <input type="text" class="tagInput" placeholder="検索ワード" name="name">
             <input type="hidden" name="page" value="{{ page }}"> 
                 <button type="submit">
                   <i class="fas fa-search fa-fw"></i>
                 </button>      
-          </form>
+        </form>
       </div>
     </div>
     <div class="expression">
       <p class="p1">music search</p>
-      <p class="p2" style="margin: 0; padding-top: 15px; padding-left: 20px">
-        新着
-      </p>
+      <p class="p2" style="margin: 0; padding-top: 15px; padding-left: 20px">新着</p>
       <ul>
-        {% if recent_music %} {% for music in recent_music %}
-        <li class="music-entry" style="margin-left: 40px">
-          <div class="logo-container">
-            {% set logo_keyword = music[8]|lower %} {% if 'bgmer' in
-            logo_keyword %}
-            <img
-              class="logo-img"
-              src="{{ url_for('static', filename='img/BGMer.jpg') }}"
-              alt="BGMer ロゴ"
-            />
-            {% elif 'amachamusic' in logo_keyword %}
-            <img
-              class="logo-img"
-              src="{{ url_for('static', filename='img/amatya.jpg') }}"
-              alt="Amatya ロゴ"
-            />
-            {% elif 'dova-s.jp' in logo_keyword %}
-            <img
-              class="logo-img"
-              src="{{ url_for('static', filename='img/dova.jpg') }}"
-              alt="Dova ロゴ"
-            />
-            {% elif 'musmus.main.jp' in logo_keyword %}
-            <img
-              class="logo-img"
-              src="{{ url_for('static', filename='img/MusMus.jpg') }}"
-              alt="MusMus ロゴ"
-            />
-            {% elif 'shw.in' in logo_keyword %}
-            <img
-              class="logo-img"
-              src="{{ url_for('static', filename='img/SHW.jpg') }}"
-              alt="SHW ロゴ"
-            />
-            {% else %}
-            <div class="no-image">No image</div>
-            {% endif %}
-          </div>
-          <div class="music-info-container">
-            <p class="music-title">{{ music[1] }}</p>
-            <p class="music-info">作曲: {{ music[6] }}</p>
-            <p class="music-info">♬ {{ music[4] }}</p>
-            <p class="music-info">
-              {% set genre_options = { '1': '指定しない', '2': 'ポップ', '3':
-              'EDM', '4': 'ロック', '5': 'クラシック', '6': '和風', '7':
-              'ピアノ', '8': 'アンビエント', '9': 'エレクトロ', '10':
-              'アコースティック', '11': 'Chill Hop', } %} {{
-              genre_options[music[2]] }}
-            </p>
-            <p class="music-info">👁 {{ music[11] }}回</p>
-            <div class="detail-cursor" data-music-id="{{ music[0] }}">
-              詳細な情報
-            </div>
-            <div
-              class="music-details-container"
-              id="music-details-{{ music[0] }}"
-            >
-              <div class="details-box">
-                <div class="tooltip"></div>
-                <p>
-                  {% if music[13] != None%}
-                    <p>{{music[13]}}</p>
-                  {% else %}
-                    <p>利用可能なタグはありません。</p>
-                  {% endif %}
-                  </p>
-                  <br />
-                  <p>{{ music[3] }}</p>
-                <br />
-                <br />
-              </div>
-            </div>
-          </div>
-          <div class="music-actions">
-            <a href="{{ url_for('review', music_id=music[0]) }}" class="review">
-              評価 {% if average_ratings and music[0] in average_ratings %}
-              <span>{{ average_ratings[music[0]] | round(1) }}/5</span>
-              {% else %}
-              <span>-/5</span>
-              {% endif %}
-            </a>
-            <div class="download-action">
-              {% if music[8] %}
-              <a
-                href="{{ url_for('download_music', music_id=music[0]) }}"
-                class="download-link"
-                >ダウンロード</a
-              >
-              {% else %}
-              <span>N/A</span>
-              {% endif %}
-            </div>
-          </div>
-        </li>
-        {% endfor %} {% endif %}
-      </ul>
-
-      <p class="p3" style="margin: 0; padding-top: 15px; padding-left: 20px">
-        アクセス数ランキング
-      </p>
-      <br/>
-      <ul>
-        {% if week_top_songs %} {% for music in week_top_songs %}
-        <p
-            style="
-            font-size: 30px;
-            text-align: left;
-            padding-top: 40px;
-            
-            margin-left: -10px; 
-            margin-bottom: -100px;
-            color: {% if loop.index == 1 %}yellow{% elif loop.index == 2 %}gray{% elif loop.index == 3 %}brown{% else %}black{% endif %};
-            
-          "
-          >
-            {{ loop.index }}
-          </p>
+        {% if recent_music %}
+          {% for music in recent_music %}
           <li class="music-entry" style="margin-left: 40px">
-           
             <div class="logo-container">
-              {% set logo_keyword = music[8]|lower %} {% if 'bgmer' in
-              logo_keyword %}
-              <img
-                class="logo-img"
-                src="{{ url_for('static', filename='img/BGMer.jpg') }}"
-                alt="BGMer ロゴ"
-              />
+              {% set logo_keyword = music[8]|lower %}
+              {% if 'bgmer' in logo_keyword %}
+                <img class="logo-img" src="{{ url_for('static', filename='img/BGMer.jpg') }}" alt="BGMer ロゴ"/>
               {% elif 'amachamusic' in logo_keyword %}
-              <img
-                class="logo-img"
-                src="{{ url_for('static', filename='img/amatya.jpg') }}"
-                alt="Amatya ロゴ"
-              />
+                <img class="logo-img" src="{{ url_for('static', filename='img/amatya.jpg') }}" alt="Amatya ロゴ"/>
               {% elif 'dova-s.jp' in logo_keyword %}
-              <img
-                class="logo-img"
-                src="{{ url_for('static', filename='img/dova.jpg') }}"
-                alt="Dova ロゴ"
-              />
+                <img class="logo-img" src="{{ url_for('static', filename='img/dova.jpg') }}" alt="Dova ロゴ"/>
               {% elif 'musmus.main.jp' in logo_keyword %}
-              <img
-                class="logo-img"
-                src="{{ url_for('static', filename='img/MusMus.jpg') }}"
-                alt="MusMus ロゴ"
-              />
+                <img class="logo-img" src="{{ url_for('static', filename='img/MusMus.jpg') }}" alt="MusMus ロゴ"/>
               {% elif 'shw.in' in logo_keyword %}
-              <img
-                class="logo-img"
-                src="{{ url_for('static', filename='img/SHW.jpg') }}"
-                alt="SHW ロゴ"
-              />
+                <img class="logo-img" src="{{ url_for('static', filename='img/SHW.jpg') }}" alt="SHW ロゴ"/>
               {% else %}
-              <div class="no-image">No image</div>
+                <div class="no-image">No image</div>
               {% endif %}
             </div>
             <div class="music-info-container">
@@ -213,20 +75,115 @@
               <p class="music-info">作曲: {{ music[6] }}</p>
               <p class="music-info">♬ {{ music[4] }}</p>
               <p class="music-info">
-                {% set genre_options = { '1': '指定しない', '2': 'ポップ', '3':
-                'EDM', '4': 'ロック', '5': 'クラシック', '6': '和風', '7':
-                'ピアノ', '8': 'アンビエント', '9': 'エレクトロ', '10':
-                'アコースティック', '11': 'Chill Hop', } %} {{
-                genre_options[music[2]] }}
+                {% set genre_options = {
+                   '1': '指定しない', 
+                   '2': 'ポップ', 
+                   '3': 'EDM', 
+                   '4': 'ロック', 
+                   '5': 'クラシック', 
+                   '6': '和風', 
+                   '7': 'ピアノ', 
+                   '8': 'アンビエント', 
+                   '9': 'エレクトロ', 
+                   '10': 'アコースティック', 
+                   '11': 'Chill Hop', 
+                } %} 
+                {{genre_options[music[2]] }}
               </p>
               <p class="music-info">👁 {{ music[11] }}回</p>
-              <div class="detail-cursor" data-music-id="{{ music[0] }}">
-                詳細な情報
+              <div class="detail-cursor" data-music-id="{{ music[0] }}">詳細な情報</div>
+              <div class="music-details-container" id="music-details-{{ music[0] }}">
+                <div class="details-box">
+                  <div class="tooltip"></div>
+                  <p>
+                  {% if music[13] != None%}
+                    <p>{{music[13]}}</p>
+                  {% else %}
+                    <p>利用可能なタグはありません。</p>
+                  {% endif %}
+                  </p>
+                  <br>
+                  <p>{{ music[3] }}</p>
+                  <br>
+                  <br>
+                </div>
               </div>
-              <div
-                class="music-details-container"
-                id="music-details-{{ music[0] }}"
-              >
+            </div>
+            <div class="music-actions">
+              <a href="{{ url_for('review', music_id=music[0]) }}" class="review">評価
+                {% if average_ratings and music[0] in average_ratings %}
+                  <span>{{ average_ratings[music[0]] | round(1) }}/5</span>
+                {% else %}
+                  <span>-/5</span>
+                {% endif %}
+              </a>
+              <div class="download-action">
+                {% if music[8] %}
+                  <a href="{{ url_for('download_music', music_id=music[0]) }}" class="download-link">ダウンロード</a>
+                {% else %}
+                  <span>N/A</span>
+                {% endif %}
+              </div>
+            </div>
+          </li>
+          {% endfor %}
+        {% endif %}
+      </ul>
+
+      <p class="p3" style="margin: 0; padding-top: 15px; padding-left: 20px">アクセス数ランキング</p>
+      <br/>
+      <ul>
+        {% if week_top_songs %}
+          {% for music in week_top_songs %}
+          <p style="
+            font-size: 30px;
+            text-align: left;
+            padding-top: 40px;
+            margin-left: -10px; 
+            margin-bottom: -100px;
+            color: {% if loop.index == 1 %}yellow{% elif loop.index == 2 %}gray{% elif loop.index == 3 %}brown{% else %}black{% endif %};">
+            {{ loop.index }}
+          </p>
+          <li class="music-entry" style="margin-left: 40px">   
+            <div class="logo-container">
+              {% set logo_keyword = music[8]|lower %}
+              {% if 'bgmer' in logo_keyword %}
+                <img class="logo-img" src="{{ url_for('static', filename='img/BGMer.jpg') }}" alt="BGMer ロゴ"/>
+              {% elif 'amachamusic' in logo_keyword %}
+                <img class="logo-img" src="{{ url_for('static', filename='img/amatya.jpg') }}" alt="Amatya ロゴ"/>
+              {% elif 'dova-s.jp' in logo_keyword %}
+                <img class="logo-img" src="{{ url_for('static', filename='img/dova.jpg') }}" alt="Dova ロゴ"/>
+              {% elif 'musmus.main.jp' in logo_keyword %}
+                <img class="logo-img" src="{{ url_for('static', filename='img/MusMus.jpg') }}" alt="MusMus ロゴ"/>
+              {% elif 'shw.in' in logo_keyword %}
+                <img class="logo-img" src="{{ url_for('static', filename='img/SHW.jpg') }}" alt="SHW ロゴ"/>
+              {% else %}
+                <div class="no-image">No image</div>
+              {% endif %}
+            </div>
+            <div class="music-info-container">
+              <p class="music-title">{{ music[1] }}</p>
+              <p class="music-info">作曲: {{ music[6] }}</p>
+              <p class="music-info">♬ {{ music[4] }}</p>
+              <p class="music-info">
+                {% set genre_options = {
+                  '1': '指定しない', 
+                  '2': 'ポップ', 
+                  '3': 'EDM', 
+                  '4': 'ロック', 
+                  '5': 'クラシック', 
+                  '6': '和風', 
+                  '7': 'ピアノ', 
+                  '8': 'アンビエント', 
+                  '9': 'エレクトロ', 
+                  '10': 'アコースティック', 
+                  '11': 'Chill Hop', 
+                } %} 
+                {{genre_options[music[2]] }}
+              </p>
+              <p class="music-info">👁 {{ music[11] }}回</p>
+              <div class="detail-cursor" data-music-id="{{ music[0] }}">詳細な情報</div>
+              <div class="music-details-container" id="music-details-{{ music[0] }}">
                 <div class="details-box">
                   <div class="tooltip"></div>
                   <p>
@@ -236,39 +193,32 @@
                     <p>利用可能なタグはありません。</p>
                   {% endif %}
                   </p>
-                  <br />
+                  <br>
                   <p>{{ music[3] }}</p>
-                  <br />
+                  <br>
                 </div>
               </div>
             </div>
             <div class="music-actions">
-              <a
-                href="{{ url_for('review', music_id=music[0]) }}"
-                class="review"
-              >
-                評価 {% if average_ratings and music[0] in average_ratings %}
-                <span>{{ average_ratings[music[0]] | round(1) }}/5</span>
+              <a href="{{ url_for('review', music_id=music[0]) }}" class="review">評価 
+                {% if average_ratings and music[0] in average_ratings %}
+                  <span>{{ average_ratings[music[0]] | round(1) }}/5</span>
                 {% else %}
-                <span>-/5</span>
+                  <span>-/5</span>
                 {% endif %}
               </a>
               <div class="download-action">
                 {% if music[8] %}
-                <a
-                  href="{{ url_for('download_music', music_id=music[0]) }}"
-                  class="download-link"
-                  >ダウンロード</a
-                >
+                  <a href="{{ url_for('download_music', music_id=music[0]) }}" class="download-link">ダウンロード</a>
                 {% else %}
-                <span>N/A</span>
+                  <span>N/A</span>
                 {% endif %}
               </div>
             </div>
           </li>
-        {% endfor %} {% endif %}
+          {% endfor %} 
+        {% endif %}
       </ul>
-
 
     <br/><br/>
     <script>
