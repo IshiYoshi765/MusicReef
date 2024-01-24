@@ -74,7 +74,7 @@
       top: 210px;
       left: 350px;
     }
-    .sort {
+    .music-sort {
       position: absolute;
       left: 50px;
       top: 270px;
@@ -88,7 +88,7 @@
       width: 100px;
       height: 30px;
     }
-    .site {
+    .music-site {
       position: absolute;
       left: 350px;
       top: 270px;
@@ -486,13 +486,12 @@
   <div class="expression">
     <p class="p1">music search</p>
     <h3 class="title2">並び替え</h3>
-      <select class="sort" name="item">
-        <option value="item1">指定しない</option>
-          <option value="item2">新しい</option>
-          <option value="item3">古い</option>
-          <option value="item4">アクセス数</option>
-          <option value="item5">五十音順</option>
-          <option value="item6">評価が高い</option>
+      <select class="music-sort" name="item">
+        <option value="">指定しない</option>
+        <option value="0">新しい</option>
+        <option value="1">古い</option>
+        <option value="2">アクセス数</option>
+        <option value="3">評価が高い</option>
       </select>
       <h3 class="title3">音源時間</h3>
         <select class="music-length" name="length">
@@ -506,7 +505,7 @@
           <option value="6">6:00~</option>
         </select>
       <h3 class="title4">サイト</h3>
-        <select class="site" name="item">
+        <select class="music-site" name="item">
             <option value="" >指定しない</option>
             <option value="1" >DOVA</option>
             <option value="2" >BGMer</option>
@@ -519,10 +518,14 @@
     <p class="p2">検索結果</p>
 
     <ul>
+      <div class="music-container">
       {% if music_list %}
         {% for music in music_list %}
-        <div id="music-length-data" data-length ="{{music[5]}}" >
-        <div id="music-site-data" data-site = "{{ music[7] }}">
+        <div>
+        <div id="music-length-data" data-length ="{{music[5]}}"></div>
+        <div id="music-site-data" data-site = "{{ music[7] }}"></div>
+        <div id="music-date-data" data-date = "{{ music[9] }}"></div>
+        <div id="music-access-data" data-access= "{{ music[11] }}"></div>
           <li class="music-entry">
             <div class="logo-container">
               {% set logo_keyword = music[8]|lower %}
@@ -582,22 +585,21 @@
                 {% if average_ratings and music[0] in average_ratings %}
                   <span>{{ average_ratings[music[0]] | round(1) }}/5</span>
                 {% else %}
-                  <span>N/A</span>
+                  <span>-/5</span>
                 {% endif %}
               </a>
               <div class="download-action">
                 {% if music[8] %}
                   <a href="{{ url_for('download_music', music_id=music[0]) }}" class="download-link">ダウンロード</a>
                 {% else %}
-                  <span>N/A</span>
+                  <span>なし</span>
                 {% endif %}
               </div>
             </div>
           </li>
-        </div>
-        </div>
         {% endfor %}
       {% endif %}
+      </div>
     </ul>
 
     <div class="pagination">
