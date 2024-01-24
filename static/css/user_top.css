@@ -165,7 +165,7 @@
   .music-details-container .music-details {
     display: none;
     position: relative;
-    width: 600px;
+    width: 400px;
     margin-top: 20px;
   }
 
@@ -173,6 +173,7 @@
   .music-details-container .details-box {
     background: white;
     padding: 110px;
+    width: 400px;
     max-width: 100%;
     max-height: 100%;
     overflow: auto;
