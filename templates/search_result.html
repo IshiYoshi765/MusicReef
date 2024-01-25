@@ -107,11 +107,11 @@
       </div>
       <h3 class="title2">並び替え</h3>
       <select class="sort" name=”item”>
-          <option value=”item1”>項目1</option>
-          <option value=”item2”>項目2</option>
-          <option value=”item3”>項目3</option>
-          <option value=”item4”>項目4</option>
-          <option value=”item5”>項目5</option>
+          <option value=”item1”>指定しない</option>
+          <option value=”item2”>新しい</option>
+          <option value=”item3”>古い</option>
+          <option value=”item4”>アクセス数</option>
+          <option value=”item5”>五十音順</option>
       </select>
       <h3 class="title3">音源時間</h3>
         <select class="music-length" name="length">
@@ -126,11 +126,12 @@
         </select>
       <h3 class="title4">サイト</h3>
       <select class="site" name=”item”>
-          <option value=”item1”>項目1</option>
-          <option value=”item2”>項目2</option>
-          <option value=”item3”>項目3</option>
-          <option value=”item4”>項目4</option>
-          <option value=”item5”>項目5</option>
+          <option value=”item1”>指定しない</option>
+          <option value=”item2”>DOVA</option>
+          <option value=”item3”>BGMer</option>
+          <option value=”item4”>甘茶の音楽工房</option>
+          <option value=”item5”>MusMus</option>
+          <option value=”item5”>SHW</option>
       </select>
       <div class="example" style="padding: 5px;">
         <div class="page "style="display: none;">
@@ -148,7 +149,20 @@
                   <td colspan="4" style="border: none">作曲者：{{ sound[6] }}</td>
                 </tr>
                 <tr>
-                  <td colspan="4" style="border: none">参照元：{{ sound[7] }}</td>
+                  <td colspan="4" style="border: none">
+                    {% set music_source = sound[7]|lower %}
+                      {% if music_source == '1' %}
+                        参照元：DOVA
+                      {% elif music_source == '2' %}
+                        参照元：BGMer
+                      {% elif music_source == '3' %}
+                        参照元：甘茶の音楽工房
+                      {% elif music_source == '4'%}
+                        参照元：MusMus
+                      {% else %}
+                        参照元：SHW
+                      {% endif %}
+                    </td>
                 </tr>
                 <tr>
 
