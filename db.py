@@ -324,7 +324,7 @@ def music_list():
     connection = get_connection()
     cursor = connection.cursor()
 
-    sql = "SELECT music_id,name,genre,detail,length,composer,source,URL,date_register,update_time FROM music ORDER BY music_id ASC"
+    sql = "SELECT music_id,name,genre,detail,length,length_number,composer,source,URL,date_register,update_time FROM music ORDER BY music_id ASC"
 
     cursor.execute(sql)
 
@@ -599,11 +599,14 @@ def get_recent_music():
     cursor = connection.cursor()
 
     sql = """
-        SELECT m.*, AVG(r.star) AS avg_rating, STRING_AGG(t.tag_name,',') AS tags
+        SELECT m.*, AVG(r.star) AS avg_rating, 
+        ( SELECT STRING_AGG(t.tag_name,',') 
+        FROM music_tags mt
+        JOIN tags t ON mt.tag_id = t.tag_id
+        WHERE mt.music_id = m.music_id
+        ) AS tags
         FROM music m
         LEFT JOIN music_review r ON m.music_id = r.music_id
-        LEFT JOIN music_tags mt ON m.music_id = mt.music_id
-        LEFT JOIN tags t ON mt.tag_id = t.tag_id
         GROUP BY m.music_id
         ORDER BY m.date_register DESC
         LIMIT 5

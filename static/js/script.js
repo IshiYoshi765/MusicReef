@@ -169,3 +169,24 @@ function closeReviewModal() {
   document.querySelector(".layer.review-modal").classList.remove("is-open");
 }
 //ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+function filter() {
+  let selectedValue = document.getElementById("selecter").value;
+  let musicItems = document.querySelectorAll('.music-item');
+  let enter = document.querySelector('.example')
+  let count = 0
+
+  musicItems.forEach(function(item) {
+      let itemLength = item.getAttribute('data-length');
+      console.log(itemLength)
+      if (selectedValue === '' || itemLength === selectedValue) {
+          item.style.display = 'block';
+          count = count + 1
+      } else {
+          item.style.display = 'none';
+      }
+      if(count % 5 != 0){
+        enter.style.display = 'flex'
+      }
+  });
+
+}
